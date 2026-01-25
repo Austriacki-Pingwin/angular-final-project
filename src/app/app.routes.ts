@@ -3,6 +3,7 @@ import { WelcomePageComponent } from './components/welcome-page/welcome-page.com
 import { SignInPageComponent } from './components/auth-page/sign-in-page/sign-in-page.component';
 import { SignUpPageComponent } from './components/auth-page/sign-up-page/sign-up-page.component';
 import { ForgotPasswordPageComponent } from './components/auth-page/forgot-password-page/forgot-password-page.component';
+import { DashboardPageComponent } from './components/dashboard-page/dashboard-page.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,15 @@ export const routes: Routes = [
       {
         path: 'forgot-password',
         component: ForgotPasswordPageComponent,
+      },
+    ],
+  },
+  {
+    path: 'dashboard',
+    children: [
+      {
+        path: '',
+        component: DashboardPageComponent,
       },
     ],
   },
