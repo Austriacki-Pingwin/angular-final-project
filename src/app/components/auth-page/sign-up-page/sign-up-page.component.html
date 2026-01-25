@@ -1,1 +1,21 @@
-<p>sign-up-page works!</p>
+<div class="d-flex justify-content-center">
+  <div class="text-center mt-5 pt-5">
+    <h1>Welcome to our App.</h1>
+    <p>Please sign-up to start using our App.</p>
+    <mat-form-field appearance="outline" class="d-block">
+      <mat-label>Email/Username</mat-label>
+      <input matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="d-block">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput />
+    </mat-form-field>
+    <button matButton="tonal" class="d-block mb-1 auth-button">Sign-Up</button>
+    <button matButton="tonal" class="d-block mb-2 auth-button">Sign-Up with Google</button>
+    <p>You have an account</p>
+    <button matButton="filled" [routerLink]="['/auth/sign-in']" class="d-block auth-button">
+      Sign-In
+    </button>
+  </div>
+</div>
