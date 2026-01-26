@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  sendPasswordResetEmail,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -17,6 +18,7 @@ export class AuthService {
   private router = inject(Router);
   private _errorMessage = signal<string>('');
   public _isSubmissionInProgress = signal<boolean>(false);
+  public _isPasswordResetEmailSent = signal<boolean>(false);
 
   // * init the google auth provider
   public googleAuthProvider = new GoogleAuthProvider();
@@ -25,7 +27,8 @@ export class AuthService {
   public auth = inject(Auth);
 
   public readonly errorMessage = this._errorMessage.asReadonly();
-  public isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();
+  public readonly isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();
+  public readonly isPasswordResetEmailSent = this._isPasswordResetEmailSent.asReadonly();
 
   public signInWithEmailAndPassword(form: { email: string; password: string }): void {
     signInWithEmailAndPassword(this.auth, form.email, form.password)
@@ -88,14 +91,6 @@ export class AuthService {
       });
   }
 
-  public redirectToDashboard(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
-  public redirectToSignIn(): void {
-    this.router.navigate(['/auth/sign-in']);
-  }
-
   public signOut(): void {
     signOut(this.auth)
       .then(() => {
@@ -104,5 +99,27 @@ export class AuthService {
       .catch((error) => {
         console.error('Error occurred: ', error);
       });
+  }
+
+  public resetPassword(form: { email: string }): void {
+    sendPasswordResetEmail(this.auth, form.email)
+      .then(() => {
+        this._isPasswordResetEmailSent.set(true);
+        this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('');
+      })
+      .catch((error) => {
+        console.error('Error reset: ', error);
+        this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('An error occurred, please try again');
+      });
+  }
+
+  public redirectToDashboard(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
+  public redirectToSignIn(): void {
+    this.router.navigate(['/auth/sign-in']);
   }
 }
