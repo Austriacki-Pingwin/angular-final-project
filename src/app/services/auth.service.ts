@@ -32,6 +32,7 @@ export class AuthService {
       .then(() => {
         this.redirectToDashboard();
         this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('');
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -57,6 +58,7 @@ export class AuthService {
       .then(() => {
         this.redirectToDashboard();
         this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('');
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
