@@ -31,7 +31,9 @@
       <button type="submit" matButton="tonal" class="d-block mb-1 auth-button">Sign-In</button>
     </form>
 
-    <button matButton="tonal" class="d-block mb-2 auth-button">Sign-In with Google</button>
+    <button matButton="tonal" class="d-block mb-2 auth-button" (click)="onSignInWithGoogle()">
+      Sign-In with Google
+    </button>
     <p>You don't have an account</p>
     <button matButton="filled" [routerLink]="['/auth/sign-up']" class="d-block auth-button">
       Sign-Up

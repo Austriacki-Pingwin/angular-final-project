@@ -41,4 +41,8 @@ export class SignInPageComponent {
     const form = this.form.getRawValue();
     this.authService.signInWithEmailAndPassword(form);
   }
+
+  public onSignInWithGoogle(): void {
+    this.authService.onSignInWithGoogle();
+  }
 }

@@ -4,6 +4,7 @@ import {
   AuthErrorCodes,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -45,6 +46,15 @@ export class AuthService {
             this._errorMessage.set('Something went wrong, please try again');
           }
         }
+      });
+  }
+
+  public onSignInWithGoogle(): void {
+    signInWithPopup(this.auth, this.googleAuthProvider)
+      .then(() => this.redirectToDashboard())
+      .catch((error) => {
+        console.error('error: ', error);
+        this._errorMessage.set('Something went wrong, please try again');
       });
   }
 
