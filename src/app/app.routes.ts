@@ -4,7 +4,10 @@ import { SignInPageComponent } from './components/auth-page/sign-in-page/sign-in
 import { SignUpPageComponent } from './components/auth-page/sign-up-page/sign-up-page.component';
 import { ForgotPasswordPageComponent } from './components/auth-page/forgot-password-page/forgot-password-page.component';
 import { DashboardPageComponent } from './components/dashboard-page/dashboard-page.component';
-import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { AuthGuard, type AuthPipe, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { userResolver } from './shared/resolvers/user.resolver';
+
+const redirectToLogin = (): AuthPipe => redirectUnauthorizedTo('/auth/sign-in');
 
 export const routes: Routes = [
   {
@@ -39,7 +42,10 @@ export const routes: Routes = [
     ],
     canActivate: [AuthGuard],
     data: {
-      authGuardPipe: redirectUnauthorizedTo('/auth/sign-in'),
+      authGuardPipe: redirectToLogin,
+    },
+    resolve: {
+      user: userResolver,
     },
   },
 ];

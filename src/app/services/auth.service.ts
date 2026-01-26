@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -30,6 +31,7 @@ export class AuthService {
     signInWithEmailAndPassword(this.auth, form.email, form.password)
       .then(() => {
         this.redirectToDashboard();
+        this._isSubmissionInProgress.set(false);
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -54,6 +56,7 @@ export class AuthService {
     createUserWithEmailAndPassword(this.auth, form.email, form.password)
       .then(() => {
         this.redirectToDashboard();
+        this._isSubmissionInProgress.set(false);
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -85,5 +88,19 @@ export class AuthService {
 
   public redirectToDashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  public redirectToSignIn(): void {
+    this.router.navigate(['/auth/sign-in']);
+  }
+
+  public signOut(): void {
+    signOut(this.auth)
+      .then(() => {
+        this.redirectToSignIn();
+      })
+      .catch((error) => {
+        console.error('Error occurred: ', error);
+      });
   }
 }

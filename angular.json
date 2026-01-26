@@ -22,6 +22,10 @@
         "@schematics/angular:directive": {
           "type": "directive",
           "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "typeSeparator": ".",
+          "skipTests": true
         }
       },
       "root": "",

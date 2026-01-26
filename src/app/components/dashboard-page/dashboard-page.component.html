@@ -15,5 +15,5 @@
     <mat-icon>share</mat-icon>
   </button>
 </mat-toolbar>
-<h4>Welcome, user</h4>
-<button matButton="filled">Sign-out</button>
+<h4>Welcome, {{ user.displayName }} {{ user.email }}</h4>
+<button matButton="filled" (click)="onSignOut()">Sign-out</button>
