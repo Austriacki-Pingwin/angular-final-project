@@ -4,6 +4,7 @@ import { SignInPageComponent } from './components/auth-page/sign-in-page/sign-in
 import { SignUpPageComponent } from './components/auth-page/sign-up-page/sign-up-page.component';
 import { ForgotPasswordPageComponent } from './components/auth-page/forgot-password-page/forgot-password-page.component';
 import { DashboardPageComponent } from './components/dashboard-page/dashboard-page.component';
+import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,9 @@ export const routes: Routes = [
         component: DashboardPageComponent,
       },
     ],
+    canActivate: [AuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedTo('/auth/sign-in'),
+    },
   },
 ];
