@@ -4,6 +4,7 @@ import {
   AuthErrorCodes,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signInWithPopup,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -27,6 +28,30 @@ export class AuthService {
 
   public signInWithEmailAndPassword(form: { email: string; password: string }): void {
     signInWithEmailAndPassword(this.auth, form.email, form.password)
+      .then(() => {
+        this.redirectToDashboard();
+      })
+      .catch((error) => {
+        this._isSubmissionInProgress.set(false);
+        console.error('error: ', error);
+        if (error instanceof Error) {
+          if (error.message.includes(AuthErrorCodes.INVALID_EMAIL)) {
+            this._errorMessage.set('Email is not valid');
+          } else if (error.message.includes(AuthErrorCodes.INVALID_LOGIN_CREDENTIALS)) {
+            this._errorMessage.set('Invalid Email/Password');
+          } else if (error.message.includes(AuthErrorCodes.WEAK_PASSWORD)) {
+            this._errorMessage.set('Please enter a stronger password');
+          } else if (error.message.includes(AuthErrorCodes.EMAIL_EXISTS)) {
+            this._errorMessage.set('The email is already used for another account');
+          } else {
+            this._errorMessage.set('Something went wrong, please try again');
+          }
+        }
+      });
+  }
+
+  public createUserWithEmailAndPassword(form: { email: string; password: string }): void {
+    createUserWithEmailAndPassword(this.auth, form.email, form.password)
       .then(() => {
         this.redirectToDashboard();
       })
