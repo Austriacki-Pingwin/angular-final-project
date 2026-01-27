@@ -5,10 +5,17 @@ import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-profile-card',
-  imports: [MatCardModule, MatButtonModule, MatIcon, MatProgressSpinnerModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIcon,
+    MatProgressSpinnerModule,
+    NgxSkeletonLoaderModule,
+  ],
   templateUrl: './profile-card.component.html',
   styleUrl: './profile-card.component.scss',
 })
