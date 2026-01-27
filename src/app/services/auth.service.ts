@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
   AuthErrorCodes,
@@ -8,13 +8,20 @@ import {
   signInWithPopup,
   signOut,
   sendPasswordResetEmail,
+  authState,
+  type User,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
+import { filter } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private userService = inject(UserService);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private _errorMessage = signal<string>('');
   public _isSubmissionInProgress = signal<boolean>(false);
@@ -30,12 +37,27 @@ export class AuthService {
   public readonly isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();
   public readonly isPasswordResetEmailSent = this._isPasswordResetEmailSent.asReadonly();
 
+  constructor() {
+    authState(this.auth)
+      .pipe(
+        filter((user): user is User => !!user),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((user) => this.userService.startUserListener(user.uid));
+  }
+
   public signInWithEmailAndPassword(form: { email: string; password: string }): void {
     signInWithEmailAndPassword(this.auth, form.email, form.password)
-      .then(() => {
-        this.redirectToDashboard();
+      .then(async () => {
+        const user = this.auth.currentUser;
+        if (user) {
+          await this.userService.ensureUserExists(user);
+        }
+
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
+
+        this.redirectToDashboard();
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -58,10 +80,16 @@ export class AuthService {
 
   public createUserWithEmailAndPassword(form: { email: string; password: string }): void {
     createUserWithEmailAndPassword(this.auth, form.email, form.password)
-      .then(() => {
-        this.redirectToDashboard();
+      .then(async () => {
+        const user = this.auth.currentUser;
+        if (user) {
+          await this.userService.ensureUserExists(user);
+        }
+
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
+
+        this.redirectToDashboard();
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -84,7 +112,17 @@ export class AuthService {
 
   public onSignInWithGoogle(): void {
     signInWithPopup(this.auth, this.googleAuthProvider)
-      .then(() => this.redirectToDashboard())
+      .then(async () => {
+        const user = this.auth.currentUser;
+
+        if (user) {
+          await this.userService.ensureUserExists(user);
+        }
+        this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('');
+
+        this.redirectToDashboard();
+      })
       .catch((error) => {
         console.error('error: ', error);
         this._errorMessage.set('Something went wrong, please try again');
