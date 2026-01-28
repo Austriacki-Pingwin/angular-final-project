@@ -36,7 +36,6 @@ export class ForgotPasswordPageComponent {
   public onSubmit(): void {
     if (this.form.invalid) return;
     const form = this.form.getRawValue();
-    console.log(form);
 
     // * resent the password by sending a reset password link
     this.authService.resetPassword(form);

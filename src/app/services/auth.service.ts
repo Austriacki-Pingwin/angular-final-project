@@ -13,14 +13,16 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { distinctUntilChanged, filter } from 'rxjs';
+import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CvService } from './cv.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private userService = inject(UserService);
+  private cvService = inject(CvService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private _errorMessage = signal<string>('');
@@ -41,10 +43,12 @@ export class AuthService {
     authState(this.auth)
       .pipe(
         filter((user): user is User => !!user),
-        distinctUntilChanged((prev, curr) => prev.uid === curr.uid),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((user) => this.userService.getUser(user.uid));
+      .subscribe((user) => {
+        this.userService.getUser(user.uid);
+        this.cvService.loadUserCvs(user.uid);
+      });
   }
 
   public signInWithEmailAndPassword(form: { email: string; password: string }): void {
