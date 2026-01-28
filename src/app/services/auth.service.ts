@@ -13,7 +13,7 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { filter } from 'rxjs';
+import { distinctUntilChanged, filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -41,9 +41,10 @@ export class AuthService {
     authState(this.auth)
       .pipe(
         filter((user): user is User => !!user),
+        distinctUntilChanged((prev, curr) => prev.uid === curr.uid),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((user) => this.userService.startUserListener(user.uid));
+      .subscribe((user) => this.userService.getUser(user.uid));
   }
 
   public signInWithEmailAndPassword(form: { email: string; password: string }): void {
@@ -133,6 +134,7 @@ export class AuthService {
     signOut(this.auth)
       .then(() => {
         this.redirectToSignIn();
+        this.userService.clear();
       })
       .catch((error) => {
         console.error('Error occurred: ', error);

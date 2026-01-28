@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { type User } from '@angular/fire/auth';
 import { type UserProfile } from '../models/user-profile.model';
-import { doc, Firestore, onSnapshot, serverTimestamp, setDoc } from '@angular/fire/firestore';
+import { doc, Firestore, getDoc, serverTimestamp, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -29,25 +29,28 @@ export class UserService {
     );
   }
 
-  public startUserListener(uid: string): void {
+  public async getUser(uid: string): Promise<void> {
     const ref = doc(this.firestore, 'users', uid);
 
-    onSnapshot(ref, (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
+    const snap = await getDoc(ref);
 
-        const profile: UserProfile = {
-          uid: data['uid'],
-          email: data['email'] ?? null,
-          displayName: data['displayName'] ?? null,
-          photoURL: data['photoURL'] ?? null,
-          provider: data['provider'],
-          createdAt: data['createdAt'],
-        };
+    if (!snap.exists()) {
+      this._profile.set(null);
+      return;
+    }
 
-        this._profile.set(profile);
-      }
-    });
+    const data = snap.data();
+
+    const profile: UserProfile = {
+      uid: data['uid'],
+      email: data['email'] ?? null,
+      displayName: data['displayName'] ?? null,
+      photoURL: data['photoURL'] ?? null,
+      provider: data['provider'],
+      createdAt: data['createdAt'],
+    };
+
+    this._profile.set(profile);
   }
 
   public clear(): void {
