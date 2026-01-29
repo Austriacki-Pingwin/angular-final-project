@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
   AuthErrorCodes,
@@ -7,16 +7,27 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  sendPasswordResetEmail,
+  authState,
+  type User,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
+import { filter } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CvService } from './cv.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private userService = inject(UserService);
+  private cvService = inject(CvService);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private _errorMessage = signal<string>('');
   public _isSubmissionInProgress = signal<boolean>(false);
+  public _isPasswordResetEmailSent = signal<boolean>(false);
 
   // * init the google auth provider
   public googleAuthProvider = new GoogleAuthProvider();
@@ -25,14 +36,33 @@ export class AuthService {
   public auth = inject(Auth);
 
   public readonly errorMessage = this._errorMessage.asReadonly();
-  public isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();
+  public readonly isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();
+  public readonly isPasswordResetEmailSent = this._isPasswordResetEmailSent.asReadonly();
+
+  constructor() {
+    authState(this.auth)
+      .pipe(
+        filter((user): user is User => !!user),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((user) => {
+        this.userService.getUser(user.uid);
+        this.cvService.loadUserCvs(user.uid);
+      });
+  }
 
   public signInWithEmailAndPassword(form: { email: string; password: string }): void {
     signInWithEmailAndPassword(this.auth, form.email, form.password)
-      .then(() => {
-        this.redirectToDashboard();
+      .then(async () => {
+        const user = this.auth.currentUser;
+        if (user) {
+          await this.userService.ensureUserExists(user);
+        }
+
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
+
+        this.redirectToDashboard();
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -55,10 +85,16 @@ export class AuthService {
 
   public createUserWithEmailAndPassword(form: { email: string; password: string }): void {
     createUserWithEmailAndPassword(this.auth, form.email, form.password)
-      .then(() => {
-        this.redirectToDashboard();
+      .then(async () => {
+        const user = this.auth.currentUser;
+        if (user) {
+          await this.userService.ensureUserExists(user);
+        }
+
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
+
+        this.redirectToDashboard();
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -81,10 +117,45 @@ export class AuthService {
 
   public onSignInWithGoogle(): void {
     signInWithPopup(this.auth, this.googleAuthProvider)
-      .then(() => this.redirectToDashboard())
+      .then(async () => {
+        const user = this.auth.currentUser;
+
+        if (user) {
+          await this.userService.ensureUserExists(user);
+        }
+        this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('');
+
+        this.redirectToDashboard();
+      })
       .catch((error) => {
         console.error('error: ', error);
         this._errorMessage.set('Something went wrong, please try again');
+      });
+  }
+
+  public signOut(): void {
+    signOut(this.auth)
+      .then(() => {
+        this.redirectToSignIn();
+        this.userService.clear();
+      })
+      .catch((error) => {
+        console.error('Error occurred: ', error);
+      });
+  }
+
+  public resetPassword(form: { email: string }): void {
+    sendPasswordResetEmail(this.auth, form.email)
+      .then(() => {
+        this._isPasswordResetEmailSent.set(true);
+        this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('');
+      })
+      .catch((error) => {
+        console.error('Error reset: ', error);
+        this._isSubmissionInProgress.set(false);
+        this._errorMessage.set('An error occurred, please try again');
       });
   }
 
@@ -94,15 +165,5 @@ export class AuthService {
 
   public redirectToSignIn(): void {
     this.router.navigate(['/auth/sign-in']);
-  }
-
-  public signOut(): void {
-    signOut(this.auth)
-      .then(() => {
-        this.redirectToSignIn();
-      })
-      .catch((error) => {
-        console.error('Error occurred: ', error);
-      });
   }
 }
