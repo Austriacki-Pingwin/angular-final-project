@@ -6,6 +6,7 @@ import { ForgotPasswordPageComponent } from './components/auth-page/forgot-passw
 import { DashboardPageComponent } from './components/dashboard-page/dashboard-page.component';
 import { AuthGuard, type AuthPipe, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { userResolver } from './shared/resolvers/user.resolver';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const redirectToLogin = (): AuthPipe => redirectUnauthorizedTo('/auth/sign-in');
 
@@ -47,5 +48,10 @@ export const routes: Routes = [
     resolve: {
       user: userResolver,
     },
+  },
+  {
+    path: '**',
+    title: '404',
+    component: NotFoundComponent,
   },
 ];
