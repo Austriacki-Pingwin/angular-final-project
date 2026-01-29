@@ -10,12 +10,12 @@ import type { CV } from '../../models/cv.model';
 import { CvService } from '../../services/cv.service';
 
 @Component({
-  selector: 'app-dashboard-page',
+  selector: 'app-main-page',
   imports: [MatToolbarModule, MatButtonModule, MatIcon, CvCardComponent, ProfileCardComponent],
-  templateUrl: './dashboard-page.component.html',
-  styleUrl: './dashboard-page.component.scss',
+  templateUrl: './main-page.component.html',
+  styleUrl: './main-page.component.scss',
 })
-export class DashboardPageComponent {
+export class MainPageComponent {
   private readonly authService = inject(AuthService);
   private cvService = inject(CvService);
 
