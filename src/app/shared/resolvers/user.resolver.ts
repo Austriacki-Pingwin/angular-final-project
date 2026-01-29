@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Auth, authState, type User } from '@angular/fire/auth';
 import { type ResolveFn } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { filter, map, take } from 'rxjs';
 
 export const userResolver: ResolveFn<User> = () => {
   const auth = inject(Auth);
@@ -9,6 +9,7 @@ export const userResolver: ResolveFn<User> = () => {
   // * create the user observable
   const user$ = authState(auth).pipe(
     filter((user): user is User => user !== null),
+    take(1),
     map((user) => user),
   );
 

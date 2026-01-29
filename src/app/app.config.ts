@@ -1,6 +1,7 @@
 import type { ApplicationConfig } from '@angular/core';
 import { provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideNgxSkeletonLoader } from 'ngx-skeleton-loader';
 
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -24,5 +25,10 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideNgxSkeletonLoader({
+      theme: {
+        extendsFromRoot: true,
+      },
+    }),
   ],
 };

@@ -15,5 +15,9 @@
     <mat-icon>share</mat-icon>
   </button>
 </mat-toolbar>
-<h4>Welcome, {{ user.displayName }} {{ user.email }}</h4>
-<button matButton="filled" (click)="onSignOut()">Sign-out</button>
+
+<app-profile-card />
+
+@for (cv of cvs; track cv.id) {
+  <app-cv-card [cv]="cv"></app-cv-card>
+}
