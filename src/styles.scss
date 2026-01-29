@@ -5,6 +5,10 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+:root {
+  font-size: 16px;
+}
+
 html {
   @include mat.theme(
     (
@@ -47,4 +51,9 @@ body {
 
 .center {
   text-align: center;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
 }
