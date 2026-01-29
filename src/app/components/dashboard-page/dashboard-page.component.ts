@@ -1,29 +1,30 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { type User } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute } from '@angular/router';
-
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { AuthService } from '../../services/auth.service';
 import { CvCardComponent } from '../cv-card/cv-card.component';
 import type { CV } from '../../models/cv.model';
+import { CvService } from '../../services/cv.service';
 
 @Component({
   selector: 'app-dashboard-page',
-  standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIcon, CvCardComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIcon, CvCardComponent, ProfileCardComponent],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss',
 })
 export class DashboardPageComponent {
-  private readonly activatedRouter = inject(ActivatedRoute);
   private readonly authService = inject(AuthService);
+  private cvService = inject(CvService);
 
-  // user from resolver
-  public readonly user: User = this.activatedRouter.snapshot.data['user'];
-
+  constructor() {
+    effect(() => {
+      console.log(this.cvService.cvs());
+    });
+  }
   // TEMP mock CVs (until backend is wired)
   public readonly cvs: CV[] = [
     {
@@ -52,13 +53,5 @@ export class DashboardPageComponent {
         skills: ['Angular', 'TypeScript'],
       },
     },
-  ];
-
-  public onSignOut(): void {
-    this.authService.signOut();
-  }
-
-  constructor() {
-    console.log('Logged in user:', this.user);
-  }
+  ];  
 }
