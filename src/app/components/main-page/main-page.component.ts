@@ -1,5 +1,4 @@
 import { Component, effect, inject } from '@angular/core';
-import { type User } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -11,12 +10,12 @@ import type { CV } from '../../models/cv.model';
 import { CvService } from '../../services/cv.service';
 
 @Component({
-  selector: 'app-dashboard-page',
+  selector: 'app-main-page',
   imports: [MatToolbarModule, MatButtonModule, MatIcon, CvCardComponent, ProfileCardComponent],
-  templateUrl: './dashboard-page.component.html',
-  styleUrl: './dashboard-page.component.scss',
+  templateUrl: './main-page.component.html',
+  styleUrl: './main-page.component.scss',
 })
-export class DashboardPageComponent {
+export class MainPageComponent {
   private readonly authService = inject(AuthService);
   private cvService = inject(CvService);
 
@@ -53,5 +52,5 @@ export class DashboardPageComponent {
         skills: ['Angular', 'TypeScript'],
       },
     },
-  ];  
+  ];
 }

@@ -5,6 +5,10 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+:root {
+  font-size: 16px;
+}
+
 html {
   @include mat.theme(
     (
@@ -16,10 +20,8 @@ html {
       density: 0,
     )
   );
-}
-
-* {
-  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -34,17 +36,24 @@ body {
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 
   // Reset the user agent margin.
   margin: 0;
+
+  // Reset the user agent padding.
+  padding: 0;
+
+  // Set the height of the application to 100%.
+  height: 100%;
 }
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
-  height: 100%;
+.center {
+  text-align: center;
 }
-body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
 }
