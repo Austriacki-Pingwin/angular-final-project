@@ -8,10 +8,18 @@ import { AuthService } from '../../services/auth.service';
 import { CvCardComponent } from '../cv-card/cv-card.component';
 import type { CV } from '../../models/cv.model';
 import { CvService } from '../../services/cv.service';
+import { AddCvCardComponent } from '../add-cv-card/add-cv-card.component';
 
 @Component({
   selector: 'app-main-page',
-  imports: [MatToolbarModule, MatButtonModule, MatIcon, CvCardComponent, ProfileCardComponent],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIcon,
+    CvCardComponent,
+    ProfileCardComponent,
+    AddCvCardComponent,
+  ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
 })
