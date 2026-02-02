@@ -62,7 +62,7 @@ export class AuthService {
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
 
-        this.redirectToDashboard();
+        this.redirectToMain();
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -94,7 +94,7 @@ export class AuthService {
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
 
-        this.redirectToDashboard();
+        this.redirectToMain();
       })
       .catch((error) => {
         this._isSubmissionInProgress.set(false);
@@ -126,7 +126,7 @@ export class AuthService {
         this._isSubmissionInProgress.set(false);
         this._errorMessage.set('');
 
-        this.redirectToDashboard();
+        this.redirectToMain();
       })
       .catch((error) => {
         console.error('error: ', error);
@@ -159,8 +159,8 @@ export class AuthService {
       });
   }
 
-  public redirectToDashboard(): void {
-    this.router.navigate(['/dashboard']);
+  public redirectToMain(): void {
+    this.router.navigate(['/']);
   }
 
   public redirectToSignIn(): void {
