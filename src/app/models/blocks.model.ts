@@ -1,0 +1,48 @@
+export type Personal = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  location?: string;
+};
+export type Links = {
+  id: string;
+  label: string;
+  url: string;
+};
+
+export type About = {
+  id: string;
+  content: string[];
+};
+
+export type Skill = {
+  id: string;
+  title: string;
+};
+
+export type Language = {
+  id: string;
+  name: string;
+  proficiency: Proficiency;
+};
+
+export type Proficiency = 'Beginner' | 'Intermediate' | 'Advanced' | 'Native';
+export type Experience = {
+  id: string;
+  position: string;
+  company: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  description: string[];
+};
+export type Education = {
+  id: string;
+  degree: string;
+  institution: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  description?: string[];
+};
