@@ -1,0 +1,36 @@
+.add-cv {
+  border-style: dashed !important;
+  border-color: #e2e8f0 !important;
+  cursor: pointer;
+  min-height: 280px;
+  max-width: 290px;
+
+  transition: all 0.5s ease !important;
+
+  &__icon_wrapper {
+    width: 4rem;
+    height: 4rem;
+    color: var(--mat-sys-primary);
+    background-color: rgba(0, 106, 106, 0.05);
+    transition: transform 0.5s ease;
+  }
+
+  &__text {
+    .title {
+      transition: color 0.5s ease;
+    }
+  }
+
+  &:hover {
+    border-color: var(--mat-sys-primary) !important;
+    background: rgba(0, 106, 106, 0.05) !important;
+
+    .add-cv__icon_wrapper {
+      transform: scale(1.1);
+    }
+
+    .title {
+      color: var(--mat-sys-primary) !important;
+    }
+  }
+}
