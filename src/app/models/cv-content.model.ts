@@ -1,23 +1,12 @@
 // * CV Content Model
 
-import { type Experience } from './experience.model';
-import { type Education } from './education.model';
+import type { About, Education, Experience, Language, Personal, Skill } from './blocks.model';
 
 export type CvContent = {
-  personal: PersonalInfo;
-  summary: string;
+  personal: Personal;
+  about: About;
   experience: Experience[];
   education: Education[];
-  skills: string[];
-};
-
-export type PersonalInfo = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-  location?: string;
-  website?: string;
-  linkedin?: string;
-  github?: string;
+  languages: Language[];
+  skills: Skill[];
 };

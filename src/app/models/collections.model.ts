@@ -11,7 +11,11 @@ export type ProfileBlockType =
 
 export type Profile = {
   personalInfo: Personal[];
+<<<<<<< HEAD
   linksInfo: Link[];
+=======
+  linksInfo: Links[];
+>>>>>>> 854efd6 (fix: minor fix models)
   aboutInfo: About[];
   skillInfo: Skill[];
   languageInfo: Language[];

@@ -4,11 +4,16 @@ import { type CvContent } from './cv-content.model';
 
 export const EMPTY_CV_CONTENT: CvContent = {
   personal: {
+    id: '',
     firstName: '',
     lastName: '',
     email: '',
   },
-  summary: '',
+  about: {
+    id: '',
+    content: [],
+  },
+  languages: [],
   experience: [],
   education: [],
   skills: [],
