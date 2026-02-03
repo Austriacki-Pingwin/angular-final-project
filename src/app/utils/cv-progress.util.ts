@@ -10,12 +10,14 @@ const WEIGHTS = {
 export function calculateCvProgress(content: CvContent): number {
   let progress = 0;
 
-  // summary
-  if (content.summary.trim().length > 0) {
+  //* about
+
+  if (content.about.content.trim().length > 0) {
     progress += WEIGHTS.summary;
   }
 
-  // experience (array of objects)
+  //* experience (array of objects)
+
   const hasValidExperience = content.experience.some((exp) =>
     Boolean(exp.position && exp.company && exp.startDate && exp.description),
   );
@@ -24,7 +26,8 @@ export function calculateCvProgress(content: CvContent): number {
     progress += WEIGHTS.experience;
   }
 
-  // education (array of objects)
+  //* education (array of objects)
+
   const hasValidEducation = content.education.some((edu) =>
     Boolean(edu.degree && edu.institution && edu.startDate),
   );
@@ -33,7 +36,8 @@ export function calculateCvProgress(content: CvContent): number {
     progress += WEIGHTS.education;
   }
 
-  // skills (array of strings)
+  //* skills (array of strings)
+
   if (content.skills.length > 0) {
     progress += WEIGHTS.skills;
   }

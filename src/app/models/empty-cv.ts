@@ -11,7 +11,7 @@ export const EMPTY_CV_CONTENT: CvContent = {
   },
   about: {
     id: '',
-    content: [],
+    content: '',
   },
   languages: [],
   experience: [],

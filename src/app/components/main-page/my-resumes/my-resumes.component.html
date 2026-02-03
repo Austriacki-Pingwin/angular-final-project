@@ -1,0 +1,6 @@
+<div class="d-flex gap-4">
+  <app-add-cv-card />
+  @for (cv of cvs; track cv.id) {
+    <app-cv-card [cv]="cv" />
+  }
+</div>
