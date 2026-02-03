@@ -23,7 +23,7 @@ export type CVs = CV[];
 export type CV = {
   id: string;
   title: string;
-  personalBlock: Personal;
+  personalBlock: string;
   linksBlock: string[];
   aboutBlock: string;
   skillsBlock: string[];

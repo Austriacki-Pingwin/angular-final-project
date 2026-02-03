@@ -10,10 +10,11 @@ import {
   sendPasswordResetEmail,
   authState,
   type User,
+  user,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CvService } from './cv.service';
 
@@ -34,6 +35,11 @@ export class AuthService {
 
   // * auth instance
   public auth = inject(Auth);
+
+  public readonly uid$ = user(this.auth).pipe(
+    filter((u): u is NonNullable<typeof u> => !!u),
+    map((u) => u.uid),
+  );
 
   public readonly errorMessage = this._errorMessage.asReadonly();
   public readonly isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();

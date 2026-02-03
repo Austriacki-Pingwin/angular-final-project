@@ -2,6 +2,7 @@ import { type Routes } from '@angular/router';
 import { MainPageComponent } from '../components/main-page/main-page.component';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { BlockPageComponent } from '../components/block-page/block-page.component';
+import { SkillsBlockComponent } from '../components/block-page/skills-block/skills-block.component';
 
 export const PRIVATE_ROUTES: Routes = [
   {
@@ -14,6 +15,10 @@ export const PRIVATE_ROUTES: Routes = [
       {
         path: '',
         component: ProfilePageComponent,
+      },
+      {
+        path: 'skills',
+        component: SkillsBlockComponent,
       },
       {
         path: ':blockId',

@@ -1,0 +1,22 @@
+<app-block-page>
+  @if (skills$ | async; as skills) {
+    <ul>
+      @for (skill of skills; track skill.id) {
+        <li>{{ skill.title }}</li>
+      }
+    </ul>
+  }
+  <form [formGroup]="form" (ngSubmit)="save()" class="container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Skill name</mat-label>
+
+      <input matInput formControlName="title" placeholder="Enter skill name" />
+
+      @if (form.controls.title.invalid && form.controls.title.touched) {
+        <mat-error> Skill name is required </mat-error>
+      }
+    </mat-form-field>
+
+    <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  </form>
+</app-block-page>

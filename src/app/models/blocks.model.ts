@@ -1,4 +1,5 @@
 export type Personal = {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
