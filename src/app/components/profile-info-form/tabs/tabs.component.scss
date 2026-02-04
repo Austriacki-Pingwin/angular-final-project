@@ -1,0 +1,11 @@
+:host {
+  ::ng-deep .mat-mdc-tab.mdc-tab--active {
+    color: #006a6a;
+  }
+
+  ::ng-deep .mdc-tab-indicator__content--underline {
+    border-color: #006a6a;
+    border-radius: 8px;
+    background-color: #eb1414;
+  }
+}

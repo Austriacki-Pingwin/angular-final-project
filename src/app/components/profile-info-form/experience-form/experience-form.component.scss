@@ -1,0 +1,21 @@
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.experience-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+.danger-btn {
+  border-color: #d32f2f;
+  color: #d32f2f;
+}
