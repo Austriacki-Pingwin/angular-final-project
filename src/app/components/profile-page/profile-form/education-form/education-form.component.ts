@@ -2,7 +2,7 @@ import type { OnInit } from '@angular/core';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import type { Education } from '../../../models/education.model';
+import type { Education } from '../../../../models/education.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';

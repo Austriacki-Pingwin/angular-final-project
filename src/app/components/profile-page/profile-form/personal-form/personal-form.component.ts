@@ -1,14 +1,14 @@
-import type { CvContent } from '../../../models/cv-content.model';
+import type { CvContent } from '../../../../models/cv-content.model';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { type Personal } from '../../../models/blocks.model';
-import { ProfileService } from '../../../services/profile.service';
+import { type Personal } from '../../../../models/blocks.model';
+import { ProfileService } from '../../../../services/profile.service';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
-import { ProfileBlockComponent } from '../../profile-page/profile-block/profile-block.component';
+import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
 
 export type PersonalFormData = Pick<CvContent, 'personal'>;
 

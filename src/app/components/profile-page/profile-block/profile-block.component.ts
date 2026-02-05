@@ -8,9 +8,10 @@ import type {
   Skill,
   Language,
 } from '../../../models/blocks.model';
-import { ProfileBlockItemComponent } from '../profile-block-item/profile-block-item.component';
+import { ProfileBlockItemComponent } from './profile-block-item/profile-block-item.component';
 import { MatButton } from '@angular/material/button';
 import { ProfileService } from '../../../services/profile.service';
+import { type ProfileBlockType } from '../../../models/collections.model';
 
 @Component({
   selector: 'app-profile-block',
@@ -23,9 +24,10 @@ export class ProfileBlockComponent {
   public blockData = input.required<
     Personal[] | Education[] | Skill[] | Experience[] | About[] | Link[] | Language[]
   >();
+  public blockType = input.required<ProfileBlockType>();
 
   public removeItem(itemId: string): void {
-    this.profileService.deleteBlock('personal', itemId).subscribe({
+    this.profileService.deleteBlock(this.blockType(), itemId).subscribe({
       error: (err) => {
         console.error('Delete personal block failed', err);
       },

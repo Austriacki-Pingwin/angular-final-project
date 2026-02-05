@@ -7,7 +7,7 @@ import type {
   Personal,
   Skill,
   Language,
-} from '../../../models/blocks.model';
+} from '../../../../models/blocks.model';
 import { KeyValuePipe } from '@angular/common';
 
 @Component({

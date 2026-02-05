@@ -1,5 +1,5 @@
 @if (personal$ | async; as data) {
-  <app-profile-block [blockData]="data"></app-profile-block>
+  <app-profile-block [blockData]="data" [blockType]="'personal'"></app-profile-block>
 }
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-grid">
@@ -7,7 +7,7 @@
       <mat-label>First name</mat-label>
       <input matInput formControlName="firstName" />
       @if (form.controls.firstName.invalid && form.controls.firstName.touched) {
-        <mat-error> Skill name is required </mat-error>
+        <mat-error> First name is required </mat-error>
       }
     </mat-form-field>
 

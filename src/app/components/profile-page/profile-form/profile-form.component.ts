@@ -21,37 +21,9 @@ import { SkillsFormComponent } from './skills-form/skills-form.component';
     EducationFormComponent,
     SkillsFormComponent,
   ],
-  templateUrl: './profile-info-form.component.html',
-  styleUrl: './profile-info-form.component.scss',
+  templateUrl: './profile-form.component.html',
+  styleUrl: './profile-form.component.scss',
 })
-export class ProfileInfoFormComponent {
+export class ProfileFormComponent {
   public activeTab: CvSectionKey = 'personal';
-
-  // public cvContent: CvContent = {
-  //   personal: {
-  //     firstName: '',
-  //     lastName: '',
-  //     email: '',
-  //   },
-  //   summary: '',
-  //   experience: [],
-  //   education: [],
-  //   skills: [],
-  // };
-
-  // public onSkillsChange(skills: string[]): void {
-  //   this.cvContent = { ...this.cvContent, skills };
-  // }
-
-  // public onPersonalChange(personal: CvContent['personal']): void {
-  //   this.cvContent = { ...this.cvContent, personal };
-  // }
-
-  // public onExperienceChange(experience: Experience[]): void {
-  //   this.cvContent = { ...this.cvContent, experience };
-  // }
-
-  // public onEducationChange(education: Education[]): void {
-  //   this.cvContent = { ...this.cvContent, education };
-  // }
 }

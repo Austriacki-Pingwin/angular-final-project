@@ -1,0 +1,16 @@
+@if (skills$ | async; as data) {
+  <app-profile-block [blockData]="data" [blockType]="'skills'"></app-profile-block>
+}
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="skill-item">
+    <mat-form-field appearance="outline" color="accent" class="skill-input">
+      <mat-label>Skill</mat-label>
+      <input matInput formControlName="title" placeholder="Enter your skill" />
+      @if (form.controls.title.invalid && form.controls.title.touched) {
+        <mat-error> Skill name is required </mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+</form>

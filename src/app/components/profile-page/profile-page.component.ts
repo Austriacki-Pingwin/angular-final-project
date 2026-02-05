@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ProfileInfoFormComponent } from '../profile-info-form/profile-info-form.component';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [ProfileInfoFormComponent],
+  imports: [ProfileFormComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
   host: { class: 'content' },
