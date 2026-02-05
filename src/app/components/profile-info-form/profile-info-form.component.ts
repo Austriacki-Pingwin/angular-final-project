@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import type { CvContent } from '../../models/cv-content.model';
-import type { Experience } from '../../models/experience.model';
-import type { Education } from '../../models/education.model';
+// import type { CvContent } from '../../models/cv-content.model';
+// import type { Experience } from '../../models/experience.model';
+// import type { Education } from '../../models/education.model';
 import type { CvSectionKey } from './tabs/tabs.model';
 
 import { ProfileTabsComponent } from './tabs/tabs.component';
@@ -27,31 +27,31 @@ import { SkillsFormComponent } from './skills-form/skills-form.component';
 export class ProfileInfoFormComponent {
   public activeTab: CvSectionKey = 'personal';
 
-  public cvContent: CvContent = {
-    personal: {
-      firstName: '',
-      lastName: '',
-      email: '',
-    },
-    summary: '',
-    experience: [],
-    education: [],
-    skills: [],
-  };
+  // public cvContent: CvContent = {
+  //   personal: {
+  //     firstName: '',
+  //     lastName: '',
+  //     email: '',
+  //   },
+  //   summary: '',
+  //   experience: [],
+  //   education: [],
+  //   skills: [],
+  // };
 
-  public onSkillsChange(skills: string[]): void {
-    this.cvContent = { ...this.cvContent, skills };
-  }
+  // public onSkillsChange(skills: string[]): void {
+  //   this.cvContent = { ...this.cvContent, skills };
+  // }
 
-  public onPersonalChange(personal: CvContent['personal']): void {
-    this.cvContent = { ...this.cvContent, personal };
-  }
+  // public onPersonalChange(personal: CvContent['personal']): void {
+  //   this.cvContent = { ...this.cvContent, personal };
+  // }
 
-  public onExperienceChange(experience: Experience[]): void {
-    this.cvContent = { ...this.cvContent, experience };
-  }
+  // public onExperienceChange(experience: Experience[]): void {
+  //   this.cvContent = { ...this.cvContent, experience };
+  // }
 
-  public onEducationChange(education: Education[]): void {
-    this.cvContent = { ...this.cvContent, education };
-  }
+  // public onEducationChange(education: Education[]): void {
+  //   this.cvContent = { ...this.cvContent, education };
+  // }
 }

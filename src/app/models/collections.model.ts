@@ -9,7 +9,7 @@ import type {
 } from './blocks.model';
 
 export type Profile = {
-  personalInfo: Personal;
+  personalInfo: Personal[];
   linksInfo: Links[];
   aboutInfo: About[];
   skillInfo: Skill[];
