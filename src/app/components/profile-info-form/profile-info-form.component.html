@@ -1,0 +1,30 @@
+<app-tabs [activeTab]="activeTab" (tabChange)="activeTab = $event" />
+
+<div class="form-wrapper">
+  @switch (activeTab) {
+    @case ('personal') {
+      <app-personal-form
+        [data]="{ personal: cvContent.personal }"
+        (personalChange)="onPersonalChange($event)"
+      />
+    }
+
+    @case ('experience') {
+      <app-experience-form
+        [data]="cvContent.experience"
+        (experienceChange)="onExperienceChange($event)"
+      />
+    }
+
+    @case ('education') {
+      <app-education-form
+        [data]="cvContent.education"
+        (educationChange)="onEducationChange($event)"
+      />
+    }
+
+    @case ('skills') {
+      <app-skills-form [data]="cvContent.skills" (skillsChange)="onSkillsChange($event)" />
+    }
+  }
+</div>
