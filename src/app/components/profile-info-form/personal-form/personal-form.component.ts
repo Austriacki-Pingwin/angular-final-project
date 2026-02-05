@@ -8,12 +8,20 @@ import { type Personal } from '../../../models/blocks.model';
 import { ProfileService } from '../../../services/profile.service';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
+import { ProfileBlockComponent } from '../../profile-page/profile-block/profile-block.component';
 
 export type PersonalFormData = Pick<CvContent, 'personal'>;
 
 @Component({
   selector: 'app-personal-form',
-  imports: [AsyncPipe, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButton],
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButton,
+    ProfileBlockComponent,
+  ],
   templateUrl: './personal-form.component.html',
   styleUrl: './personal-form.component.scss',
 })

@@ -1,0 +1,8 @@
+@use '../../../../styles/mixins' as *;
+:host {
+  @include flex($direction: column);
+  padding: 2rem;
+}
+.item {
+  @include flex();
+}

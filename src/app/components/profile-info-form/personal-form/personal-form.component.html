@@ -1,9 +1,5 @@
 @if (personal$ | async; as data) {
-  <ul>
-    @for (item of data; track item.id) {
-      <li>{{ item.firstName }} - {{ item.lastName }}</li>
-    }
-  </ul>
+  <app-profile-block [blockData]="data"></app-profile-block>
 }
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-grid">
@@ -43,21 +39,6 @@
       <mat-label>Location</mat-label>
       <input matInput formControlName="location" />
     </mat-form-field>
-
-    <!-- <mat-form-field appearance="outline" color="accent">
-      <mat-label>Website</mat-label>
-      <input matInput formControlName="website" />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" color="accent">
-      <mat-label>LinkedIn</mat-label>
-      <input matInput formControlName="linkedin" />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" color="accent">
-      <mat-label>GitHub</mat-label>
-      <input matInput formControlName="github" />
-    </mat-form-field> -->
   </div>
   <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
 </form>

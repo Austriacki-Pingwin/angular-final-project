@@ -1,0 +1,5 @@
+@use '../../../../styles/mixins' as *;
+:host {
+  @include flex($direction: column);
+  border: 1px solid var(--mat-sys-outline);
+}

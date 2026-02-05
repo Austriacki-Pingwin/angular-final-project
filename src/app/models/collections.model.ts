@@ -1,16 +1,17 @@
-import type {
-  Personal,
-  About,
-  Skill,
-  Language,
-  Experience,
-  Education,
-  Links,
-} from './blocks.model';
+import type { Personal, About, Skill, Language, Experience, Education, Link } from './blocks.model';
+
+export type ProfileBlockType =
+  | 'personal'
+  | 'links'
+  | 'about'
+  | 'skills'
+  | 'languages'
+  | 'experience'
+  | 'education';
 
 export type Profile = {
   personalInfo: Personal[];
-  linksInfo: Links[];
+  linksInfo: Link[];
   aboutInfo: About[];
   skillInfo: Skill[];
   languageInfo: Language[];

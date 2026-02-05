@@ -1,0 +1,14 @@
+@for (item of blockData(); track item.id) {
+  <div class="item">
+    <app-profile-block-item [ItemData]="item"></app-profile-block-item>
+    <button
+      mat-stroked-button
+      color="warn"
+      class="danger-btn"
+      type="button"
+      (click)="removeItem(item.id)"
+    >
+      Remove
+    </button>
+  </div>
+}

@@ -6,7 +6,7 @@ export type Personal = {
   phone?: string;
   location?: string;
 };
-export type Links = {
+export type Link = {
   id: string;
   label: string;
   url: string;
