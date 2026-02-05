@@ -1,36 +1,46 @@
-<form [formGroup]="form">
-  <div formArrayName="education" class="education-list">
-    @for (group of educations.controls; track $index) {
-      <div [formGroupName]="$index" class="education-item">
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label>Degree</mat-label>
-          <input matInput formControlName="degree" />
-        </mat-form-field>
+@if (education$ | async; as data) {
+  <app-profile-block [blockData]="data" [blockType]="'education'"></app-profile-block>
+}
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="form-grid">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Degree</mat-label>
+      <input matInput formControlName="degree" />
+      @if (form.controls.degree.invalid && form.controls.degree.touched) {
+        <mat-error> Degree is required </mat-error>
+      }
+    </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label>Start date</mat-label>
-          <input matInput formControlName="startDate" />
-        </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Institution</mat-label>
+      <input matInput formControlName="institution" />
+      @if (form.controls.institution.invalid && form.controls.institution.touched) {
+        <mat-error> Institution is required </mat-error>
+      }
+    </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label>End date</mat-label>
-          <input matInput formControlName="endDate" />
-        </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location" />
+    </mat-form-field>
 
-        <button
-          mat-stroked-button
-          color="warn"
-          class="danger-btn"
-          type="button"
-          (click)="removeEducation($index)"
-        >
-          Remove
-        </button>
-      </div>
-    }
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Start date</mat-label>
+      <input matInput formControlName="startDate" />
+      @if (form.controls.startDate.invalid && form.controls.startDate.touched) {
+        <mat-error> Start date is required </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>End date</mat-label>
+      <input matInput formControlName="endDate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="3" formControlName="description"></textarea>
+    </mat-form-field>
   </div>
-
-  <button mat-flat-button color="accent" type="button" (click)="addEducation()">
-    Add education
-  </button>
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
 </form>

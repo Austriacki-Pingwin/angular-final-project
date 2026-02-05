@@ -1,55 +1,66 @@
-import type { OnInit } from '@angular/core';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import type { Education } from '../../../../models/education.model';
+import type { Education } from '../../../../models/blocks.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
+import { ProfileService } from '../../../../services/profile.service';
+import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
 
 @Component({
   selector: 'app-education-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ProfileBlockComponent,
+    AsyncPipe,
+  ],
   templateUrl: './education-form.component.html',
   styleUrl: './education-form.component.scss',
 })
-export class EducationFormComponent implements OnInit {
-  @Input({ required: true })
-  public data!: Education[];
+export class EducationFormComponent {
+  private profileService = inject(ProfileService);
 
-  @Output()
-  public educationChange = new EventEmitter<Education[]>();
+  public education$ = this.profileService.getBlocks<Education>('education');
 
-  public form!: FormGroup;
-  public educations!: FormArray;
+  public form = new FormGroup({
+    degree: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    institution: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    location: new FormControl<string>(''),
+    startDate: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    endDate: new FormControl<string>(''),
+    description: new FormControl<string>(''),
+  });
 
-  public ngOnInit(): void {
-    this.educations = new FormArray(this.data.map((item) => this.createEducationGroup(item)));
+  public save(): void {
+    if (this.form.invalid) return;
 
-    this.form = new FormGroup({
-      education: this.educations,
-    });
-
-    this.form.valueChanges.subscribe((value) => {
-      this.educationChange.emit(value.education);
-    });
-  }
-
-  private createEducationGroup(data?: Education): FormGroup {
-    return new FormGroup({
-      id: new FormControl(data?.id ?? crypto.randomUUID()),
-      degree: new FormControl(data?.degree ?? ''),
-      startDate: new FormControl(data?.startDate ?? ''),
-      endDate: new FormControl(data?.endDate ?? ''),
-    });
-  }
-
-  public addEducation(): void {
-    this.educations.push(this.createEducationGroup());
-  }
-
-  public removeEducation(index: number): void {
-    this.educations.removeAt(index);
+    this.profileService
+      .createBlock('education', {
+        id: crypto.randomUUID(),
+        ...this.form.getRawValue(),
+      })
+      .subscribe({
+        error: (err) => {
+          console.error('Create education block failed', err);
+        },
+      });
+    this.form.reset();
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
   }
 }

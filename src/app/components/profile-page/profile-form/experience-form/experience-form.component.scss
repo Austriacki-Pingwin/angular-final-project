@@ -1,3 +1,7 @@
+@use '../../../../../styles/mixins' as *;
+.form-grid {
+  @include flex($direction: column);
+}
 .experience-list {
   display: flex;
   flex-direction: column;
