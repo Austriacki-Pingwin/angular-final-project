@@ -39,7 +39,7 @@ export class ProfileService {
     );
   }
 
-  public createBlock<T>(blockType: string, block: T & { id: string }): Observable<void> {
+  public createBlock<T>(blockType: ProfileBlockType, block: T & { id: string }): Observable<void> {
     return this.authService.uid$.pipe(
       filter((uid): uid is string => !!uid),
       take(1),

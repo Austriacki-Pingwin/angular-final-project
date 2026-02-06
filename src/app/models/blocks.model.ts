@@ -36,7 +36,7 @@ export type Experience = {
   location?: string;
   startDate: string;
   endDate?: string;
-  description: string[];
+  description: string;
 };
 export type Education = {
   id: string;
@@ -45,5 +45,5 @@ export type Education = {
   location?: string;
   startDate: string;
   endDate?: string;
-  description?: string[];
+  description?: string;
 };
