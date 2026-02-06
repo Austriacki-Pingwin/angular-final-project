@@ -14,7 +14,7 @@ export type Link = {
 
 export type About = {
   id: string;
-  content: string[];
+  content: string;
 };
 
 export type Skill = {
