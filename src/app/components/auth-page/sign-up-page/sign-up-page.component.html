@@ -1,41 +1,41 @@
-<div class="d-flex justify-content-center">
-  <div class="text-center mt-5 pt-5">
-    <h1>Welcome to our App.</h1>
-    <p>Please sign-up to start using our App.</p>
-    <form [formGroup]="form" (submit)="onSubmit()">
-      <mat-form-field appearance="outline" class="d-block">
-        <mat-label>Email/Username</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
+<main class="content">
+  <h1>Welcome to our App.</h1>
+  <p>Please sign-up to start using our App.</p>
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Email/Username</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
 
-      <mat-form-field appearance="outline" class="d-block">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password" />
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" />
+    </mat-form-field>
 
-      <!-- * Error message -->
-      @if (errorMessage()) {
-        <div class="alert alert-danger d-flex align-items-center p-2">
-          <mat-icon fontIcon="info" />
-          {{ errorMessage() }}
-        </div>
-      }
-
-      <!-- *Progress spinner -->
-      @if (isSubmissionInProgress()) {
-        <div class="d-flex align-items-center">
-          <mat-spinner [diameter]="22" />
-          Signing-up...
-        </div>
-      }
-      <button type="submit" matButton="tonal" class="d-block mb-1 auth-button">Sign-Up</button>
-    </form>
-    <button matButton="tonal" class="d-block mb-2 auth-button" (click)="onSignInWithGoogle()">
-      Sign-Up with Google
-    </button>
-    <p>You have an account</p>
-    <button matButton="filled" [routerLink]="['/auth/sign-in']" class="d-block auth-button">
-      Sign-In
-    </button>
-  </div>
-</div>
+    @if (errorMessage()) {
+      <div class="info">
+        <mat-icon fontIcon="info" />
+        {{ errorMessage() }}
+      </div>
+    }
+    @if (isSubmissionInProgress()) {
+      <div class="info">
+        <mat-spinner [diameter]="22" />
+        Signing-up...
+      </div>
+    }
+    <button type="submit" matButton="filled" aria-label="Sign-Up">Sign-Up</button>
+  </form>
+  <button matButton="filled" aria-label="Sign-Up with Google" (click)="onSignInWithGoogle()">
+    Sign-Up with Google
+  </button>
+  <p>You have an account</p>
+  <button
+    matButton="tonal"
+    aria-label="Sign-In"
+    [routerLink]="['/auth/sign-in']"
+    class="d-block auth-button"
+  >
+    Sign-In
+  </button>
+</main>

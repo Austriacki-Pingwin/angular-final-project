@@ -1,8 +1,11 @@
+@use '../../../../styles/mixins' as *;
 .avatar-60 {
   max-width: 60px;
   max-height: 60px;
 }
-
+.card {
+  @include flex($direction: row, $gap: 16px);
+}
 .icon-fill {
   width: 50px;
   height: 50px;
@@ -10,5 +13,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #006a6a;
+  color: var(--mat-sys-primary);
 }
