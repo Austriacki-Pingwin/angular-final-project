@@ -1,5 +1,5 @@
 @for (item of ItemData() | keyvalue; track item.key) {
-  @if (item.key !== 'id') {
+  @if (item.key !== 'id' && item.value !== null && item.value !== undefined && item.value !== '') {
     <div>
       <strong>{{ item.key }}</strong
       >: {{ item.value }}
