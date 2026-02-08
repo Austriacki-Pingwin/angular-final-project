@@ -1,5 +1,6 @@
 @let cvs = cvs$ | async;
-<div class="d-flex gap-4 flex-wrap justify-content-center">
+<h3>My Resumes</h3>
+<div class="cv-container">
   <app-add-cv-card />
   @if (cvs && cvs.length) {
     @for (cv of cvs; track cv.id) {

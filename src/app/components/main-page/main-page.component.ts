@@ -10,6 +10,7 @@ import { MyResumesComponent } from './my-resumes/my-resumes.component';
   imports: [MatToolbarModule, MatButtonModule, ProfileCardComponent, MyResumesComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
+  host: { class: 'content' },
 })
 export class MainPageComponent {
   private cvService = inject(CvService);

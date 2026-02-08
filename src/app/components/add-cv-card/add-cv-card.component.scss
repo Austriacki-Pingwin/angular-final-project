@@ -1,8 +1,12 @@
+:host {
+  height: fit-content;
+}
+
 .add-cv {
   border-style: dashed !important;
   border-color: #e2e8f0 !important;
   cursor: pointer;
-  min-height: 280px;
+  min-height: 305px;
   width: 290px;
 
   transition: all 0.5s ease !important;

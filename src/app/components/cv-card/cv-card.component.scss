@@ -1,3 +1,7 @@
+:host {
+  height: fit-content;
+}
+
 .resume-card {
   display: flex;
   flex-direction: column;
@@ -6,7 +10,7 @@
   border: 1px solid #f1f5f9;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
-  min-height: 280px;
+  min-height: 305px;
   width: 290px;
 }
 
