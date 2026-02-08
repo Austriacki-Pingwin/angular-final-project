@@ -9,6 +9,7 @@ import { ProfileService } from '../../../../services/profile.service';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 export type PersonalFormData = Pick<CvContent, 'personal'>;
 
@@ -21,6 +22,7 @@ export type PersonalFormData = Pick<CvContent, 'personal'>;
     MatInputModule,
     MatButton,
     ProfileBlockComponent,
+    NgxSkeletonLoaderModule,
   ],
   templateUrl: './personal-form.component.html',
   styleUrl: './personal-form.component.scss',

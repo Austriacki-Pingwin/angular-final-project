@@ -8,6 +8,7 @@ import { type Skill } from '../../../../models/blocks.model';
 import { ProfileService } from '../../../../services/profile.service';
 import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
 import { AsyncPipe } from '@angular/common';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-skills-form',
@@ -20,6 +21,7 @@ import { AsyncPipe } from '@angular/common';
     MatIconModule,
     ProfileBlockComponent,
     AsyncPipe,
+    NgxSkeletonLoaderModule,
   ],
   templateUrl: './skills-form.component.html',
   styleUrl: './skills-form.component.scss',

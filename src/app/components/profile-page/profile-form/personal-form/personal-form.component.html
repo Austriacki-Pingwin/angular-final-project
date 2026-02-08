@@ -1,6 +1,18 @@
 @if (personal$ | async; as data) {
-  <app-profile-block [blockData]="data" [blockType]="'personal'"></app-profile-block>
+  <app-profile-block [blockData]="data" [blockType]="'personal'"> </app-profile-block>
+} @else {
+  <ngx-skeleton-loader
+    count="5"
+    appearance="line"
+    [theme]="{
+      height: '32px',
+      marginBottom: '12px',
+      width: '60%',
+    }"
+  >
+  </ngx-skeleton-loader>
 }
+
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-grid">
     <mat-form-field appearance="outline" color="accent">

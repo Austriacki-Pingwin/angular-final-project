@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { ProfileService } from '../../../../services/profile.service';
 import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-education-form',
@@ -19,6 +20,7 @@ import { ProfileBlockComponent } from '../../profile-block/profile-block.compone
     MatButtonModule,
     ProfileBlockComponent,
     AsyncPipe,
+    NgxSkeletonLoaderModule,
   ],
   templateUrl: './education-form.component.html',
   styleUrl: './education-form.component.scss',

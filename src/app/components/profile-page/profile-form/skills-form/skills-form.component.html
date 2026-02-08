@@ -1,6 +1,21 @@
 @if (skills$ | async; as data) {
-  <app-profile-block [blockData]="data" [blockType]="'skills'"></app-profile-block>
+  <app-profile-block
+    [blockData]="data"
+    [blockType]="'skills'">
+  </app-profile-block>
 }
+@else {
+  <ngx-skeleton-loader
+    count="4"
+    appearance="line"
+    [theme]="{
+      height: '32px',
+      marginBottom: '12px',
+      width: '50%'
+    }">
+  </ngx-skeleton-loader>
+}
+
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="skill-item">
     <mat-form-field appearance="outline" color="accent" class="skill-input">
