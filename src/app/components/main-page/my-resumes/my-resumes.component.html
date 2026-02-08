@@ -1,6 +1,9 @@
-<div class="d-flex gap-4">
+@let cvs = cvs$ | async;
+<div class="d-flex gap-4 flex-wrap justify-content-center">
   <app-add-cv-card />
-  @for (cv of cvs; track cv.id) {
-    <app-cv-card [cv]="cv" />
+  @if (cvs && cvs.length) {
+    @for (cv of cvs; track cv.id) {
+      <app-cv-card [cv]="cv" />
+    }
   }
 </div>

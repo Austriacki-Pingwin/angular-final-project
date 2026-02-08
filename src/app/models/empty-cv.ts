@@ -1,20 +1,31 @@
-// * Empty CV
+// * Empty Full CV
 
-import { type CvContent } from './cv-content.model';
+import { Timestamp } from '@angular/fire/firestore';
+import { type FullCV } from './cv.model';
+import { type CV } from './collections.model';
 
-export const EMPTY_CV_CONTENT: CvContent = {
-  personal: {
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-  },
-  about: {
-    id: '',
-    content: '',
-  },
+export const EMPTY_FULL_CV: Omit<FullCV, 'id'> = {
+  title: '',
+  personal: [],
+  links: [],
+  about: [],
   languages: [],
   experience: [],
   education: [],
   skills: [],
+  createdAt: Timestamp.now(),
+  updatedAt: Timestamp.now(),
+};
+
+export const EMPTY_CV: Omit<CV, 'id'> = {
+  title: '',
+  personalBlock: [],
+  linksBlock: [],
+  aboutBlock: [],
+  languagesBlock: [],
+  experienceBlock: [],
+  educationBlock: [],
+  skillsBlock: [],
+  createdAt: Timestamp.now(),
+  updatedAt: Timestamp.now(),
 };

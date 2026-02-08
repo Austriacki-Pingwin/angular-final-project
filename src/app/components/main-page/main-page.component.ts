@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
@@ -14,9 +14,5 @@ import { MyResumesComponent } from './my-resumes/my-resumes.component';
 export class MainPageComponent {
   private cvService = inject(CvService);
 
-  constructor() {
-    effect(() => {
-      console.log(this.cvService.cvs());
-    });
-  }
+  public cvs$ = this.cvService.getFullCvs();
 }
