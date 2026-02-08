@@ -1,17 +1,26 @@
-@if (experience$ | async; as data) {
-  <app-profile-block [blockData]="data" [blockType]="'experience'"> </app-profile-block>
-} @else {
-  <ngx-skeleton-loader
-    count="3"
-    appearance="line"
-    [theme]="{
-      height: '48px',
-      marginBottom: '16px',
-      width: '100%',
-    }"
-  >
-  </ngx-skeleton-loader>
-}
+@let experienceData = experience$ | async;
+
+<div class="crossfade-container">
+  <div class="skeleton-layer" [class.hidden]="experienceData">
+    <ngx-skeleton-loader
+      count="3"
+      appearance="line"
+      [theme]="{
+        height: '32px',
+        marginBottom: '12px',
+        width: '100%',
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+
+  @if (experienceData) {
+    <div class="content-layer">
+      <app-profile-block [blockData]="experienceData" [blockType]="'experience'">
+      </app-profile-block>
+    </div>
+  }
+</div>
 
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-grid">

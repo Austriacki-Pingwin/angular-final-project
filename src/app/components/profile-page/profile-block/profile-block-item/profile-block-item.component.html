@@ -1,16 +1,22 @@
 @if (skillTitle()) {
-  <div class="skill-item">
+  <div class="skill-chip">
     {{ skillTitle() }}
   </div>
-} @else {
-  @for (entry of itemData() | keyvalue; track entry.key) {
-    @if (
-      entry.key !== 'id' && entry.value !== null && entry.value !== undefined && entry.value !== ''
-    ) {
-      <div>
-        <strong>{{ entry.key }}</strong
-        >: {{ entry.value }}
-      </div>
+}
+@else {
+  <div class="block-fields">
+    @for (entry of itemData() | keyvalue; track entry.key) {
+      @if (
+        entry.key !== 'id' &&
+        entry.value !== null &&
+        entry.value !== undefined &&
+        entry.value !== ''
+      ) {
+        <div class="field-row">
+          <span class="field-label">{{ entry.key }}</span>
+          <span class="field-value">{{ entry.value }}</span>
+        </div>
+      }
     }
-  }
+  </div>
 }
