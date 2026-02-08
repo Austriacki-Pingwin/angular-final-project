@@ -1,8 +1,16 @@
-@for (item of ItemData() | keyvalue; track item.key) {
-  @if (item.key !== 'id' && item.value !== null && item.value !== undefined && item.value !== '') {
-    <div>
-      <strong>{{ item.key }}</strong
-      >: {{ item.value }}
-    </div>
+@if (skillTitle()) {
+  <div class="skill-item">
+    {{ skillTitle() }}
+  </div>
+} @else {
+  @for (entry of itemData() | keyvalue; track entry.key) {
+    @if (
+      entry.key !== 'id' && entry.value !== null && entry.value !== undefined && entry.value !== ''
+    ) {
+      <div>
+        <strong>{{ entry.key }}</strong
+        >: {{ entry.value }}
+      </div>
+    }
   }
 }

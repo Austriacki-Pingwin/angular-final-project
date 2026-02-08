@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import type {
   About,
   Education,
@@ -9,6 +9,7 @@ import type {
   Language,
 } from '../../../../models/blocks.model';
 import { KeyValuePipe } from '@angular/common';
+import type { ProfileBlockType } from '../../../../models/collections.model';
 
 @Component({
   selector: 'app-profile-block-item',
@@ -17,7 +18,12 @@ import { KeyValuePipe } from '@angular/common';
   styleUrl: './profile-block-item.component.scss',
 })
 export class ProfileBlockItemComponent {
-  public ItemData = input.required<
+  public itemData = input.required<
     Personal | Education | Skill | Experience | About | Link | Language
   >();
+  public blockType = input.required<ProfileBlockType>();
+
+  public skillTitle = computed<string | null>(() =>
+    this.blockType() === 'skills' ? (this.itemData() as Skill).title : null,
+  );
 }

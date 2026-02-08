@@ -1,6 +1,6 @@
 @for (item of blockData(); track item.id) {
   <div class="item">
-    <app-profile-block-item [ItemData]="item"></app-profile-block-item>
+    <app-profile-block-item [itemData]="item" [blockType]="blockType()"></app-profile-block-item>
     <button
       mat-stroked-button
       color="warn"
