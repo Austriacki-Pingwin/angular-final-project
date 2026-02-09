@@ -1,5 +1,7 @@
 @use '../../../styles/mixins' as mixins;
 
+$primary: var(--mat-sys-primary);
+
 :host {
   height: fit-content;
 }
@@ -11,7 +13,7 @@
   border-radius: 1rem;
   text-align: center;
   cursor: pointer;
-  min-height: 305px;
+  min-height: 345px;
   width: 290px;
   transition: all 0.5s ease;
 
@@ -32,15 +34,11 @@
       font-size: 1.25rem;
       transition: color 0.5s ease;
     }
-
-    .description {
-      color: #212529bf;
-    }
   }
 
   &:hover {
     border-color: var(--mat-sys-primary);
-    background: rgba(0, 106, 106, 0.05);
+    background: var(--mat-sys-secondary-container);
 
     .add-cv__icon_wrapper {
       transform: scale(1.1);

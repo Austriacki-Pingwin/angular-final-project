@@ -11,7 +11,7 @@ import {
 } from '@angular/fire/firestore';
 import { filter, from, switchMap, take, type Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { type ProfileBlockType } from '../models/collections.model';
+import { type CollectionType } from '../models/collections.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class ProfileService {
   private firestore = inject(Firestore);
   private authService = inject(AuthService);
 
-  public getBlocks<T>(blockType: ProfileBlockType): Observable<T[]> {
+  public getBlocks<T>(blockType: CollectionType): Observable<T[]> {
     return this.authService.uid$.pipe(
       switchMap((userId) => {
         const ref = collection(this.firestore, `users/${userId}/${blockType}`);
@@ -29,7 +29,7 @@ export class ProfileService {
       }),
     );
   }
-  public getBlock<T>(blockType: ProfileBlockType, blockId: string): Observable<T> {
+  public getBlock<T>(blockType: CollectionType, blockId: string): Observable<T> {
     return this.authService.uid$.pipe(
       switchMap((userId) => {
         const ref = doc(this.firestore, `users/${userId}/${blockType}/${blockId}`);
@@ -39,7 +39,7 @@ export class ProfileService {
     );
   }
 
-  public createBlock<T>(blockType: ProfileBlockType, block: T & { id: string }): Observable<void> {
+  public createBlock<T>(blockType: CollectionType, block: T & { id: string }): Observable<void> {
     return this.authService.uid$.pipe(
       filter((uid): uid is string => !!uid),
       take(1),
@@ -51,7 +51,7 @@ export class ProfileService {
   }
 
   public updateBlock<T>(
-    blockType: ProfileBlockType,
+    blockType: CollectionType,
     blockId: string,
     changes: Partial<T>,
   ): Observable<void> {
@@ -66,7 +66,7 @@ export class ProfileService {
     );
   }
 
-  public deleteBlock(blockType: ProfileBlockType, blockId: string): Observable<void> {
+  public deleteBlock(blockType: CollectionType, blockId: string): Observable<void> {
     return this.authService.uid$.pipe(
       filter((uid): uid is string => !!uid),
       take(1),

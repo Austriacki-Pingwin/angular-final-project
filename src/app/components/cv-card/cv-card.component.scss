@@ -6,11 +6,11 @@
   display: flex;
   flex-direction: column;
   border-radius: 16px;
-  background: #ffffff;
+  background: var(--mat-sys-secondary-container);
   border: 1px solid #f1f5f9;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
-  min-height: 305px;
+  min-height: 345px;
   width: 290px;
 }
 
@@ -22,7 +22,6 @@
 .preview-area {
   position: relative;
   padding: 16px;
-  background: #f8fafc;
 }
 
 .preview-inner {
@@ -143,7 +142,7 @@
 
 .info-section {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
   gap: 8px;
 }
@@ -162,7 +161,6 @@
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: #64748b;
 }
 
 .clock-icon {
@@ -181,12 +179,10 @@
 
 .progress-text {
   font-size: 12px;
-  color: #64748b;
 }
 
 .menu-btn-circle {
   background: transparent;
-  color: #64748b;
   border: none;
   transform: rotate(90deg);
 }

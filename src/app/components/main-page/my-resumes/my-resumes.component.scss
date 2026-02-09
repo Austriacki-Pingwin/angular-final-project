@@ -1,8 +1,13 @@
 @use '../../../../styles/mixins' as mixins;
 
 :host {
-  @include mixins.flex($direction: column, $align: flex-start, $justify: flex-start);
+  @include mixins.flex($direction: column, $align: flex-start, $justify: flex-start, $gap: 1rem);
   overflow: hidden;
+  h3 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 0;
+  }
 }
 
 .cv-container {
