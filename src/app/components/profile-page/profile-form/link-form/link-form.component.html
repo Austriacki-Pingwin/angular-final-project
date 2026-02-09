@@ -1,0 +1,41 @@
+@let linkData = links$ | async;
+
+<div class="crossfade-container">
+  <div class="skeleton-layer" [class.hidden]="linkData">
+    <ngx-skeleton-loader
+      count="5"
+      appearance="line"
+      [theme]="{
+        height: '32px',
+        marginBottom: '12px',
+        width: '100%',
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+
+  @if (linkData) {
+    <div class="content-layer">
+      <app-profile-block [blockData]="linkData" [blockType]="'links'"> </app-profile-block>
+    </div>
+  }
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Shortcut</mat-label>
+    <input matInput formControlName="label" />
+    @if (form.controls.label.invalid && form.controls.label.touched) {
+      <mat-error> Shortcut is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Last name</mat-label>
+    <input matInput formControlName="url" />
+    @if (form.controls.url.invalid && form.controls.url.touched) {
+      <mat-error> URL is required </mat-error>
+    }
+  </mat-form-field>
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+</form>
