@@ -1,21 +1,55 @@
-import type { CvContent } from '../models/cv-content.model';
+import type { FullCV } from '../models/cv.model';
 
 const WEIGHTS = {
-  summary: 25,
-  experience: 25,
-  education: 25,
-  skills: 25,
+  personal: 15,
+  links: 15,
+  about: 15,
+  languages: 15,
+  experience: 15,
+  education: 15,
+  skills: 15,
 } as const;
 
-export function calculateCvProgress(content: CvContent): number {
+export function calculateCvProgress(content: FullCV): number {
   let progress = 0;
 
-  // summary
-  if (content.summary.trim().length > 0) {
-    progress += WEIGHTS.summary;
+  // * personal (object)
+  const hasValidPersonal = content.personal.some((personal) =>
+    Boolean(personal.email && personal.firstName && personal.lastName),
+  );
+
+  if (hasValidPersonal) {
+    progress += WEIGHTS.personal;
   }
 
-  // experience (array of objects)
+  // * links (array of objects)
+
+  const hasValidLinks = content.links.some((link) => Boolean(link.label && link.url));
+
+  if (hasValidLinks) {
+    progress += WEIGHTS.links;
+  }
+
+  // * about (array of objects)
+
+  const hasValidAbout = content.about.some((about) => Boolean(about.content));
+
+  if (hasValidAbout) {
+    progress += WEIGHTS.about;
+  }
+
+  // * languages (array of objects)
+
+  const hasValidLanguages = content.languages.some((language) =>
+    Boolean(language.name && language.proficiency),
+  );
+
+  if (hasValidLanguages) {
+    progress += WEIGHTS.languages;
+  }
+
+  // * experience (array of objects)
+
   const hasValidExperience = content.experience.some((exp) =>
     Boolean(exp.position && exp.company && exp.startDate && exp.description),
   );
@@ -24,7 +58,8 @@ export function calculateCvProgress(content: CvContent): number {
     progress += WEIGHTS.experience;
   }
 
-  // education (array of objects)
+  // * education (array of objects)
+
   const hasValidEducation = content.education.some((edu) =>
     Boolean(edu.degree && edu.institution && edu.startDate),
   );
@@ -33,10 +68,13 @@ export function calculateCvProgress(content: CvContent): number {
     progress += WEIGHTS.education;
   }
 
-  // skills (array of strings)
-  if (content.skills.length > 0) {
+  // * skills (array of objects)
+
+  const hasValidSkills = content.skills.some((skill) => Boolean(skill.title));
+
+  if (hasValidSkills) {
     progress += WEIGHTS.skills;
   }
 
-  return progress;
+  return Math.min(progress, 100);
 }

@@ -16,14 +16,12 @@ import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { filter, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CvService } from './cv.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private userService = inject(UserService);
-  private cvService = inject(CvService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private _errorMessage = signal<string>('');
@@ -41,6 +39,8 @@ export class AuthService {
     map((u) => u.uid),
   );
 
+  public uid = this.auth.currentUser?.uid;
+
   public readonly errorMessage = this._errorMessage.asReadonly();
   public readonly isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();
   public readonly isPasswordResetEmailSent = this._isPasswordResetEmailSent.asReadonly();
@@ -53,7 +53,6 @@ export class AuthService {
       )
       .subscribe((user) => {
         this.userService.getUser(user.uid);
-        this.cvService.loadUserCvs(user.uid);
       });
   }
 

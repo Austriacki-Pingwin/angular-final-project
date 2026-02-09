@@ -1,3 +1,5 @@
+export type Proficiency = 'Beginner' | 'Intermediate' | 'Advanced' | 'Native';
+
 export type Personal = {
   id: string;
   firstName: string;
@@ -5,7 +7,9 @@ export type Personal = {
   email: string;
   phone?: string;
   location?: string;
+  links?: Link[];
 };
+
 export type Link = {
   id: string;
   label: string;
@@ -28,7 +32,6 @@ export type Language = {
   proficiency: Proficiency;
 };
 
-export type Proficiency = 'Beginner' | 'Intermediate' | 'Advanced' | 'Native';
 export type Experience = {
   id: string;
   position: string;

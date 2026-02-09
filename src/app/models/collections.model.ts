@@ -1,4 +1,5 @@
 import type { Personal, About, Skill, Language, Experience, Education, Link } from './blocks.model';
+import type { Timestamp } from '@angular/fire/firestore';
 
 export type ProfileBlockType =
   | 'personal'
@@ -8,6 +9,8 @@ export type ProfileBlockType =
   | 'languages'
   | 'experience'
   | 'education';
+
+export type CollectionType = ProfileBlockType | 'cvs';
 
 export type Profile = {
   personalInfo: Personal[];
@@ -25,10 +28,12 @@ export type CV = {
   id: string;
   title: string;
   personalBlock: string[];
-  linksBlock: string[];
   aboutBlock: string[];
+  linksBlock: string[];
   skillsBlock: string[];
   languagesBlock: string[];
   experienceBlock: string[];
   educationBlock: string[];
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 };

@@ -1,11 +1,6 @@
-import type { CvContent } from '../../../../models/cv-content.model';
+import type { ProfileBlockType } from '../../../../models/collections.model';
 
-export type CvSectionKey = keyof Pick<
-  CvContent,
-  'personal' | 'experience' | 'education' | 'skills'
->;
-
-export const PROFILE_TABS: { key: CvSectionKey; label: string }[] = [
+export const PROFILE_TABS: { key: ProfileBlockType; label: string }[] = [
   { key: 'personal', label: 'Personal' },
   { key: 'experience', label: 'Experience' },
   { key: 'education', label: 'Education' },

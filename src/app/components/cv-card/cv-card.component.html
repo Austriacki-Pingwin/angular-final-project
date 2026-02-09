@@ -23,8 +23,6 @@
 
     <!-- Hover overlay -->
     <div class="overlay">
-      <button mat-flat-button color="primary" class="btn-edit">Edit</button>
-
       <button class="btn-download" aria-label="Download CV">
         <mat-icon>download</mat-icon>
       </button>
@@ -39,6 +37,10 @@
 
         <div class="card-meta">
           <mat-icon class="clock-icon">schedule</mat-icon>
+          <span> Created {{ cv.createdAt.toDate() | date: 'mediumDate' }} </span>
+        </div>
+        <div class="card-meta">
+          <mat-icon class="clock-icon">schedule</mat-icon>
           <span> Edited {{ cv.updatedAt.toDate() | date: 'mediumDate' }} </span>
         </div>
       </div>
@@ -50,17 +52,13 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item>Edit</button>
         <button mat-menu-item>Duplicate</button>
-        <button mat-menu-item color="warn">Delete</button>
+        <button mat-menu-item color="warn" (click)="deleteCv()">Delete</button>
       </mat-menu>
     </div>
 
     <!-- Progress -->
     <div class="progress-container">
-      <mat-progress-bar
-        mode="determinate"
-        class="cv-progress"
-        [value]="progress"
-      ></mat-progress-bar>
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 
       <span class="progress-text">{{ progress }}%</span>
     </div>
