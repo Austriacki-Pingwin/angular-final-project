@@ -1,0 +1,60 @@
+@use '../../../../../styles/mixins' as *;
+
+:host {
+  display: block;
+  padding: 14px 18px;
+  border-radius: 14px;
+  min-width: 300px;
+
+  background: rgba(26, 216, 153, 0.03);
+
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+
+  transition: all 0.25s ease;
+}
+
+:host:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.148);
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 14px;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  letter-spacing: 0.2px;
+}
+
+.block-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.field-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  min-width: 90px;
+}
+
+.field-value {
+  font-size: 14px;
+  font-weight: 500;
+}

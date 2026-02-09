@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [MatButton, RouterLink],
+  imports: [ProfileFormComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
   host: { class: 'content' },

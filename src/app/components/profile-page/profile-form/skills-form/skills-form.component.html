@@ -1,0 +1,38 @@
+@let skillsData = skills$ | async;
+
+<div class="crossfade-container">
+  <!-- skeleton -->
+  <div class="skeleton-layer" [class.hidden]="skillsData">
+    <ngx-skeleton-loader
+      count="4"
+      appearance="line"
+      [theme]="{
+        height: '32px',
+        marginBottom: '12px',
+        width: '100%',
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+
+  <!-- content -->
+  @if (skillsData) {
+    <div class="content-layer">
+      <app-profile-block [blockData]="skillsData" [blockType]="'skills'"> </app-profile-block>
+    </div>
+  }
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="skill-item">
+    <mat-form-field appearance="outline" color="accent" class="skill-input">
+      <mat-label>Skill</mat-label>
+      <input matInput formControlName="title" placeholder="Enter your skill" />
+      @if (form.controls.title.invalid && form.controls.title.touched) {
+        <mat-error> Skill name is required </mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+</form>

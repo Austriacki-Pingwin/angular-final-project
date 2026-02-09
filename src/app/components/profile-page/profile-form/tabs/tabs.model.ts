@@ -1,4 +1,4 @@
-import type { CvContent } from '../../../models/cv-content.model';
+import type { CvContent } from '../../../../models/cv-content.model';
 
 export type CvSectionKey = keyof Pick<
   CvContent,

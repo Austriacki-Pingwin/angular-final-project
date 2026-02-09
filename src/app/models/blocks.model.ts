@@ -6,7 +6,7 @@ export type Personal = {
   phone?: string;
   location?: string;
 };
-export type Links = {
+export type Link = {
   id: string;
   label: string;
   url: string;
@@ -14,7 +14,7 @@ export type Links = {
 
 export type About = {
   id: string;
-  content: string[];
+  content: string;
 };
 
 export type Skill = {
@@ -36,7 +36,7 @@ export type Experience = {
   location?: string;
   startDate: string;
   endDate?: string;
-  description: string[];
+  description: string;
 };
 export type Education = {
   id: string;
@@ -45,5 +45,5 @@ export type Education = {
   location?: string;
   startDate: string;
   endDate?: string;
-  description?: string[];
+  description?: string;
 };
