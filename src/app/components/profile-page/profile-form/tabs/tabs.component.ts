@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-
 import { PROFILE_TABS } from './tabs.model';
 import type { ProfileBlockType } from '../../../../models/collections.model';
 
@@ -12,11 +11,8 @@ import type { ProfileBlockType } from '../../../../models/collections.model';
   styleUrl: './tabs.component.scss',
 })
 export class ProfileTabsComponent {
-  @Input({ required: true })
-  public activeTab!: ProfileBlockType;
-
-  @Output()
-  public tabChange = new EventEmitter<ProfileBlockType>();
+  public activeTab = input.required<ProfileBlockType>();
+  public tabChange = output<ProfileBlockType>();
 
   public readonly tabs = PROFILE_TABS;
 
@@ -25,7 +21,7 @@ export class ProfileTabsComponent {
   }
 
   public get selectedIndex(): number {
-    const index = this.tabs.findIndex((t) => t.key === this.activeTab);
+    const index = this.tabs.findIndex((t) => t.key === this.activeTab());
     return index === -1 ? 0 : index;
   }
 }

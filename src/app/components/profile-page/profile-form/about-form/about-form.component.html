@@ -1,0 +1,34 @@
+@let aboutData = about$ | async;
+
+<div class="crossfade-container">
+  <div class="skeleton-layer" [class.hidden]="aboutData">
+    <ngx-skeleton-loader
+      count="5"
+      appearance="line"
+      [theme]="{
+        height: '32px',
+        marginBottom: '12px',
+        width: '100%',
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+
+  @if (aboutData) {
+    <div class="content-layer">
+      <app-profile-block [blockData]="aboutData" [blockType]="'about'"> </app-profile-block>
+    </div>
+  }
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>About</mat-label>
+    <textarea matInput rows="10" formControlName="content"></textarea>
+    @if (form.controls.content.invalid && form.controls.content.touched) {
+      <mat-error> About content is required and should be at least 10 characters </mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+</form>

@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-
-// import type { CvContent } from '../../models/cv-content.model';
-// import type { Experience } from '../../models/experience.model';
-// import type { Education } from '../../models/education.model';
-
 import { ProfileTabsComponent } from './tabs/tabs.component';
 import { PersonalFormComponent } from './personal-form/personal-form.component';
 import { ExperienceFormComponent } from './experience-form/experience-form.component';
 import { EducationFormComponent } from './education-form/education-form.component';
 import { SkillsFormComponent } from './skills-form/skills-form.component';
 import { type ProfileBlockType } from '../../../models/collections.model';
+import { LanguageFormComponent } from './language-form/language-form.component';
+import { ViewEncapsulation } from '@angular/core';
+import { AboutFormComponent } from './about-form/about-form.component';
+import { LinkFormComponent } from './link-form/link-form.component';
 
 @Component({
-  selector: 'app-profile-info-form',
+  selector: 'app-profile-form',
   standalone: true,
   imports: [
     ProfileTabsComponent,
@@ -20,9 +19,13 @@ import { type ProfileBlockType } from '../../../models/collections.model';
     ExperienceFormComponent,
     EducationFormComponent,
     SkillsFormComponent,
+    LanguageFormComponent,
+    AboutFormComponent,
+    LinkFormComponent,
   ],
   templateUrl: './profile-form.component.html',
   styleUrl: './profile-form.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileFormComponent {
   public activeTab: ProfileBlockType = 'personal';
