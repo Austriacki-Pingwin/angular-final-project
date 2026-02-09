@@ -8,6 +8,7 @@ import { SkillsFormComponent } from './skills-form/skills-form.component';
 import { type ProfileBlockType } from '../../../models/collections.model';
 import { LanguageFormComponent } from './language-form/language-form.component';
 import { ViewEncapsulation } from '@angular/core';
+import { AboutFormComponent } from './about-form/about-form.component';
 
 @Component({
   selector: 'app-profile-form',
@@ -19,6 +20,7 @@ import { ViewEncapsulation } from '@angular/core';
     EducationFormComponent,
     SkillsFormComponent,
     LanguageFormComponent,
+    AboutFormComponent,
   ],
   templateUrl: './profile-form.component.html',
   styleUrl: './profile-form.component.scss',

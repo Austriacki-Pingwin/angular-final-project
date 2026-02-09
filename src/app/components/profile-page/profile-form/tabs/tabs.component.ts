@@ -15,12 +15,6 @@ export class ProfileTabsComponent {
   public activeTab = input.required<ProfileBlockType>();
   public tabChange = output<ProfileBlockType>();
 
-  // @Input({ required: true })
-  // public activeTab!: ProfileBlockType;
-
-  // @Output()
-  // public tabChange = new EventEmitter<ProfileBlockType>();
-
   public readonly tabs = PROFILE_TABS;
 
   public onTabChange(index: number): void {
