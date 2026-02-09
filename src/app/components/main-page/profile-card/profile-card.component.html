@@ -1,23 +1,22 @@
 @let profileData = profile();
 <<<<<<< HEAD
+<<<<<<< HEAD
 <mat-card appearance="outlined">
   <mat-card-header class="card">
 =======
 <mat-card appearance="outlined" class="mb-4">
   <mat-card-header class="p-4 align-items-center gap-3">
 >>>>>>> cec0a53 (feat: add my resumes block)
+=======
+<mat-card class="profile-card">
+  <mat-card-header class="profile-card__header">
+>>>>>>> be084a1 (feat: fix remove bootstrap style from add card component and main-page)
     @if (profileData) {
-      <div
-        class="d-flex align-items-center justify-content-center border rounded-3 avatar-60 flex-shrink-0"
-      >
+      <div class="avatar">
         @if (profileData.photoURL) {
-          <img
-            class="img-fluid rounded-3"
-            [src]="profileData.photoURL"
-            [alt]="profileData.displayName"
-          />
+          <img [src]="profileData.photoURL" [alt]="profileData.displayName" />
         } @else {
-          <div class="avatar-60 d-flex align-items-center justify-content-center">
+          <div class="icon-fill">
             <mat-icon class="icon-fill" fontIcon="person" />
           </div>
         }
@@ -29,29 +28,28 @@
         [theme]="{ width: '60px', height: '60px' }"
       />
     }
-    <div class="flex-grow-1">
+    <div class="profile-info">
       @if (profileData) {
-        <mat-card-title>
-          <h2>Welcome, {{ profileData.displayName ?? 'Username' }}</h2>
+        <mat-card-title class="profile-info__title">
+          <h3>Welcome, {{ profileData.displayName ?? 'Username' }}</h3>
         </mat-card-title>
-        <mat-card-subtitle class="text-secondary">
+        <mat-card-subtitle class="profile-info__subtitle">
           <h5>
             {{ profileData.email }}
           </h5>
         </mat-card-subtitle>
       } @else {
-        <ngx-skeleton-loader class="d-flex" appearance="line" [theme]="{ width: '300px' }" />
-        <ngx-skeleton-loader class="d-flex" appearance="line" [theme]="{ width: '250px' }" />
+        <ngx-skeleton-loader appearance="line" [theme]="{ display: 'flex', width: '300px' }" />
+        <ngx-skeleton-loader appearance="line" [theme]="{ display: 'flex', width: '250px' }" />
       }
     </div>
-    <mat-card-actions>
+    <mat-card-actions class="profile-card-actions">
       @if (profileData) {
-        <button matButton="filled" (click)="onSignOut()">Sign-out</button>
+        <button class="profile-button" matButton="filled" (click)="onSignOut()">Sign-out</button>
       } @else {
         <ngx-skeleton-loader
-          class="d-block rounded-3"
           appearance="line"
-          [theme]="{ width: '100px', height: '40px', 'border-radius': '2rem' }"
+          [theme]="{ display: 'block', width: '100px', height: '40px', 'border-radius': '2rem' }"
         />
       }
     </mat-card-actions>

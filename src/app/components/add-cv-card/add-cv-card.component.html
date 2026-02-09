@@ -1,17 +1,12 @@
-<div
-  class="add-cv d-flex flex-column align-items-center justify-content-center gap-3 bg-white rounded-4 border border-2 text-center p-4 transition"
-  (click)="createCv()"
->
-  <div
-    class="add-cv__icon_wrapper d-flex align-items-center justify-content-center bg-opacity-10 rounded-circle shadow-sm scale-hover"
-  >
+<div class="add-cv" (click)="createCv()">
+  <div class="add-cv__icon_wrapper">
     <mat-icon [fontIcon]="addCvConfig.icon" />
   </div>
   <div class="add-cv__text">
-    <h3 class="fw-semibold fs-5 text-dark title">
+    <h3 class="title">
       {{ addCvConfig.title }}
     </h3>
-    <p class="text-muted fs-6 mt-1">
+    <p class="description">
       {{ addCvConfig.description }}
     </p>
   </div>
