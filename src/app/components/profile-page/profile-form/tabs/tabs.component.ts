@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { PROFILE_TABS } from './tabs.model';
-import type { CvSectionKey } from './tabs.model';
+import { type ProfileBlockType } from '../../../../models/collections.model';
 
 @Component({
   selector: 'app-tabs',
@@ -13,10 +13,10 @@ import type { CvSectionKey } from './tabs.model';
 })
 export class ProfileTabsComponent {
   @Input({ required: true })
-  public activeTab!: CvSectionKey;
+  public activeTab!: ProfileBlockType;
 
   @Output()
-  public tabChange = new EventEmitter<CvSectionKey>();
+  public tabChange = new EventEmitter<ProfileBlockType>();
 
   public readonly tabs = PROFILE_TABS;
 
