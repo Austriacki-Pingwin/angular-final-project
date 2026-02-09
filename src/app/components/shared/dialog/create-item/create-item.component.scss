@@ -1,0 +1,10 @@
+@use '../../../../../styles/mixins' as mixins;
+
+mat-dialog-content {
+  height: auto;
+  overflow: hidden;
+}
+
+form {
+  @include mixins.flex($direction: column, $align: normal);
+}
