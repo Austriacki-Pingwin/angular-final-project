@@ -31,4 +31,8 @@ export class CvCardComponent implements OnChanges {
   public deleteCv(): void {
     this.cvService.deleteCv(this.cv.id);
   }
+
+  public duplicateCv(): void {
+    this.cvService.duplicateCv(this.cv.id);
+  }
 }
