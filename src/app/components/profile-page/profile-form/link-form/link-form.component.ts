@@ -1,4 +1,3 @@
-import type { CvContent } from '../../../../models/cv-content.model';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -10,8 +9,6 @@ import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-
-export type PersonalFormData = Pick<CvContent, 'personal'>;
 
 @Component({
   selector: 'app-link-form',
