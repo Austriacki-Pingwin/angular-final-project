@@ -10,8 +10,9 @@
   border: 1px solid #f1f5f9;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
-  min-height: 345px;
+  min-height: 365px;
   width: 290px;
+  animation: contentFadeIn 0.45s ease-out both;
 }
 
 .resume-card:hover {
@@ -185,4 +186,19 @@
   background: transparent;
   border: none;
   transform: rotate(90deg);
+  cursor: pointer;
+  padding: 0;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
