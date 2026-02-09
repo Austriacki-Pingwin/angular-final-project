@@ -1,4 +1,4 @@
-import { type ProfileBlockType } from '../../../../models/collections.model';
+import type { ProfileBlockType } from '../../../../models/collections.model';
 
 export const PROFILE_TABS: { key: ProfileBlockType; label: string }[] = [
   { key: 'personal', label: 'Personal' },

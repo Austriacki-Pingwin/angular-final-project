@@ -12,6 +12,9 @@ import { ProfileBlockItemComponent } from './profile-block-item/profile-block-it
 import { MatButton } from '@angular/material/button';
 import { ProfileService } from '../../../services/profile.service';
 import { type ProfileBlockType } from '../../../models/collections.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteItemComponent } from '../../shared/dialog/delete-item/delete-item.component';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-profile-block',
@@ -26,11 +29,24 @@ export class ProfileBlockComponent {
   >();
   public blockType = input.required<ProfileBlockType>();
 
-  public removeItem(itemId: string): void {
-    this.profileService.deleteBlock(this.blockType(), itemId).subscribe({
-      error: (err) => {
-        console.error('Delete personal block failed', err);
+  private dialog = inject(MatDialog);
+  public openDialog(itemId: string): void {
+    const ref = this.dialog.open(DialogComponent, {
+      width: '500px',
+      data: {
+        component: DeleteItemComponent,
+        inputs: {
+          itemId: itemId,
+          blockType: this.blockType(),
+        },
       },
     });
+    ref.afterClosed().subscribe((result) => {
+      console.log('Dialog result:', result);
+    });
+  }
+
+  public removeItem(itemId: string): void {
+    this.openDialog(itemId);
   }
 }

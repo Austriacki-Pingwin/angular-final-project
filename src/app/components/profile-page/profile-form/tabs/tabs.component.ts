@@ -1,8 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-
 import { PROFILE_TABS } from './tabs.model';
-import { type ProfileBlockType } from '../../../../models/collections.model';
+import type { ProfileBlockType } from '../../../../models/collections.model';
 
 @Component({
   selector: 'app-tabs',

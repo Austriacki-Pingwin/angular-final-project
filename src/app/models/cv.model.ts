@@ -1,15 +1,20 @@
 // * CV Model
 
 import { type Timestamp } from '@angular/fire/firestore';
-import { type CvContent } from './cv-content.model';
+import type { About, Education, Experience, Language, Link, Personal, Skill } from './blocks.model';
 
-export type CV = {
+export type FullCVs = FullCV[];
+
+export type FullCV = {
   id: string;
   title: string;
-  status: CvStatus; //? ready of public distribution and uploading by PDF, editing is either prohibited or restricted.
+  personal: Personal[];
+  about: About[];
+  links: Link[];
+  experience: Experience[];
+  education: Education[];
+  languages: Language[];
+  skills: Skill[];
   createdAt: Timestamp;
   updatedAt: Timestamp;
-  content: CvContent;
 };
-
-export type CvStatus = 'draft' | 'published';

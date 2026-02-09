@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { ProfileTabsComponent } from './tabs/tabs.component';
 import { PersonalFormComponent } from './personal-form/personal-form.component';
 import { ExperienceFormComponent } from './experience-form/experience-form.component';

@@ -43,7 +43,7 @@ export class UserService {
 
     const profile: UserProfile = {
       uid: data['uid'],
-      email: data['email'] ?? null,
+      email: data['email'],
       displayName: data['displayName'] ?? null,
       photoURL: data['photoURL'] ?? null,
       provider: data['provider'],
