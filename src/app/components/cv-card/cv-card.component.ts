@@ -1,5 +1,5 @@
 import type { OnChanges } from '@angular/core';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { calculateCvProgress } from '../../utils/cv-progress.util';
 import { type FullCV } from '../../models/cv.model';
 import { CvService } from '../../services/cv.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cv-card',
@@ -19,20 +20,24 @@ import { CvService } from '../../services/cv.service';
 })
 export class CvCardComponent implements OnChanges {
   private cvService = inject(CvService);
-  @Input()
-  public cv!: FullCV;
+  private router = inject(Router);
+  public cv = input.required<FullCV>();
 
   public progress = 0;
 
   public ngOnChanges(): void {
-    this.progress = calculateCvProgress(this.cv);
+    this.progress = calculateCvProgress(this.cv());
   }
 
   public deleteCv(): void {
-    this.cvService.deleteCv(this.cv.id);
+    this.cvService.deleteCv(this.cv().id);
+  }
+
+  public openCreator(): void {
+    this.router.navigate(['creator', this.cv().id]);
   }
 
   public duplicateCv(): void {
-    this.cvService.duplicateCv(this.cv.id);
+    this.cvService.duplicateCv(this.cv().id);
   }
 }

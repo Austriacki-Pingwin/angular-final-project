@@ -3,6 +3,8 @@ import { MainPageComponent } from '../components/main-page/main-page.component';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { BlockPageComponent } from '../components/block-page/block-page.component';
 import { SkillsBlockComponent } from '../components/block-page/skills-block/skills-block.component';
+import { CreatorPageComponent } from '../components/creator-page/creator-page.component';
+import { cvResolver } from '../shared/resolvers/cv.resolver';
 
 export const PRIVATE_ROUTES: Routes = [
   {
@@ -11,6 +13,7 @@ export const PRIVATE_ROUTES: Routes = [
   },
   {
     path: 'profile',
+    title: 'User profile',
     children: [
       {
         path: '',
@@ -25,5 +28,13 @@ export const PRIVATE_ROUTES: Routes = [
         component: BlockPageComponent,
       },
     ],
+  },
+  {
+    path: 'creator/:cvId',
+    title: 'CV creator',
+    component: CreatorPageComponent,
+    resolve: {
+      cvId: cvResolver,
+    },
   },
 ];
