@@ -53,11 +53,7 @@ export class PersonalFormComponent {
         id: crypto.randomUUID(),
         ...this.form.getRawValue(),
       })
-      .subscribe({
-        error: (err) => {
-          console.error('Create personal block failed', err);
-        },
-      });
+      .subscribe();
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();

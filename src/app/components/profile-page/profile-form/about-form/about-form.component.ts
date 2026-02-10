@@ -43,11 +43,7 @@ export class AboutFormComponent {
         id: crypto.randomUUID(),
         ...this.form.getRawValue(),
       })
-      .subscribe({
-        error: (err) => {
-          console.error('Create about block failed', err);
-        },
-      });
+      .subscribe();
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();

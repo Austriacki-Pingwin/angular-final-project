@@ -10,7 +10,6 @@ import type {
 } from '../../../models/blocks.model';
 import { ProfileBlockItemComponent } from './profile-block-item/profile-block-item.component';
 import { MatButton } from '@angular/material/button';
-import { ProfileService } from '../../../services/profile.service';
 import { type ProfileBlockType } from '../../../models/collections.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteItemComponent } from '../../shared/dialog/delete-item/delete-item.component';
@@ -23,7 +22,6 @@ import { DialogComponent } from '../../shared/dialog/dialog.component';
   styleUrl: './profile-block.component.scss',
 })
 export class ProfileBlockComponent {
-  private profileService = inject(ProfileService);
   public blockData = input.required<
     Personal[] | Education[] | Skill[] | Experience[] | About[] | Link[] | Language[]
   >();

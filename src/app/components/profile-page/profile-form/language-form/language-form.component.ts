@@ -55,11 +55,7 @@ export class LanguageFormComponent {
         id: crypto.randomUUID(),
         ...this.form.getRawValue(),
       })
-      .subscribe({
-        error: (err) => {
-          console.error('Create language block failed', err);
-        },
-      });
+      .subscribe();
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();

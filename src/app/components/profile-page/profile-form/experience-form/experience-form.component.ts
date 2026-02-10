@@ -60,11 +60,7 @@ export class ExperienceFormComponent {
         id: crypto.randomUUID(),
         ...this.form.getRawValue(),
       })
-      .subscribe({
-        error: (err) => {
-          console.error('Create experience block failed', err);
-        },
-      });
+      .subscribe();
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();
