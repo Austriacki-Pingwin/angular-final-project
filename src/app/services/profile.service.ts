@@ -9,7 +9,7 @@ import {
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { catchError, filter, from, switchMap, take, throwError, type Observable } from 'rxjs';
+import { catchError, filter, from, of, switchMap, take, type Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { type CollectionType } from '../models/collections.model';
 import { ErrorService } from './error.service';
@@ -30,7 +30,7 @@ export class ProfileService {
       }),
       catchError((): Observable<T[]> => {
         this.errorService.showError('Could not load blocks. Please try again');
-        return throwError(() => new Error('Could not load blocks. Please try again'));
+        return of();
       }),
     );
   }
@@ -43,7 +43,7 @@ export class ProfileService {
       }),
       catchError((): Observable<T> => {
         this.errorService.showError('Could not load blocks. Please try again');
-        return throwError(() => new Error('Could not load blocks. Please try again'));
+        return of();
       }),
     );
   }
@@ -58,7 +58,7 @@ export class ProfileService {
       }),
       catchError((): Observable<void> => {
         this.errorService.showError('Could not create block. Please try again');
-        return throwError(() => new Error('Could not create block. Please try again'));
+        return of();
       }),
     );
   }
@@ -78,7 +78,7 @@ export class ProfileService {
       }),
       catchError((): Observable<void> => {
         this.errorService.showError('Could not update block. Please try again');
-        return throwError(() => new Error('Could not update block. Please try again'));
+        return of();
       }),
     );
   }
@@ -93,7 +93,7 @@ export class ProfileService {
       }),
       catchError((): Observable<void> => {
         this.errorService.showError('Could not delete block. Please try again');
-        return throwError(() => new Error('Could not delete block. Please try again'));
+        return of();
       }),
     );
   }
