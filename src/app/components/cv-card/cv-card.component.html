@@ -1,4 +1,4 @@
-<div class="resume-card" (click)="openCreator()">
+<div class="resume-card">
   <!-- Preview -->
   <div class="preview-area">
     <div class="preview-inner">
@@ -50,7 +50,7 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Edit</button>
+        <button mat-menu-item (click)="openCreator()">Edit</button>
         <button mat-menu-item>Duplicate</button>
         <button mat-menu-item color="warn" (click)="deleteCv()">Delete</button>
       </mat-menu>
