@@ -1,1 +1,4 @@
+@if (error()) {
+<app-error-dialog [msg]="error()" />
+}
 <router-outlet />

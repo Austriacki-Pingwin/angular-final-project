@@ -1,0 +1,9 @@
+<dialog #dialog>
+  <div class="error">
+    <h2>Error</h2>
+    <p>{{ msg() }}</p>
+    <div class="confirmation-actions">
+      <button matButton="filled" (click)="onClearError()">Okay</button>
+    </div>
+  </div>
+</dialog>

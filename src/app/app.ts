@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { ErrorService } from './services/error.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ErrorDialogComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'angular-final-project';
+  public error = inject(ErrorService).errorMessage;
 }
