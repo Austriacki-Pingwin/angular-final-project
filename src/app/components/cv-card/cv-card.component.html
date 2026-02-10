@@ -51,8 +51,8 @@
 
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="openCreator()">Edit</button>
-        <button mat-menu-item>Duplicate</button>
-        <button mat-menu-item color="warn" (click)="deleteCv()">Delete</button>
+        <button mat-menu-item (click)="duplicateCv()">Duplicate</button>
+        <button mat-menu-item (click)="deleteCv()">Delete</button>
       </mat-menu>
     </div>
 

@@ -3,7 +3,7 @@ import { collection, doc, Firestore, Timestamp } from '@angular/fire/firestore';
 import type { CV, CVs } from '../models/collections.model';
 import { AuthService } from './auth.service';
 import { ProfileService } from './profile.service';
-import { forkJoin, map, type Observable, of, switchMap } from 'rxjs';
+import { forkJoin, map, type Observable, of, switchMap, take } from 'rxjs';
 import { type FullCVs, type FullCV } from '../models/cv.model';
 import type {
   About,
@@ -124,6 +124,37 @@ export class CvService {
         return this.profileService.createBlock<CV>('cvs', newCv).pipe(map(() => cvId));
       }),
     );
+  }
+
+  public duplicateCv(id: string): void {
+    this.authService.uid$
+      .pipe(
+        switchMap((userId) =>
+          this.profileService.getBlock<CV>('cvs', id).pipe(
+            take(1),
+            switchMap((cv) => {
+              const cvId = doc(collection(this.firestore, `users/${userId}/cvs`)).id;
+
+              const duplicateCv: CV = {
+                ...cv,
+                id: cvId,
+                createdAt: Timestamp.now(),
+                updatedAt: Timestamp.now(),
+              };
+
+              return this.profileService.createBlock<CV>('cvs', duplicateCv).pipe(map(() => cvId));
+            }),
+          ),
+        ),
+      )
+      .subscribe({
+        next: () => {
+          console.log('CV successfully duplicated');
+        },
+        error: (err) => {
+          console.error('Error when duplicating CV:', err);
+        },
+      });
   }
 
   public deleteCv(id: string): void {

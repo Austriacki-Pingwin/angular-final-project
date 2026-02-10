@@ -36,4 +36,8 @@ export class CvCardComponent implements OnChanges {
   public openCreator(): void {
     this.router.navigate(['creator', this.cv().id]);
   }
+
+  public duplicateCv(): void {
+    this.cvService.duplicateCv(this.cv().id);
+  }
 }

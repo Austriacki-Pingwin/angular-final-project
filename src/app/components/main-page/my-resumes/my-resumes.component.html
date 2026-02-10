@@ -2,6 +2,15 @@
 <h3>My Resumes</h3>
 <div class="cv-container">
   <app-add-cv-card />
+  @if (!cvs) {
+    <div class="skeleton-layer">
+      <ngx-skeleton-loader
+        count="3"
+        appearance="square"
+        [theme]="{ width: '290px', height: '365px', 'border-radius': '16px' }"
+      />
+    </div>
+  }
   @if (cvs && cvs.length) {
     @for (cv of cvs; track cv.id) {
       <app-cv-card [cv]="cv" />

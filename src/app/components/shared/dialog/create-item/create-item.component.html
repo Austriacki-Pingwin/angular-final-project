@@ -1,0 +1,19 @@
+<h2>Create CV</h2>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      formControlName="title"
+      (input)="updateErrorMessage()"
+      (blur)="updateErrorMessage()"
+    />
+    @if (form.controls.title.invalid) {
+      <mat-error>{{ errorMessages() }}</mat-error>
+    }
+  </mat-form-field>
+  <button [disabled]="form.controls.title.invalid || loading()" type="submit" matButton="filled">
+    {{ loading() ? 'Adding...' : 'Add' }}
+  </button>
+</form>
