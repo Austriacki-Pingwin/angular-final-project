@@ -3,7 +3,7 @@ import { collection, doc, Firestore, Timestamp } from '@angular/fire/firestore';
 import type { CV, CVs } from '../models/collections.model';
 import { AuthService } from './auth.service';
 import { ProfileService } from './profile.service';
-import { catchError, forkJoin, map, type Observable, of, switchMap, take } from 'rxjs';
+import { catchError, forkJoin, map, type Observable, of, switchMap, take, throwError } from 'rxjs';
 import { type FullCVs, type FullCV } from '../models/cv.model';
 import type {
   About,
@@ -16,7 +16,6 @@ import type {
 } from '../models/blocks.model';
 import { EMPTY_CV, EMPTY_FULL_CV } from '../models/empty-cv';
 import { mapBlocksToStream } from '../utils/cv-map-blocks.util';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,6 @@ export class CvService {
   private firestore = inject(Firestore);
   private authService = inject(AuthService);
   private profileService = inject(ProfileService);
-  private errorService = inject(ErrorService);
 
   private _cvs = signal<CVs>([]);
   public cvs = this._cvs.asReadonly();
@@ -34,8 +32,7 @@ export class CvService {
     return this.profileService.getBlock<CV>('cvs', id).pipe(
       switchMap((cv) => this.buildFullCv(cv)),
       catchError((): Observable<FullCV> => {
-        this.errorService.showError('Could not load CV. Please try again');
-        return of();
+        return throwError(() => new Error('Could not load CV. Please try again'));
       }),
     );
   }
@@ -49,8 +46,7 @@ export class CvService {
         return forkJoin(cvs.map((cv) => this.buildFullCv(cv)));
       }),
       catchError((): Observable<FullCVs> => {
-        this.errorService.showError('Could not load CVs. Please try again');
-        return of();
+        return throwError(() => new Error('Could not load CVs. Please try again'));
       }),
     );
   }

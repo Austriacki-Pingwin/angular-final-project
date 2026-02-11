@@ -43,11 +43,7 @@ export class CreateItemComponent {
     this.cvService.createCv(form.title).subscribe({
       next: () => {
         this.loading.set(false);
-        this.dialogRef.close();
-      },
-      error: (err) => {
-        this.loading.set(false);
-        console.error('Create item failed', err);
+        this.dialogRef.close({ saved: true });
       },
     });
   }

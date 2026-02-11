@@ -12,6 +12,7 @@ import {
 export type DialogData<T = unknown> = {
   component: ComponentType<T>;
   inputs?: Partial<T>;
+  buttonText?: string;
 };
 
 @Component({
