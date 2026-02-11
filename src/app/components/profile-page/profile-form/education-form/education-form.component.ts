@@ -1,14 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import type { Education } from '../../../../models/blocks.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { AsyncPipe } from '@angular/common';
-import { ProfileService } from '../../../../services/profile.service';
-import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-education-form',
@@ -18,17 +14,13 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    ProfileBlockComponent,
-    AsyncPipe,
     NgxSkeletonLoaderModule,
   ],
   templateUrl: './education-form.component.html',
   styleUrl: './education-form.component.scss',
 })
 export class EducationFormComponent {
-  private profileService = inject(ProfileService);
-
-  public education$ = this.profileService.getBlocks<Education>('education');
+  private dialogRef = inject(MatDialogRef);
 
   public form = new FormGroup({
     degree: new FormControl<string>('', {
@@ -50,17 +42,10 @@ export class EducationFormComponent {
 
   public save(): void {
     if (this.form.invalid) return;
-
-    this.profileService
-      .createBlock('education', {
-        id: crypto.randomUUID(),
-        ...this.form.getRawValue(),
-      })
-      .subscribe({
-        error: (err) => {
-          console.error('Create education block failed', err);
-        },
-      });
+    this.dialogRef.close({
+      id: crypto.randomUUID(),
+      ...this.form.getRawValue(),
+    });
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();

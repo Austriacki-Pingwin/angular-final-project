@@ -1,35 +1,12 @@
-<!-- @let languageData = languages$ | async;
-
-<div class="crossfade-container">
-  <div class="skeleton-layer" [class.hidden]="languageData">
-    <ngx-skeleton-loader
-      count="4"
-      appearance="line"
-      [theme]="{
-        height: '32px',
-        marginBottom: '12px',
-        width: '100%',
-      }"
-    >
-    </ngx-skeleton-loader>
-  </div>
-
-  @if (languageData) {
-    <div class="content-layer">
-      <app-profile-block [blockData]="languageData" [blockType]="'languages'"> </app-profile-block>
-    </div>
-  }
-</div> -->
-
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
-  <mat-form-field appearance="outline" color="accent">
+  <mat-form-field appearance="outline">
     <mat-label>Language</mat-label>
     <input matInput formControlName="name" placeholder="Your Language" />
     @if (form.controls.name.invalid && form.controls.name.touched) {
       <mat-error> Language is required </mat-error>
     }
   </mat-form-field>
-  <mat-form-field appearance="outline" color="accent" class="skill-input">
+  <mat-form-field appearance="outline">
     <mat-label>Proficiency</mat-label>
     <mat-select formControlName="proficiency">
       <mat-option value="Beginner">Beginner</mat-option>

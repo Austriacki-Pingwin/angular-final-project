@@ -1,6 +1,14 @@
 @use '../../../../styles/mixins' as *;
+:host {
+  position: relative;
+}
+app-tabs {
+  position: sticky;
+  top: 85px;
+  z-index: 1;
+}
 .form {
-  @include flex($direction: column);
+  @include flex($direction: column, $gap: 0);
 }
 
 .crossfade-container {

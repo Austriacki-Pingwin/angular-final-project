@@ -3,6 +3,10 @@
     color: var(--mat-sys-on-surface);
   }
 
+  ::ng-deep .mat-mdc-tab-header {
+    background-color: var(--mat-sys-background);
+  }
+
   ::ng-deep .mdc-tab-indicator__content--underline {
     border-color: var(--mat-sys-on-surface);
     border-radius: 8px;
