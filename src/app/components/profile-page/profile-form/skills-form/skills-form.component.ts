@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
+import type { Skill } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-skills-form',
@@ -23,6 +24,17 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class SkillsFormComponent {
   private dialogRef = inject(MatDialogRef);
+  public item = input<Skill | null>(null);
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
+
+      this.form.patchValue({
+        title: value.title,
+      });
+    });
+  }
 
   public form = new FormGroup({
     title: new FormControl('', {

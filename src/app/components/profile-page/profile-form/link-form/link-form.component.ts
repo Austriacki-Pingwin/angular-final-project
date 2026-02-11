@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
+import type { Link } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-link-form',
@@ -20,6 +21,20 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class LinkFormComponent {
   private dialogRef = inject(MatDialogRef);
+  public item = input<Link | null>(null);
+
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
+
+      this.form.patchValue({
+        label: value.label,
+        url: value.url,
+      });
+    });
+  }
+
   public form = new FormGroup({
     label: new FormControl<string>('', {
       validators: [Validators.required],

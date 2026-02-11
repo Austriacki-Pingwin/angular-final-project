@@ -12,20 +12,6 @@ export const PRIVATE_ROUTES: Routes = [
   {
     path: 'profile',
     title: 'User profile',
-    // children: [
-    //   {
-    //     path: '',
-    //     component: ProfilePageComponent,
-    //   },
-    //   {
-    //     path: 'skills',
-    //     component: SkillsBlockComponent,
-    //   },
-    //   {
-    //     path: ':blockId',
-    //     component: BlockPageComponent,
-    //   },
-    // ],
     component: ProfilePageComponent,
   },
   {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
+import type { Experience } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-experience-form',
@@ -23,6 +24,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ExperienceFormComponent {
   private dialogRef = inject(MatDialogRef);
+  public item = input<Experience | null>(null);
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
+
+      this.form.patchValue({
+        position: value.position,
+        company: value.company,
+        location: value.location,
+        startDate: value.startDate,
+        endDate: value.endDate,
+        description: value.description,
+      });
+    });
+  }
 
   public form = new FormGroup({
     position: new FormControl('', {

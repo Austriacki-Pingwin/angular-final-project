@@ -8,7 +8,7 @@ import { DeleteItemComponent } from '../../shared/dialog/delete-item/delete-item
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
-import { type Observable } from 'rxjs';
+import { take, type Observable } from 'rxjs';
 import type { Type } from '@angular/core';
 import { PersonalFormComponent } from '../profile-form/personal-form/personal-form.component';
 import { AboutFormComponent } from '../profile-form/about-form/about-form.component';
@@ -17,7 +17,6 @@ import { ExperienceFormComponent } from '../profile-form/experience-form/experie
 import { SkillsFormComponent } from '../profile-form/skills-form/skills-form.component';
 import { LinkFormComponent } from '../profile-form/link-form/link-form.component';
 import { LanguageFormComponent } from '../profile-form/language-form/language-form.component';
-import { NgxSkeletonLoaderComponent } from 'ngx-skeleton-loader';
 
 const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
   personal: PersonalFormComponent,
@@ -31,15 +30,7 @@ const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
 
 @Component({
   selector: 'app-profile-block',
-  imports: [
-    ProfileBlockItemComponent,
-    MatIconButton,
-    AsyncPipe,
-    MatIcon,
-    AsyncPipe,
-    MatButton,
-    NgxSkeletonLoaderComponent,
-  ],
+  imports: [ProfileBlockItemComponent, MatIconButton, AsyncPipe, MatIcon, AsyncPipe, MatButton],
   templateUrl: './profile-block.component.html',
   styleUrl: './profile-block.component.scss',
 })
@@ -49,11 +40,12 @@ export class ProfileBlockComponent implements OnInit {
   public blockData$!: Observable<ProfileBlockItem[]>;
   public formComponent = computed(() => PROFILE_BLOCK_COMPONENTS[this.blockType()]);
   public ngOnInit(): void {
-    this.blockData$ = this.profileService.getBlocks<ProfileBlockItem>(this.blockType()).pipe();
+    this.blockData$ = this.profileService.getBlocks<ProfileBlockItem>(this.blockType());
   }
 
   private dialog = inject(MatDialog);
-  public openDeleteDialog(itemId: string): void {
+
+  public removeItem(itemId: string): void {
     const ref = this.dialog.open(DialogComponent, {
       data: {
         component: DeleteItemComponent,
@@ -65,7 +57,30 @@ export class ProfileBlockComponent implements OnInit {
     });
     ref.afterClosed().subscribe();
   }
-  public openAddDialog(): void {
+
+  public editItem(itemId: string): void {
+    this.profileService
+      .getBlock<ProfileBlockItem>(this.blockType(), itemId)
+      .pipe(take(1))
+      .subscribe((item) => {
+        const ref = this.dialog.open(DialogComponent, {
+          data: {
+            component: this.formComponent(),
+            inputs: {
+              item,
+            },
+          },
+        });
+
+        ref.afterClosed().subscribe((value?: ProfileBlockItem) => {
+          if (!value) return;
+
+          this.profileService.updateBlock(this.blockType(), itemId, value).subscribe();
+        });
+      });
+  }
+
+  public addItem(): void {
     const ref = this.dialog.open(DialogComponent, {
       data: {
         component: this.formComponent(),
@@ -77,18 +92,5 @@ export class ProfileBlockComponent implements OnInit {
       if (value === undefined) return;
       this.profileService.createBlock(this.blockType(), value).subscribe();
     });
-  }
-
-  public removeItem(itemId: string): void {
-    this.openDeleteDialog(itemId);
-  }
-
-  public editItem(itemId: string): void {
-    console.log('Edit item', itemId);
-    //todo
-  }
-
-  public addItem(): void {
-    this.openAddDialog();
   }
 }

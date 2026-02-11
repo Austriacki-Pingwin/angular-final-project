@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatOption } from '@angular/material/autocomplete';
 import { MatSelect } from '@angular/material/select';
 import { MatDialogRef } from '@angular/material/dialog';
+import type { Language } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-language-form',
@@ -27,6 +28,18 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class LanguageFormComponent {
   private dialogRef = inject(MatDialogRef);
+  public item = input<Language | null>(null);
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
+
+      this.form.patchValue({
+        name: value.name,
+        proficiency: value.proficiency,
+      });
+    });
+  }
 
   public form = new FormGroup({
     name: new FormControl('', {

@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
+import type { Education } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-education-form',
@@ -21,6 +22,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class EducationFormComponent {
   private dialogRef = inject(MatDialogRef);
+  public item = input<Education | null>(null);
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
+
+      this.form.patchValue({
+        degree: value.degree,
+        institution: value.institution,
+        location: value.location,
+        startDate: value.startDate,
+        endDate: value.endDate,
+        description: value.description,
+      });
+    });
+  }
 
   public form = new FormGroup({
     degree: new FormControl<string>('', {
