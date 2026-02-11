@@ -1,14 +1,16 @@
-@for (item of blockData(); track item.id) {
+<p>hjsjkjsjdj</p>
+@for (item of blockData$ | async; track item.id) {
   <div class="item">
+    <button matIconButton aria-label="Edit item" type="button" (click)="editItem(item.id)">
+      <mat-icon>edit</mat-icon>
+    </button>
     <app-profile-block-item [itemData]="item" [blockType]="blockType()"></app-profile-block-item>
-    <button
-      mat-stroked-button
-      color="warn"
-      class="danger-btn"
-      type="button"
-      (click)="removeItem(item.id)"
-    >
-      Remove
+    <button matIconButton aria-label="Delete item" type="button" (click)="removeItem(item.id)">
+      <mat-icon>delete</mat-icon>
     </button>
   </div>
 }
+
+<button matButton="filled" aria-label="Add item" type="button" (click)="addItem()">
+  Add new item
+</button>

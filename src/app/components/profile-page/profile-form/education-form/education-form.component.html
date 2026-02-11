@@ -1,7 +1,6 @@
-@let educationData = education$ | async;
+<!-- @let educationData = education$ | async;
 
 <div class="crossfade-container">
-  <!-- skeleton -->
   <div class="skeleton-layer" [class.hidden]="educationData">
     <ngx-skeleton-loader
       count="2"
@@ -15,13 +14,12 @@
     </ngx-skeleton-loader>
   </div>
 
-  <!-- content -->
   @if (educationData) {
     <div class="content-layer">
       <app-profile-block [blockData]="educationData" [blockType]="'education'"> </app-profile-block>
     </div>
   }
-</div>
+</div> -->
 
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="form-grid">

@@ -12,6 +12,8 @@ export type ProfileBlockType =
 
 export type CollectionType = ProfileBlockType | 'cvs';
 
+export type ProfileBlockItem = Personal | Education | Skill | Experience | About | Link | Language;
+
 export type Profile = {
   personalInfo: Personal[];
   linksInfo: Link[];

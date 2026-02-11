@@ -1,38 +1,32 @@
-import { Component, inject, input } from '@angular/core';
-import type {
-  About,
-  Education,
-  Experience,
-  Link,
-  Personal,
-  Skill,
-  Language,
-} from '../../../models/blocks.model';
+import { Component, inject, input, type OnInit } from '@angular/core';
 import { ProfileBlockItemComponent } from './profile-block-item/profile-block-item.component';
-import { MatButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { ProfileService } from '../../../services/profile.service';
-import { type ProfileBlockType } from '../../../models/collections.model';
+import type { ProfileBlockItem, ProfileBlockType } from '../../../models/collections.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteItemComponent } from '../../shared/dialog/delete-item/delete-item.component';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { MatIcon } from '@angular/material/icon';
+import { AsyncPipe } from '@angular/common';
+import { type Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-block',
-  imports: [ProfileBlockItemComponent, MatButton],
+  imports: [ProfileBlockItemComponent, MatIconButton, AsyncPipe, MatIcon, AsyncPipe],
   templateUrl: './profile-block.component.html',
   styleUrl: './profile-block.component.scss',
 })
-export class ProfileBlockComponent {
+export class ProfileBlockComponent implements OnInit {
   private profileService = inject(ProfileService);
-  public blockData = input.required<
-    Personal[] | Education[] | Skill[] | Experience[] | About[] | Link[] | Language[]
-  >();
   public blockType = input.required<ProfileBlockType>();
+  public blockData$!: Observable<ProfileBlockItem[]>;
+  public ngOnInit(): void {
+    this.blockData$ = this.profileService.getBlocks<ProfileBlockItem>(this.blockType()).pipe();
+  }
 
   private dialog = inject(MatDialog);
-  public openDialog(itemId: string): void {
+  public openDeleteDialog(itemId: string): void {
     const ref = this.dialog.open(DialogComponent, {
-      width: '500px',
       data: {
         component: DeleteItemComponent,
         inputs: {
@@ -41,12 +35,19 @@ export class ProfileBlockComponent {
         },
       },
     });
-    ref.afterClosed().subscribe((result) => {
-      console.log('Dialog result:', result);
-    });
+    ref.afterClosed().subscribe();
   }
 
   public removeItem(itemId: string): void {
-    this.openDialog(itemId);
+    this.openDeleteDialog(itemId);
+  }
+
+  public editItem(itemId: string): void {
+    console.log('Edit item', itemId);
+    //todo
+  }
+
+  public addItem(): void {
+    //TODO
   }
 }
