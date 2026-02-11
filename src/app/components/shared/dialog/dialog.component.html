@@ -3,5 +3,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="close()">Close</button>
+  <button [matButton]="data.buttonText ? 'filled' : ''" (click)="close()">
+    {{ data.buttonText ?? 'Close' }}
+  </button>
 </mat-dialog-actions>

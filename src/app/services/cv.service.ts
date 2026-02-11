@@ -3,7 +3,7 @@ import { collection, doc, Firestore, Timestamp } from '@angular/fire/firestore';
 import type { CV, CVs } from '../models/collections.model';
 import { AuthService } from './auth.service';
 import { ProfileService } from './profile.service';
-import { forkJoin, map, type Observable, of, switchMap, take } from 'rxjs';
+import { catchError, forkJoin, map, type Observable, of, switchMap, take, throwError } from 'rxjs';
 import { type FullCVs, type FullCV } from '../models/cv.model';
 import type {
   About,
@@ -29,9 +29,12 @@ export class CvService {
   public cvs = this._cvs.asReadonly();
 
   public getFullCv(id: string): Observable<FullCV> {
-    return this.profileService
-      .getBlock<CV>('cvs', id)
-      .pipe(switchMap((cv) => this.buildFullCv(cv)));
+    return this.profileService.getBlock<CV>('cvs', id).pipe(
+      switchMap((cv) => this.buildFullCv(cv)),
+      catchError((): Observable<FullCV> => {
+        return throwError(() => new Error('Could not load CV. Please try again'));
+      }),
+    );
   }
 
   public getFullCvs(): Observable<FullCVs> {
@@ -41,6 +44,9 @@ export class CvService {
           return of([]);
         }
         return forkJoin(cvs.map((cv) => this.buildFullCv(cv)));
+      }),
+      catchError((): Observable<FullCVs> => {
+        return throwError(() => new Error('Could not load CVs. Please try again'));
       }),
     );
   }

@@ -21,14 +21,7 @@ export class DeleteItemComponent {
   public hide = signal(true);
   public loading = signal(false);
   public deleteItem(): void {
-    this.profileService.deleteBlock(this.blockType(), this.itemId()).subscribe({
-      next: () => {
-        this.dialogRef.close({ saved: true });
-        //his.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error('Delete item failed', err);
-      },
-    });
+    this.dialogRef.close({ saved: true });
+    this.profileService.deleteBlock(this.blockType(), this.itemId()).subscribe();
   }
 }
