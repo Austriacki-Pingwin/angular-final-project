@@ -9,7 +9,7 @@ import {
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { filter, from, switchMap, take, type Observable } from 'rxjs';
+import { catchError, filter, from, switchMap, take, throwError, type Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { type CollectionType } from '../models/collections.model';
 
@@ -24,8 +24,10 @@ export class ProfileService {
     return this.authService.uid$.pipe(
       switchMap((userId) => {
         const ref = collection(this.firestore, `users/${userId}/${blockType}`);
-
         return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
+      }),
+      catchError((): Observable<T[]> => {
+        return throwError(() => new Error('Could not load blocks. Please try again'));
       }),
     );
   }
@@ -35,6 +37,9 @@ export class ProfileService {
         const ref = doc(this.firestore, `users/${userId}/${blockType}/${blockId}`);
 
         return docData(ref, { idField: 'id' }) as Observable<T>;
+      }),
+      catchError((): Observable<T> => {
+        return throwError(() => new Error('Could not load block. Please try again'));
       }),
     );
   }
@@ -46,6 +51,9 @@ export class ProfileService {
       switchMap((uid) => {
         const ref = doc(this.firestore, `users/${uid}/${blockType}/${block.id}`);
         return from(setDoc(ref, block));
+      }),
+      catchError((): Observable<void> => {
+        return throwError(() => new Error('Could not create block. Please try again'));
       }),
     );
   }
@@ -63,6 +71,9 @@ export class ProfileService {
 
         return from(updateDoc(ref, changes));
       }),
+      catchError((): Observable<void> => {
+        return throwError(() => new Error('Could not update block. Please try again'));
+      }),
     );
   }
 
@@ -72,8 +83,10 @@ export class ProfileService {
       take(1),
       switchMap((uid) => {
         const ref = doc(this.firestore, `users/${uid}/${blockType}/${blockId}`);
-
         return deleteDoc(ref);
+      }),
+      catchError((): Observable<void> => {
+        return throwError(() => new Error('Could not delete block. Please try again'));
       }),
     );
   }

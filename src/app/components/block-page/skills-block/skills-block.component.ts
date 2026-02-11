@@ -46,9 +46,6 @@ export class SkillsBlockComponent {
         next: () => {
           this.form.reset();
         },
-        error: (err) => {
-          console.error('Create skill failed', err);
-        },
       });
 
     this.form.reset();
