@@ -3,26 +3,25 @@
 <div class="form-wrapper">
   @switch (activeTab) {
     @case ('personal') {
-      <app-personal-form />
+      <app-profile-block [blockType]="'personal'" />
     }
     @case ('links') {
-      <app-link-form />
+      <app-profile-block [blockType]="'links'" />
     }
     @case ('about') {
-      <app-about-form />
+      <app-profile-block [blockType]="'about'" />
     }
     @case ('skills') {
-      <app-skills-form />
+      <app-profile-block [blockType]="'skills'" />
     }
-
     @case ('languages') {
-      <app-language-form />
+      <app-profile-block [blockType]="'languages'" />
     }
     @case ('experience') {
-      <app-experience-form />
+      <app-profile-block [blockType]="'experience'" />
     }
     @case ('education') {
-      <app-education-form />
+      <app-profile-block [blockType]="'education'" />
     }
   }
 </div>

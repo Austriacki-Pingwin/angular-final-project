@@ -1,4 +1,4 @@
 <h2>Are you sure you want to delete this item?</h2>
-<button mat-stroked-button [disabled]="loading()" (click)="deleteItem()">
+<button mat-button [disabled]="loading()" (click)="deleteItem()">
   {{ loading() ? 'Deleting...' : 'Delete Item' }}
 </button>

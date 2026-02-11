@@ -1,33 +1,37 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { type About } from '../../../../models/blocks.model';
-import { ProfileService } from '../../../../services/profile.service';
 import { MatButton } from '@angular/material/button';
-import { AsyncPipe } from '@angular/common';
-import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { MatDialogRef } from '@angular/material/dialog';
+import type { About } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-about-form',
   imports: [
-    AsyncPipe,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButton,
-    ProfileBlockComponent,
     NgxSkeletonLoaderModule,
   ],
   templateUrl: './about-form.component.html',
   styleUrl: './about-form.component.scss',
 })
 export class AboutFormComponent {
-  private profileService = inject(ProfileService);
+  private dialogRef = inject(MatDialogRef);
+  public item = input<About | null>(null);
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
 
-  public about$ = this.profileService.getBlocks<About>('about');
+      this.form.patchValue({
+        content: value.content,
+      });
+    });
+  }
 
   public form = new FormGroup({
     content: new FormControl<string>('', {
@@ -37,13 +41,10 @@ export class AboutFormComponent {
 
   public save(): void {
     if (this.form.invalid) return;
-
-    this.profileService
-      .createBlock('about', {
-        id: crypto.randomUUID(),
-        ...this.form.getRawValue(),
-      })
-      .subscribe();
+    this.dialogRef.close({
+      id: crypto.randomUUID(),
+      ...this.form.getRawValue(),
+    });
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();

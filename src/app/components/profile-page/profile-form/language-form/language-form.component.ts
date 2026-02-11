@@ -1,16 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { type Language } from '../../../../models/blocks.model';
-import { ProfileService } from '../../../../services/profile.service';
-import { ProfileBlockComponent } from '../../profile-block/profile-block.component';
-import { AsyncPipe } from '@angular/common';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatOption } from '@angular/material/autocomplete';
 import { MatSelect } from '@angular/material/select';
+import { MatDialogRef } from '@angular/material/dialog';
+import type { Language } from '../../../../models/blocks.model';
 
 @Component({
   selector: 'app-language-form',
@@ -21,8 +19,6 @@ import { MatSelect } from '@angular/material/select';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ProfileBlockComponent,
-    AsyncPipe,
     NgxSkeletonLoaderModule,
     MatOption,
     MatSelect,
@@ -31,11 +27,20 @@ import { MatSelect } from '@angular/material/select';
   styleUrl: './language-form.component.scss',
 })
 export class LanguageFormComponent {
-  private profileService = inject(ProfileService);
+  private dialogRef = inject(MatDialogRef);
+  public item = input<Language | null>(null);
+  constructor() {
+    effect(() => {
+      const value = this.item();
+      if (!value) return;
 
-  public languages$ = this.profileService.getBlocks<Language>('languages');
+      this.form.patchValue({
+        name: value.name,
+        proficiency: value.proficiency,
+      });
+    });
+  }
 
-  public isLoading = this.languages$.pipe();
   public form = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -49,13 +54,10 @@ export class LanguageFormComponent {
 
   public save(): void {
     if (this.form.invalid) return;
-
-    this.profileService
-      .createBlock('languages', {
-        id: crypto.randomUUID(),
-        ...this.form.getRawValue(),
-      })
-      .subscribe();
+    this.dialogRef.close({
+      id: crypto.randomUUID(),
+      ...this.form.getRawValue(),
+    });
     this.form.reset();
     this.form.markAsPristine();
     this.form.markAsUntouched();

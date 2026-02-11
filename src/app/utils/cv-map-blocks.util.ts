@@ -5,7 +5,7 @@ export function mapBlocksToStream<T>(
   getFn: (id: string) => Observable<T>,
   emptyValue: T[],
 ): Observable<T[]> {
-  if (!ids.length) {
+  if (ids === null || ids === undefined || !ids.length) {
     return of(emptyValue);
   }
 

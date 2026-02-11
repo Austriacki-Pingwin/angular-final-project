@@ -1,4 +1,10 @@
 @use '../../../styles/mixins' as *;
 main {
-  @include flex();
+  @include flex($align: flex-start);
+  position: relative;
+}
+app-preview {
+  position: sticky;
+  top: 85px;
+  z-index: 1;
 }

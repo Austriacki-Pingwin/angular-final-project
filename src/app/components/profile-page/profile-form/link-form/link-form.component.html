@@ -1,28 +1,5 @@
-@let linkData = links$ | async;
-
-<div class="crossfade-container">
-  <div class="skeleton-layer" [class.hidden]="linkData">
-    <ngx-skeleton-loader
-      count="5"
-      appearance="line"
-      [theme]="{
-        height: '32px',
-        marginBottom: '12px',
-        width: '100%',
-      }"
-    >
-    </ngx-skeleton-loader>
-  </div>
-
-  @if (linkData) {
-    <div class="content-layer">
-      <app-profile-block [blockData]="linkData" [blockType]="'links'"> </app-profile-block>
-    </div>
-  }
-</div>
-
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
-  <mat-form-field appearance="outline" color="accent">
+  <mat-form-field appearance="outline">
     <mat-label>Shortcut</mat-label>
     <input matInput formControlName="label" />
     @if (form.controls.label.invalid && form.controls.label.touched) {
@@ -30,7 +7,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field appearance="outline" color="accent">
+  <mat-form-field appearance="outline">
     <mat-label>URL</mat-label>
     <input matInput formControlName="url" />
     @if (form.controls.url.invalid && form.controls.url.touched) {
