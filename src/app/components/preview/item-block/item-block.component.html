@@ -1,0 +1,3 @@
+@let _blocks = blocks();
+<h4 #title>{{ _blocks.type }}</h4>
+<ng-container *ngComponentOutlet="componentMap[_blocks.type]; inputs: { data: _blocks.data }" />

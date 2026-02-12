@@ -1,5 +1,11 @@
-@if (cv(); as cv) {
-  <pre>{{ cv.id | json }}</pre>
-} @else {
-  <p>Oops</p>
-}
+@let _cv = cv();
+<h3>Preview</h3>
+<div class="wrapper">
+  @if (_cv) {
+    @for (blocks of cvBlocks; track blocks.type) {
+      <app-item-block [blocks]="blocks" />
+    }
+  } @else {
+    <p>Oops</p>
+  }
+</div>

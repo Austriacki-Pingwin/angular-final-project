@@ -1,6 +1,12 @@
 @use '../../../styles/mixins' as *;
+
+:host {
+  height: 100vh;
+}
+
 main {
   @include flex($align: flex-start);
+  height: 100%;
   position: relative;
 }
 app-preview {

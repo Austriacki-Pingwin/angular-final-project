@@ -1,0 +1,9 @@
+@let links = data();
+
+@if (links.length) {
+  @for (link of links; track link) {
+    <p>{{ link | json }}</p>
+  }
+} @else {
+  <p>This block is not available yet</p>
+}

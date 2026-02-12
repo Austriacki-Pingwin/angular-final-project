@@ -1,0 +1,9 @@
+@let skills = data();
+
+@if (skills.length) {
+  @for (skill of skills; track skill) {
+    <p>{{ skill | json }}</p>
+  }
+} @else {
+  <p>This block is not available yet</p>
+}

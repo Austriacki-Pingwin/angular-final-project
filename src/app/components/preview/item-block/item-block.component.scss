@@ -1,0 +1,37 @@
+@use '../../../../styles/mixins' as mixins;
+:host {
+  @include mixins.flex($direction: column);
+
+  &[data-block='title'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='personal'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='about'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='links'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='experience'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='education'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='languages'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+  &[data-block='skills'] {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+}
