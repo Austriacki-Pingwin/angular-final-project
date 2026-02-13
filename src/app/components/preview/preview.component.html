@@ -1,9 +1,9 @@
-@let _cvBlocks = cvBlocks();
+@let blocks = cvBlocks();
 <h3>Preview</h3>
 <div class="wrapper">
-  @if (_cvBlocks) {
-    @for (blocks of _cvBlocks; track blocks.type) {
-      <app-item-block [blocks]="blocks" />
+  @if (blocks.length) {
+    @for (block of blocks; track block.type) {
+      <app-item-block [cvBlock]="block" />
     }
   } @else {
     <p>Oops</p>

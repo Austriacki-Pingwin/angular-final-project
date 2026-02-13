@@ -1,7 +1,7 @@
 @let abouts = data();
 
 @if (abouts.length) {
-  @for (about of abouts; track about) {
+  @for (about of abouts; track about.id) {
     <p>{{ about | json }}</p>
   }
 } @else {

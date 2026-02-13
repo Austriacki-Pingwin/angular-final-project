@@ -10,8 +10,4 @@ import { CommonModule } from '@angular/common';
 })
 export class LanguagesItemComponent {
   public data = input.required<Language[]>();
-
-  public ngOnInit(): void {
-    console.log(this.data());
-  }
 }

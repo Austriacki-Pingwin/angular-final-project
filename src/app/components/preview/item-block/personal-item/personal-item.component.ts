@@ -1,4 +1,4 @@
-import { Component, input, type OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { type Personal } from '../../../../models/blocks.model';
 import { CommonModule } from '@angular/common';
 
@@ -8,10 +8,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './personal-item.component.html',
   styleUrl: './personal-item.component.scss',
 })
-export class PersonalItemComponent implements OnInit {
+export class PersonalItemComponent {
   public data = input.required<Personal[]>();
-
-  public ngOnInit(): void {
-    console.log(this.data());
-  }
 }

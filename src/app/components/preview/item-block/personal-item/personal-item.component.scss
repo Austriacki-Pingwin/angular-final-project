@@ -2,10 +2,10 @@
 
 :host {
   @include mixins.flex($direction: column);
-  &.personal {
+  .personal {
     @include mixins.flex();
   }
-  &.contact {
+  .contact {
     @include mixins.flex();
   }
 }

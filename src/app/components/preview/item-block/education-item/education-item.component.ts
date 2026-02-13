@@ -10,8 +10,4 @@ import { CommonModule } from '@angular/common';
 })
 export class EducationItemComponent {
   public data = input.required<Education[]>();
-
-  public ngOnInit(): void {
-    console.log(this.data());
-  }
 }

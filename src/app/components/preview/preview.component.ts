@@ -1,6 +1,18 @@
 import { Component, computed, input } from '@angular/core';
-import { type FullCVBlockType, type FullCV } from '../../models/cv.model';
+import { type FullCVPreviewBlockType, type FullCV } from '../../models/cv.model';
 import { ItemBlockComponent } from './item-block/item-block.component';
+import { type PreviewBlockType } from '../../models/collections.model';
+
+const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
+  'title',
+  'personal',
+  'about',
+  'skills',
+  'experience',
+  'education',
+  'languages',
+  'links',
+];
 
 @Component({
   selector: 'app-preview',
@@ -11,12 +23,12 @@ import { ItemBlockComponent } from './item-block/item-block.component';
 export class PreviewComponent {
   public cv = input.required<FullCV>();
 
-  public cvBlocks = computed<FullCVBlockType[]>(() => {
+  public cvBlocks = computed<FullCVPreviewBlockType[]>(() => {
     const value = this.cv();
-    const excludedKeys: Array<keyof FullCV> = ['id', 'createdAt', 'updatedAt'];
 
-    return (Object.keys(value) as Array<keyof FullCV>)
-      .filter((key) => !excludedKeys.includes(key))
-      .map((key) => ({ type: key, data: value[key] })) as FullCVBlockType[];
+    return PREVIEW_BLOCKS.map((key) => ({
+      type: key,
+      data: value[key],
+    })) as FullCVPreviewBlockType[];
   });
 }

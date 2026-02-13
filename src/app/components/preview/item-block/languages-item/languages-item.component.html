@@ -1,7 +1,7 @@
 @let languages = data();
 
 @if (languages.length) {
-  @for (language of languages; track language) {
+  @for (language of languages; track language.id) {
     <p>{{ language | json }}</p>
   }
 } @else {

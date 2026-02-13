@@ -1,7 +1,7 @@
 @let links = data();
 
 @if (links.length) {
-  @for (link of links; track link) {
+  @for (link of links; track link.id) {
     <p>{{ link | json }}</p>
   }
 } @else {

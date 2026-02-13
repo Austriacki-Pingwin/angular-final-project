@@ -1,7 +1,7 @@
 @let educations = data();
 
 @if (educations.length) {
-  @for (education of educations; track education) {
+  @for (education of educations; track education.id) {
     <p>{{ education | json }}</p>
   }
 } @else {

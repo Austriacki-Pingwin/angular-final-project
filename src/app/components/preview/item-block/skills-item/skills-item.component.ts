@@ -10,8 +10,4 @@ import { CommonModule } from '@angular/common';
 })
 export class SkillsItemComponent {
   public data = input.required<Skill[]>();
-
-  public ngOnInit(): void {
-    console.log(this.data());
-  }
 }

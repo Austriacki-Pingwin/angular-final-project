@@ -2,7 +2,7 @@
 
 import { type Timestamp } from '@angular/fire/firestore';
 import type { About, Education, Experience, Language, Link, Personal, Skill } from './blocks.model';
-import { type ProfileBlockType } from './collections.model';
+import { type PreviewBlockType } from './collections.model';
 
 export type FullCVs = FullCV[];
 
@@ -20,9 +20,9 @@ export type FullCV = {
   updatedAt: Timestamp;
 };
 
-export type FullCVBlockType = {
-  [K in ProfileBlockType | 'title']: {
+export type FullCVPreviewBlockType = {
+  [K in PreviewBlockType]: {
     type: K;
     data: FullCV[K];
   };
-}[ProfileBlockType | 'title'];
+}[PreviewBlockType];
