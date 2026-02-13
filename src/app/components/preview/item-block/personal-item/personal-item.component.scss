@@ -1,0 +1,11 @@
+@use '../../../../../styles/mixins' as mixins;
+
+:host {
+  @include mixins.flex($direction: column);
+  .personal {
+    @include mixins.flex();
+  }
+  .contact {
+    @include mixins.flex();
+  }
+}

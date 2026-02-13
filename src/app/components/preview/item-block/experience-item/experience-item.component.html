@@ -1,0 +1,9 @@
+@let experiences = data();
+
+@if (experiences.length) {
+  @for (experience of experiences; track experience.id) {
+    <p>{{ experience | json }}</p>
+  }
+} @else {
+  <p>This block is not available yet</p>
+}

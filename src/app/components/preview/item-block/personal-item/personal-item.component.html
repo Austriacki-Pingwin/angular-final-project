@@ -1,0 +1,18 @@
+@let personal = data();
+
+@if (personal.length) {
+  <div class="personal">
+    <h2 class="first-name">{{ personal[0].firstName }}</h2>
+    <h2 class="last-name">{{ personal[0].lastName }}</h2>
+  </div>
+  <div>
+    <p>Front-End Developer</p>
+  </div>
+  <div class="contact">
+    <span class="email">{{ personal[0].email }}</span>
+    <span class="phone">{{ personal[0].phone }}</span>
+    <span class="location">{{ personal[0].location }}</span>
+  </div>
+} @else {
+  <p>This block is not available yet</p>
+}
