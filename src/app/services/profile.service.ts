@@ -9,9 +9,10 @@ import {
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { catchError, filter, from, switchMap, take, throwError, type Observable } from 'rxjs';
+import { catchError, filter, from, of, switchMap, take, type Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { type CollectionType } from '../models/collections.model';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ import { type CollectionType } from '../models/collections.model';
 export class ProfileService {
   private firestore = inject(Firestore);
   private authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
 
   public getBlocks<T>(blockType: CollectionType): Observable<T[]> {
     return this.authService.uid$.pipe(
@@ -27,7 +29,8 @@ export class ProfileService {
         return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
       }),
       catchError((): Observable<T[]> => {
-        return throwError(() => new Error('Could not load blocks. Please try again'));
+        this.notificationService.error('Could not load blocks. Please try again');
+        return of();
       }),
     );
   }
@@ -39,7 +42,8 @@ export class ProfileService {
         return docData(ref, { idField: 'id' }) as Observable<T>;
       }),
       catchError((): Observable<T> => {
-        return throwError(() => new Error('Could not load block. Please try again'));
+        this.notificationService.error('Could not load block. Please try again');
+        return of();
       }),
     );
   }
@@ -53,7 +57,8 @@ export class ProfileService {
         return from(setDoc(ref, block));
       }),
       catchError((): Observable<void> => {
-        return throwError(() => new Error('Could not create block. Please try again'));
+        this.notificationService.error('Could not create block. Please try again');
+        return of();
       }),
     );
   }
@@ -72,7 +77,8 @@ export class ProfileService {
         return from(updateDoc(ref, changes));
       }),
       catchError((): Observable<void> => {
-        return throwError(() => new Error('Could not update block. Please try again'));
+        this.notificationService.error('Could not update block. Please try again');
+        return of();
       }),
     );
   }
@@ -86,7 +92,8 @@ export class ProfileService {
         return deleteDoc(ref);
       }),
       catchError((): Observable<void> => {
-        return throwError(() => new Error('Could not delete block. Please try again'));
+        this.notificationService.error('Could not delete block. Please try again');
+        return of();
       }),
     );
   }
