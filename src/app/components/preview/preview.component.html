@@ -1,8 +1,8 @@
-@let _cv = cv();
+@let _cvBlocks = cvBlocks();
 <h3>Preview</h3>
 <div class="wrapper">
-  @if (_cv) {
-    @for (blocks of cvBlocks; track blocks.type) {
+  @if (_cvBlocks) {
+    @for (blocks of _cvBlocks; track blocks.type) {
       <app-item-block [blocks]="blocks" />
     }
   } @else {

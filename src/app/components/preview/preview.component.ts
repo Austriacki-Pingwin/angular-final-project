@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { type FullCVBlockType, type FullCV } from '../../models/cv.model';
 import { ItemBlockComponent } from './item-block/item-block.component';
 
@@ -11,11 +11,12 @@ import { ItemBlockComponent } from './item-block/item-block.component';
 export class PreviewComponent {
   public cv = input.required<FullCV>();
 
-  public get cvBlocks(): FullCVBlockType[] {
+  public cvBlocks = computed<FullCVBlockType[]>(() => {
     const value = this.cv();
-    const excludedKeys = ['id', 'createdAt', 'updatedAt'];
+    const excludedKeys: Array<keyof FullCV> = ['id', 'createdAt', 'updatedAt'];
+
     return (Object.keys(value) as Array<keyof FullCV>)
       .filter((key) => !excludedKeys.includes(key))
-      .map((item) => ({ type: item, data: value[item] })) as FullCVBlockType[];
-  }
+      .map((key) => ({ type: key, data: value[key] })) as FullCVBlockType[];
+  });
 }
