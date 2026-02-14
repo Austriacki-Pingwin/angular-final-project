@@ -9,7 +9,7 @@ import {
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { catchError, filter, from, of, switchMap, take, type Observable } from 'rxjs';
+import { catchError, filter, from, of, switchMap, take, tap, type Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { type CollectionType } from '../models/collections.model';
 import { NotificationService } from './notification.service';
@@ -28,7 +28,7 @@ export class ProfileService {
         const ref = collection(this.firestore, `users/${userId}/${blockType}`);
         return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
       }),
-      catchError((): Observable<T[]> => {
+      catchError(() => {
         this.notificationService.error('Could not load blocks. Please try again');
         return of();
       }),
@@ -41,7 +41,7 @@ export class ProfileService {
 
         return docData(ref, { idField: 'id' }) as Observable<T>;
       }),
-      catchError((): Observable<T> => {
+      catchError(() => {
         this.notificationService.error('Could not load block. Please try again');
         return of();
       }),
@@ -56,7 +56,8 @@ export class ProfileService {
         const ref = doc(this.firestore, `users/${uid}/${blockType}/${block.id}`);
         return from(setDoc(ref, block));
       }),
-      catchError((): Observable<void> => {
+      tap(() => this.notificationService.success('Block created successfully')),
+      catchError(() => {
         this.notificationService.error('Could not create block. Please try again');
         return of();
       }),
@@ -76,7 +77,8 @@ export class ProfileService {
 
         return from(updateDoc(ref, changes));
       }),
-      catchError((): Observable<void> => {
+      tap(() => this.notificationService.success('Block updated successfully')),
+      catchError(() => {
         this.notificationService.error('Could not update block. Please try again');
         return of();
       }),
@@ -91,7 +93,8 @@ export class ProfileService {
         const ref = doc(this.firestore, `users/${uid}/${blockType}/${blockId}`);
         return deleteDoc(ref);
       }),
-      catchError((): Observable<void> => {
+      tap(() => this.notificationService.success('Block deleted successfully')),
+      catchError(() => {
         this.notificationService.error('Could not delete block. Please try again');
         return of();
       }),
