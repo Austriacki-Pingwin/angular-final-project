@@ -6,6 +6,7 @@ import { type CV } from './collections.model';
 
 export const EMPTY_FULL_CV: Omit<FullCV, 'id'> = {
   title: '',
+  photo: [],
   personal: [],
   links: [],
   about: [],
@@ -19,6 +20,7 @@ export const EMPTY_FULL_CV: Omit<FullCV, 'id'> = {
 
 export const EMPTY_CV: Omit<CV, 'id'> = {
   title: '',
+  photo: [],
   personalBlock: [],
   linksBlock: [],
   aboutBlock: [],

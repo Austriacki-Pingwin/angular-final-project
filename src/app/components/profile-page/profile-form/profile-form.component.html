@@ -2,6 +2,9 @@
 
 <div class="form-wrapper">
   @switch (activeTab) {
+    @case ('photo') {
+      <app-profile-block [blockType]="'photo'" />
+    }
     @case ('personal') {
       <app-profile-block [blockType]="'personal'" />
     }

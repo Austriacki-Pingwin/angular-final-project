@@ -1,5 +1,11 @@
 export type Proficiency = 'Beginner' | 'Intermediate' | 'Advanced' | 'Native';
 
+export type Photo = {
+  id: string;
+  title: string;
+  imageBase64: string;
+};
+
 export type Personal = {
   id: string;
   firstName: string;

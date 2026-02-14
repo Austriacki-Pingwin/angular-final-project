@@ -18,8 +18,10 @@ import { ExperienceFormComponent } from '../profile-form/experience-form/experie
 import { SkillsFormComponent } from '../profile-form/skills-form/skills-form.component';
 import { LinkFormComponent } from '../profile-form/link-form/link-form.component';
 import { LanguageFormComponent } from '../profile-form/language-form/language-form.component';
+import { PhotoFormComponent } from '../profile-form/photo-form/photo-form.component';
 
 const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
+  photo: PhotoFormComponent,
   personal: PersonalFormComponent,
   skills: SkillsFormComponent,
   education: EducationFormComponent,

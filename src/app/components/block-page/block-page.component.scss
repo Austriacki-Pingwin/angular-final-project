@@ -1,4 +1,0 @@
-@use '../../../styles/mixins' as *;
-section {
-  @include flex($direction: column, $gap: 16px);
-}
