@@ -12,6 +12,7 @@ import type {
   Language,
   Link,
   Personal,
+  Photo,
   Skill,
 } from '../models/blocks.model';
 import { EMPTY_CV, EMPTY_FULL_CV } from '../models/empty-cv';
@@ -52,6 +53,11 @@ export class CvService {
   }
 
   private buildFullCv(cv: CV): Observable<FullCV> {
+    const photo$ = mapBlocksToStream<Photo>(
+      cv.photo,
+      (id) => this.profileService.getBlock('photo', id),
+      EMPTY_FULL_CV.photo,
+    );
     const personal$ = mapBlocksToStream<Personal>(
       cv.personalBlock,
       (id) => this.profileService.getBlock('personal', id),
@@ -94,6 +100,7 @@ export class CvService {
       EMPTY_FULL_CV.education,
     );
     return forkJoin({
+      photo: photo$,
       personal: personal$,
       links: links$,
       about: about$,

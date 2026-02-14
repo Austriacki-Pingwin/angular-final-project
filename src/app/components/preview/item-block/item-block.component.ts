@@ -14,6 +14,7 @@ import { type FullCVPreviewBlockType } from '../../../models/cv.model';
 
 const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>> = {
   title: TitleItemComponent,
+  photo: TitleItemComponent,
   personal: PersonalItemComponent,
   skills: SkillsItemComponent,
   links: LinksItemComponent,
