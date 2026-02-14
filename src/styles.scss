@@ -41,3 +41,27 @@ body {
   margin: 0 auto;
   padding: 0 2rem;
 }
+.success-snackbar {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: var(--mat-sys-on-primary-container),
+      supporting-text-color: var(--mat-sys-background),
+      container-shape: 3rem,
+    )
+  );
+  .mdc-snackbar__label {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.error-snackbar {
+  @include mat.snack-bar-overrides(
+    (
+      button-color: var(--mat-sys-on-error-container),
+      container-color: var(--mat-sys-error-container),
+      supporting-text-color: var(--mat-sys-on-error-container),
+      container-shape: 3rem,
+    )
+  );
+}
