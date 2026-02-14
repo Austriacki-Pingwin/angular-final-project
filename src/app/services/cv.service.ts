@@ -3,7 +3,7 @@ import { collection, doc, Firestore, Timestamp } from '@angular/fire/firestore';
 import type { CV, CVs } from '../models/collections.model';
 import { AuthService } from './auth.service';
 import { ProfileService } from './profile.service';
-import { catchError, forkJoin, map, type Observable, of, switchMap, take, throwError } from 'rxjs';
+import { catchError, forkJoin, map, type Observable, of, switchMap, take } from 'rxjs';
 import { type FullCVs, type FullCV } from '../models/cv.model';
 import type {
   About,
@@ -16,6 +16,7 @@ import type {
 } from '../models/blocks.model';
 import { EMPTY_CV, EMPTY_FULL_CV } from '../models/empty-cv';
 import { mapBlocksToStream } from '../utils/cv-map-blocks.util';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class CvService {
   private firestore = inject(Firestore);
   private authService = inject(AuthService);
   private profileService = inject(ProfileService);
+  private notificationService = inject(NotificationService);
 
   private _cvs = signal<CVs>([]);
   public cvs = this._cvs.asReadonly();
@@ -32,7 +34,8 @@ export class CvService {
     return this.profileService.getBlock<CV>('cvs', id).pipe(
       switchMap((cv) => this.buildFullCv(cv)),
       catchError((): Observable<FullCV> => {
-        return throwError(() => new Error('Could not load CV. Please try again'));
+        this.notificationService.error('Could not load CV. Please try again');
+        return of();
       }),
     );
   }
@@ -46,7 +49,8 @@ export class CvService {
         return forkJoin(cvs.map((cv) => this.buildFullCv(cv)));
       }),
       catchError((): Observable<FullCVs> => {
-        return throwError(() => new Error('Could not load CVs. Please try again'));
+        this.notificationService.error('Could not load CVs. Please try again');
+        return of();
       }),
     );
   }
@@ -111,6 +115,10 @@ export class CvService {
           ...blocks,
         };
       }),
+      catchError((): Observable<FullCV> => {
+        this.notificationService.error('Could not load CV. Please try again');
+        return of();
+      }),
     );
   }
 
@@ -128,6 +136,10 @@ export class CvService {
         };
 
         return this.profileService.createBlock<CV>('cvs', newCv).pipe(map(() => cvId));
+      }),
+      catchError((): Observable<string> => {
+        this.notificationService.error('Could not create CV. Please try again');
+        return of();
       }),
     );
   }
