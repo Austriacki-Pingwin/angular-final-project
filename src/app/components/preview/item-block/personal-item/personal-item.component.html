@@ -8,13 +8,21 @@
         <h1 class="last-name">{{ person.lastName }}</h1>
       </div>
       <div class="contact">
-        <span class="email">{{ person.email }}</span>
-        <span class="phone">{{ person.phone }}</span>
-        @if (person.location) {
-          <span class="location">{{ person.location }}</span>
-        }
+        <span class="email">
+          <mat-icon fontIcon="mail" />
+          {{ person.email }}</span
+        >
         @if (person.phone) {
-          <span class="phone">{{ person.phone }}</span>
+          <span class="phone">
+            <mat-icon fontIcon="call" />
+            {{ person.phone }}</span
+          >
+        }
+        @if (person.location) {
+          <span class="location">
+            <mat-icon fontIcon="location_on" />
+            {{ person.location }}</span
+          >
         }
       </div>
     }

@@ -7,5 +7,9 @@
   }
   .contact {
     @include mixins.flex();
+
+    span {
+      @include mixins.flex($gap: 5px);
+    }
   }
 }

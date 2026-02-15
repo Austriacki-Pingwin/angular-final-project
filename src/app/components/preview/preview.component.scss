@@ -7,10 +7,10 @@
   height: 100%;
 
   .wrapper {
-    @include mixins.flex($direction: column, $align: start, $justify: space-between);
+    @include mixins.flex($direction: column, $align: start, $justify: space-between, $gap: 25px);
     @include mat.elevation(8);
     flex: 1;
-    width: 550px;
+    width: 950px;
     background-color: var(--mat-sys-surface-container);
     color: var(--mat-sys-inverse-surface);
     padding: 14px;
