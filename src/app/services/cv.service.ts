@@ -1,9 +1,29 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { collection, doc, Firestore, Timestamp } from '@angular/fire/firestore';
-import type { CV, CVs } from '../models/collections.model';
+import {
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  Firestore,
+  setDoc,
+  Timestamp,
+} from '@angular/fire/firestore';
+import type { CV, CVs, ProfileBlockType } from '../models/collections.model';
 import { AuthService } from './auth.service';
 import { ProfileService } from './profile.service';
-import { catchError, forkJoin, map, type Observable, of, switchMap, take } from 'rxjs';
+import {
+  catchError,
+  filter,
+  forkJoin,
+  from,
+  map,
+  type Observable,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { type FullCVs, type FullCV } from '../models/cv.model';
 import type {
   About,
@@ -58,7 +78,7 @@ export class CvService {
 
   private buildFullCv(cv: CV): Observable<FullCV> {
     const photo$ = mapBlocksToStream<Photo>(
-      cv.photo,
+      cv.photoBlock,
       (id) => this.profileService.getBlock('photo', id),
       EMPTY_FULL_CV.photo,
     );
@@ -187,5 +207,76 @@ export class CvService {
       next: () => console.log('CV Deleted'),
       error: (err) => console.error('Error Delete:', err),
     });
+  }
+  public addBlockToCv(
+    blockType: ProfileBlockType,
+    block: { id: string },
+    cvId: string,
+  ): Observable<void> {
+    return this.authService.uid$.pipe(
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}/${block.id}`);
+        return from(setDoc(ref, block));
+      }),
+      tap(() => this.notificationService.success('Block added successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not add block. Please try again: ${err.message}`);
+        return of();
+      }),
+    );
+  }
+  public deleteBlockFromCv(
+    blockType: ProfileBlockType,
+    blockId: string,
+    cvId: string,
+  ): Observable<void> {
+    return this.authService.uid$.pipe(
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}/${blockId}`);
+        return from(deleteDoc(ref));
+      }),
+      tap(() => this.notificationService.success('Block deleted successfully')),
+      catchError(() => {
+        this.notificationService.error('Could not delete block. Please try again');
+        return of();
+      }),
+    );
+  }
+  public getBlocksFromCv<T>(blockType: ProfileBlockType, cvId: string): Observable<T[]> {
+    return this.authService.uid$.pipe(
+      filter((uid): uid is string => !!uid),
+      take(1),
+      switchMap((uid) => {
+        console.log('Getting blocks from CV with ID:', cvId, 'and block type:', blockType);
+        const ref = collection(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}`);
+        return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
+      }),
+      tap(() => this.notificationService.success('Blocks loaded successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not load blocks. Please try again: ${err.message}`);
+        return of([]);
+      }),
+    );
+  }
+  public getBlockFromCv<T>(
+    blockType: ProfileBlockType,
+    blockId: string,
+    cvId: string,
+  ): Observable<T> {
+    return this.authService.uid$.pipe(
+      filter((uid): uid is string => !!uid),
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}/${blockId}`);
+        return docData(ref, { idField: 'id' }) as Observable<T>;
+      }),
+      tap(() => this.notificationService.success('Block loaded successfully')),
+      catchError(() => {
+        this.notificationService.error('Could not load block. Please try again');
+        return of();
+      }),
+    );
   }
 }

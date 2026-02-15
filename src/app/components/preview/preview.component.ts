@@ -5,6 +5,7 @@ import { type PreviewBlockType } from '../../models/collections.model';
 
 const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
   'title',
+  'photo',
   'personal',
   'about',
   'skills',

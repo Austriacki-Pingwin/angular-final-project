@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, type OnInit } from '@angular/core';
+import { Component, computed, inject, input, model, type OnInit } from '@angular/core';
 import { ProfileBlockItemComponent } from './profile-block-item/profile-block-item.component';
 
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -19,6 +19,10 @@ import { SkillsFormComponent } from '../profile-form/skills-form/skills-form.com
 import { LinkFormComponent } from '../profile-form/link-form/link-form.component';
 import { LanguageFormComponent } from '../profile-form/language-form/language-form.component';
 import { PhotoFormComponent } from '../profile-form/photo-form/photo-form.component';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { CvService } from '../../../services/cv.service';
+import { ActivatedRoute } from '@angular/router';
 
 const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
   photo: PhotoFormComponent,
@@ -33,20 +37,51 @@ const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
 
 @Component({
   selector: 'app-profile-block',
-  imports: [ProfileBlockItemComponent, MatIconButton, AsyncPipe, MatIcon, AsyncPipe, MatButton],
+  imports: [
+    ProfileBlockItemComponent,
+    MatIconButton,
+    MatIcon,
+    AsyncPipe,
+    MatButton,
+    MatSlideToggle,
+    FormsModule,
+  ],
   templateUrl: './profile-block.component.html',
   styleUrl: './profile-block.component.scss',
 })
 export class ProfileBlockComponent implements OnInit {
   private profileService = inject(ProfileService);
+  private CvService = inject(CvService);
   public blockType = input.required<ProfileBlockType>();
   public blockData$!: Observable<ProfileBlockItem[]>;
+  public bloksInCv$!: Observable<ProfileBlockItem[]>;
   public formComponent = computed(() => PROFILE_BLOCK_COMPONENTS[this.blockType()]);
+  private activatedRoute = inject(ActivatedRoute);
+  public cvId = this.activatedRoute.snapshot.paramMap.get('cvId') ?? '';
+
+  public readonly checked = model(false);
+
+  public attachedIds = new Set<string>();
   public ngOnInit(): void {
     this.blockData$ = this.profileService.getBlocks<ProfileBlockItem>(this.blockType());
+    this.bloksInCv$ = this.CvService.getBlocksFromCv<ProfileBlockItem>(this.blockType(), this.cvId);
+    this.bloksInCv$.subscribe((blocks) => {
+      this.attachedIds = new Set(blocks.map((b) => b.id));
+    });
   }
 
   private dialog = inject(MatDialog);
+
+  public onToggle(itemId: string, isChecked: boolean): void {
+    if (isChecked) {
+      this.CvService.addBlockToCv(this.blockType(), { id: itemId }, this.cvId).subscribe();
+    } else {
+      this.CvService.deleteBlockFromCv(this.blockType(), itemId, this.cvId).subscribe();
+    }
+  }
+  public isChecked(itemId: string): boolean {
+    return this.attachedIds.has(itemId);
+  }
 
   public removeItem(itemId: string): void {
     const ref = this.dialog.open(DialogComponent, {

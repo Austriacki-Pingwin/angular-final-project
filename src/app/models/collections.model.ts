@@ -49,7 +49,7 @@ export type CVs = CV[];
 export type CV = {
   id: string;
   title: string;
-  photo: string[];
+  photoBlock: string[];
   personalBlock: string[];
   aboutBlock: string[];
   linksBlock: string[];

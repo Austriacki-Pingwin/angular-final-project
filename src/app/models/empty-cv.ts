@@ -20,7 +20,7 @@ export const EMPTY_FULL_CV: Omit<FullCV, 'id'> = {
 
 export const EMPTY_CV: Omit<CV, 'id'> = {
   title: '',
-  photo: [],
+  photoBlock: [],
   personalBlock: [],
   linksBlock: [],
   aboutBlock: [],
