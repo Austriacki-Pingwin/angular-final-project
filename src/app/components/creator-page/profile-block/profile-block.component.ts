@@ -75,9 +75,9 @@ export class ProfileBlockComponent implements OnInit {
 
   public onToggle(itemId: string, isChecked: boolean): void {
     if (isChecked) {
-      this.CvService.addBlockToCv(this.blockType(), { id: itemId }, this.cvId).subscribe();
+      this.CvService.testAddSkillToCv(this.blockType(), itemId, this.cvId).subscribe();
     } else {
-      this.CvService.deleteBlockFromCv(this.blockType(), itemId, this.cvId).subscribe();
+      this.CvService.testDeleteSkillToCv(this.blockType(), itemId, this.cvId).subscribe();
     }
   }
   public isChecked(itemId: string): boolean {

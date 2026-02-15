@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import {
+  arrayRemove,
+  arrayUnion,
   collection,
   collectionData,
   deleteDoc,
@@ -8,6 +10,7 @@ import {
   Firestore,
   setDoc,
   Timestamp,
+  updateDoc,
 } from '@angular/fire/firestore';
 import type { CV, CVs, ProfileBlockType } from '../models/collections.model';
 import { AuthService } from './auth.service';
@@ -274,6 +277,43 @@ export class CvService {
       tap(() => this.notificationService.success('Block loaded successfully')),
       catchError(() => {
         this.notificationService.error('Could not load block. Please try again');
+        return of();
+      }),
+    );
+  }
+  public testAddSkillToCv(block: string, blockId: string, cvId: string): Observable<void> {
+    return this.authService.uid$.pipe(
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}`);
+        return from(
+          updateDoc(ref, {
+            [block]: arrayUnion(blockId),
+          }),
+        );
+      }),
+      tap(() => this.notificationService.success('Block added successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not add skill. Please try again: ${err.message}`);
+        return of();
+      }),
+    );
+  }
+
+  public testDeleteSkillToCv(block: string, blockId: string, cvId: string): Observable<void> {
+    return this.authService.uid$.pipe(
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}`);
+        return from(
+          updateDoc(ref, {
+            [block]: arrayRemove(blockId),
+          }),
+        );
+      }),
+      tap(() => this.notificationService.success('Block deleted successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not add skill. Please try again: ${err.message}`);
         return of();
       }),
     );
