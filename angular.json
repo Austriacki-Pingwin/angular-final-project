@@ -17,6 +17,7 @@
           "skipTests": true
         },
         "@schematics/angular:pipe": {
+          "typeSeparator": ".",
           "skipTests": true
         },
         "@schematics/angular:directive": {

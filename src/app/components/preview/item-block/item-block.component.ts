@@ -12,6 +12,7 @@ import { EducationItemComponent } from './education-item/education-item.componen
 import { TitleItemComponent } from './title-item/title-item.component';
 import { type FullCVPreviewBlockType } from '../../../models/cv.model';
 import { PhotoItemComponent } from './photo-item/photo-item.component';
+import { CapitalizeFirstPipe } from '../../../shared/pipe/capitalize-first.pipe';
 
 const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>> = {
   title: TitleItemComponent,
@@ -27,7 +28,7 @@ const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>>
 
 @Component({
   selector: 'app-item-block',
-  imports: [NgComponentOutlet],
+  imports: [NgComponentOutlet, CapitalizeFirstPipe],
   templateUrl: './item-block.component.html',
   styleUrl: './item-block.component.scss',
   host: {

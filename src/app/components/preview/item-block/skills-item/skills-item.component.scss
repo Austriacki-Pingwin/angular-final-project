@@ -1,0 +1,11 @@
+@use '../../../../../styles/mixins' as mixins;
+
+:host {
+  @include mixins.flex();
+  .skill {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--mat-sys-on-primary);
+    background-color: var(--mat-sys-primary);
+  }
+}
