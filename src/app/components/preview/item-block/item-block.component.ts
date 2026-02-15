@@ -13,6 +13,7 @@ import { TitleItemComponent } from './title-item/title-item.component';
 import { type FullCVPreviewBlockType } from '../../../models/cv.model';
 import { PhotoItemComponent } from './photo-item/photo-item.component';
 import { CapitalizeFirstPipe } from '../../../shared/pipe/capitalize-first.pipe';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>> = {
   title: TitleItemComponent,
@@ -34,6 +35,7 @@ const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>>
   host: {
     '[attr.data-block]': 'cvBlock().type',
   },
+  hostDirectives: [CdkDrag],
 })
 export class ItemBlockComponent {
   public cvBlock = input.required<FullCVPreviewBlockType>();

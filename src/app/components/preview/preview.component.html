@@ -1,6 +1,6 @@
 @let blocks = cvBlocks();
 <h2>{{ 'CREATOR.PREVIEW' | translate }}</h2>
-<div class="wrapper">
+<div class="wrapper" cdkDropList (cdkDropListDropped)="drop($event)">
   @if (blocks.length) {
     @for (block of blocks; track block.type) {
       <app-item-block [cvBlock]="block" />
