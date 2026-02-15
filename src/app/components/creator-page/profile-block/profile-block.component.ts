@@ -52,36 +52,27 @@ const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
 })
 export class ProfileBlockComponent implements OnInit {
   private profileService = inject(ProfileService);
-  private CvService = inject(CvService);
+  private cvService = inject(CvService);
   public blockType = input.required<ProfileBlockType>();
   public blockData$!: Observable<ProfileBlockItem[]>;
-  public bloksInCv$!: Observable<ProfileBlockItem[]>;
   public formComponent = computed(() => PROFILE_BLOCK_COMPONENTS[this.blockType()]);
   private activatedRoute = inject(ActivatedRoute);
   public cvId = this.activatedRoute.snapshot.paramMap.get('cvId') ?? '';
 
   public readonly checked = model(false);
 
-  public attachedIds = new Set<string>();
   public ngOnInit(): void {
-    this.blockData$ = this.profileService.getBlocks<ProfileBlockItem>(this.blockType());
-    this.bloksInCv$ = this.CvService.getBlocksFromCv<ProfileBlockItem>(this.blockType(), this.cvId);
-    this.bloksInCv$.subscribe((blocks) => {
-      this.attachedIds = new Set(blocks.map((b) => b.id));
-    });
+    this.blockData$ = this.cvService.getBlockDataForProfile(this.blockType(), this.cvId);
   }
 
   private dialog = inject(MatDialog);
 
   public onToggle(itemId: string, isChecked: boolean): void {
     if (isChecked) {
-      this.CvService.testAddSkillToCv(this.blockType(), itemId, this.cvId).subscribe();
+      this.cvService.addBlockToCv(this.blockType(), itemId, this.cvId).subscribe();
     } else {
-      this.CvService.testDeleteSkillToCv(this.blockType(), itemId, this.cvId).subscribe();
+      this.cvService.deleteBlockFromCv(this.blockType(), itemId, this.cvId).subscribe();
     }
-  }
-  public isChecked(itemId: string): boolean {
-    return this.attachedIds.has(itemId);
   }
 
   public removeItem(itemId: string): void {

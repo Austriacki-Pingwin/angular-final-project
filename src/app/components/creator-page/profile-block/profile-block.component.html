@@ -24,7 +24,7 @@
         </button>
         <mat-slide-toggle
           (change)="onToggle(item.id, $event.checked)"
-          [checked]="isChecked(item.id)"
+          [checked]="item.isChecked"
         ></mat-slide-toggle>
       </div>
     </div>

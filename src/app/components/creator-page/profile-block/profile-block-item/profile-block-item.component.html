@@ -10,12 +10,12 @@
 
     <img class="photo-preview" [src]="photoData()!.imageBase64" alt="photo" />
   </div>
-
 } @else {
   <div class="block-fields">
     @for (entry of itemData() | keyvalue; track entry.key) {
       @if (
         entry.key !== 'id' &&
+        entry.key !== 'isChecked' &&
         entry.value !== null &&
         entry.value !== undefined &&
         entry.value !== ''
