@@ -234,7 +234,6 @@ export class CvService {
     return this.authService.uid$.pipe(
       take(1),
       switchMap((uid) => {
-        console.log('Blocks for deletion from CV with ID:', cvId, 'and block type:', blockType);
         const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}/${blockId}`);
         return from(deleteDoc(ref));
       }),
@@ -250,7 +249,6 @@ export class CvService {
       filter((uid): uid is string => !!uid),
       take(1),
       switchMap((uid) => {
-        console.log('Getting blocks from CV with ID:', cvId, 'and block type:', blockType);
         const ref = collection(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}`);
         return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
       }),
