@@ -10,7 +10,7 @@ import type { ProfileBlockType } from '../../../../models/collections.model';
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
 })
-export class ProfileTabsComponent {
+export class TabsComponent {
   public activeTab = input.required<ProfileBlockType>();
   public tabChange = output<ProfileBlockType>();
 

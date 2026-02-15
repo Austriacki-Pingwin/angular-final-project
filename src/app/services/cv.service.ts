@@ -234,12 +234,13 @@ export class CvService {
     return this.authService.uid$.pipe(
       take(1),
       switchMap((uid) => {
+        console.log('Blocks for deletion from CV with ID:', cvId, 'and block type:', blockType);
         const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}/${blockId}`);
         return from(deleteDoc(ref));
       }),
       tap(() => this.notificationService.success('Block deleted successfully')),
-      catchError(() => {
-        this.notificationService.error('Could not delete block. Please try again');
+      catchError((err) => {
+        this.notificationService.error(`Could not delete block. Please try again: ${err.message}`);
         return of();
       }),
     );

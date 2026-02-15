@@ -11,18 +11,19 @@ import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { take, type Observable } from 'rxjs';
 import type { Type } from '@angular/core';
-import { PersonalFormComponent } from '../profile-form/personal-form/personal-form.component';
-import { AboutFormComponent } from '../profile-form/about-form/about-form.component';
-import { EducationFormComponent } from '../profile-form/education-form/education-form.component';
-import { ExperienceFormComponent } from '../profile-form/experience-form/experience-form.component';
-import { SkillsFormComponent } from '../profile-form/skills-form/skills-form.component';
-import { LinkFormComponent } from '../profile-form/link-form/link-form.component';
-import { LanguageFormComponent } from '../profile-form/language-form/language-form.component';
-import { PhotoFormComponent } from '../profile-form/photo-form/photo-form.component';
+
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { CvService } from '../../../services/cv.service';
 import { ActivatedRoute } from '@angular/router';
+import { AboutFormComponent } from '../profile-tabs/about-form/about-form.component';
+import { EducationFormComponent } from '../profile-tabs/education-form/education-form.component';
+import { ExperienceFormComponent } from '../profile-tabs/experience-form/experience-form.component';
+import { LanguageFormComponent } from '../profile-tabs/language-form/language-form.component';
+import { LinkFormComponent } from '../profile-tabs/link-form/link-form.component';
+import { PersonalFormComponent } from '../profile-tabs/personal-form/personal-form.component';
+import { PhotoFormComponent } from '../profile-tabs/photo-form/photo-form.component';
+import { SkillsFormComponent } from '../profile-tabs/skills-form/skills-form.component';
 
 const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
   photo: PhotoFormComponent,
@@ -89,6 +90,7 @@ export class ProfileBlockComponent implements OnInit {
         component: DeleteItemComponent,
         inputs: {
           itemId: itemId,
+          cvId: this.cvId,
           blockType: this.blockType(),
         },
       },
