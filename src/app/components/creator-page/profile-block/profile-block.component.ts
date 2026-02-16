@@ -24,6 +24,7 @@ import { LinkFormComponent } from '../profile-tabs/link-form/link-form.component
 import { PersonalFormComponent } from '../profile-tabs/personal-form/personal-form.component';
 import { PhotoFormComponent } from '../profile-tabs/photo-form/photo-form.component';
 import { SkillsFormComponent } from '../profile-tabs/skills-form/skills-form.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
   photo: PhotoFormComponent,
@@ -46,6 +47,7 @@ const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
     MatButton,
     MatSlideToggle,
     FormsModule,
+    TranslatePipe,
   ],
   templateUrl: './profile-block.component.html',
   styleUrl: './profile-block.component.scss',

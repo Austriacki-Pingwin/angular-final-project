@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot-password-page',
@@ -17,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    TranslatePipe,
   ],
   templateUrl: './forgot-password-page.component.html',
   styleUrl: './forgot-password-page.component.scss',

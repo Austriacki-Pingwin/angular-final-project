@@ -6,10 +6,11 @@ import { ProfileService } from '../../../../services/profile.service';
 import { CvService } from '../../../../services/cv.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-dashboard',
-  imports: [MatButton],
+  imports: [MatButton, TranslatePipe],
   templateUrl: './delete-item.component.html',
   styleUrl: './delete-item.component.scss',
 })

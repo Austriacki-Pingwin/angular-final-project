@@ -1,10 +1,9 @@
 import { Component, input } from '@angular/core';
 import { type Education } from '../../../../models/blocks.model';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-education-item',
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './education-item.component.html',
   styleUrl: './education-item.component.scss',
 })

@@ -2,6 +2,7 @@ import { Component, computed, input } from '@angular/core';
 import { type FullCVPreviewBlockType, type FullCV } from '../../models/cv.model';
 import { ItemBlockComponent } from './item-block/item-block.component';
 import { type PreviewBlockType } from '../../models/collections.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
   'title',
@@ -17,7 +18,7 @@ const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
 
 @Component({
   selector: 'app-preview',
-  imports: [ItemBlockComponent],
+  imports: [ItemBlockComponent, TranslatePipe],
   templateUrl: './preview.component.html',
   styleUrl: './preview.component.scss',
 })

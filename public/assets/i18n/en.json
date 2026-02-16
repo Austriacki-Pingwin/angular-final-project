@@ -1,0 +1,80 @@
+{
+  "HEADER": {
+    "LOGIN": "Log in",
+    "MAIN": "Main"
+  },
+  "AUTH": {
+    "WELCOME": "Welcome to our Application!",
+    "PLEASE_SIGN_IN": "Please sign-in or sign-up to start",
+    "NO_ACCOUNT": "Don't have an account?",
+    "HAVE_ACCOUNT": "Already have an account?",
+    "FORGET_PASSWORD": "Forgot password?",
+    "ENTER_EMAIL": "Please enter your email to reset your password",
+    "RESET_PASSWORD": "Reset password",
+    "RESET_INFO": "The reset link is sent to your email, please use the link to reset your password.",
+    "PASSWORD": "Password",
+    "SIGN_IN": "Sign in",
+    "SIGNING_IN": "Signing-in... ",
+    "SIGN_IN_WITH_GOOGLE": "Sign in with Google",
+    "SIGN_IN_INSTEAD": "Sign in instead?",
+    "SIGN_UP": "Sign up",
+    "SIGN_OUT": "Sign out"
+  },
+  "MAIN": {
+    "WELCOME": "Welcome to our service!",
+    "RESUMES": "My Resumes",
+    "CREATE_RESUME": "Create New Resume",
+    "DESCRIPTION": "Start from scratch or upload",
+    "CREATED": "Created",
+    "EDITED": "Edited",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "DUPLICATE": "Duplicate"
+  },
+  "CREATOR": {
+    "ADD": "Add new item",
+    "NO_DATA": "There is no items to show",
+    "PLEASE_ADD": "Please add new item",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "PHOTO": "Photo",
+    "CHOOSE_PHOTO": "Choose photo",
+    "TITLE": "Title",
+    "PHONE": "Phone",
+    "DEGREE": "Degree",
+    "INSTITUTION": "Institution",
+    "START_DATE": "Start Date",
+    "END_DATE": "End Date",
+    "DESCRIPTION": "Description",
+    "SHORTCUT": "Shortcut",
+    "POSITION": "Position",
+    "COMPANY": "Company",
+    "LOCATION": "Location",
+    "PROJECTS": "Projects",
+    "SAVE": "Save",
+    "SAVING": "Saving... ",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete item",
+    "SHURE_DELETE": "Are you sure you want to delete this item?",
+    "DELETING": "Deleting... ",
+    "CLOSE": "Close",
+    "PREVIEW": "Preview"
+  },
+  "TABS": {
+    "PHOTO": "Photo",
+    "PERSONAL": "Personal Data",
+    "LINKS": "Links",
+    "ABOUT": "About Me",
+    "SKILLS": "Skills",
+    "LANGUAGES": "Languages",
+    "EXPERIENCE": "Experience",
+    "EDUCATION": "Education"
+  },
+  "LANGUAGE": {
+    "PROFICIENCY": "Proficiency Level",
+    "BEGINNER": "Beginner",
+    "INTERMEDIATE": "Intermediate",
+    "ADVANCED": "Advanced",
+    "NATIVE": "Native"
+  }
+}

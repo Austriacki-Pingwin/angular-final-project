@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-card',
@@ -15,6 +16,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatIcon,
     MatProgressSpinnerModule,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './profile-card.component.html',
   styleUrl: './profile-card.component.scss',

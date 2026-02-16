@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Education } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-education-form',
@@ -16,6 +17,7 @@ import type { Education } from '../../../../models/blocks.model';
     MatInputModule,
     MatButtonModule,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './education-form.component.html',
   styleUrl: './education-form.component.scss',
