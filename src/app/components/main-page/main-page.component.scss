@@ -6,17 +6,3 @@
   padding: 1rem 2rem;
 }
 
-@media print {
-  body * {
-    display: none !important;
-  }
-
-  .print-container {
-    display: block !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-}
-
