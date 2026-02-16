@@ -1,10 +1,11 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { type ProfileBlockType } from '../../../../models/collections.model';
+import type { CV, ProfileBlockType } from '../../../../models/collections.model';
 import { ProfileService } from '../../../../services/profile.service';
 import { CvService } from '../../../../services/cv.service';
 import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-delete-dashboard',
@@ -26,7 +27,15 @@ export class DeleteItemComponent {
   //public cvId = this.activatedRoute.snapshot.paramMap.get('cvId') ?? '';
   public deleteItem(): void {
     this.dialogRef.close({ saved: true });
-    this.cvService.deleteBlockFromCv(this.blockType(), this.itemId(), this.cvId()).subscribe();
+    this.profileService
+      .getBlocks<CV>('cvs')
+      .pipe(take(1))
+      .subscribe((cvs) => {
+        cvs.map((cv) => {
+          const cvId = cv.id;
+          this.cvService.deleteBlockFromCv(this.blockType(), this.itemId(), cvId).subscribe();
+        });
+      });
     this.profileService.deleteBlock(this.blockType(), this.itemId()).subscribe();
   }
 }

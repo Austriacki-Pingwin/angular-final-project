@@ -1,9 +1,9 @@
 @let blockData = data();
 
-@if (blockData.length) {
-  @for (item of blockData; track item.id) {
-    <p>{{ item.title | json }}</p>
-    <img class="photo-preview" [src]="item.imageBase64" alt="photo" />
+@if (blockData && blockData.length > 0) {
+  @for (item of blockData; track item?.id) {
+    <p>{{ item?.title }}</p>
+    <img class="photo-preview" [src]="item?.imageBase64" alt="photo" />
   }
 } @else {
   <p>This block is not available yet</p>

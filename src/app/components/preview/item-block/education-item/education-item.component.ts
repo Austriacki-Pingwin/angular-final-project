@@ -1,10 +1,10 @@
 import { Component, input } from '@angular/core';
 import { type Education } from '../../../../models/blocks.model';
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-education-item',
-  imports: [CommonModule],
+  imports: [JsonPipe],
   templateUrl: './education-item.component.html',
   styleUrl: './education-item.component.scss',
 })

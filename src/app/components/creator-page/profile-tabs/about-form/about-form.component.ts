@@ -42,7 +42,7 @@ export class AboutFormComponent {
   public save(): void {
     if (this.form.invalid) return;
     this.dialogRef.close({
-      id: crypto.randomUUID(),
+      id: this.item()?.id ?? crypto.randomUUID(),
       ...this.form.getRawValue(),
     });
     this.form.reset();

@@ -271,7 +271,7 @@ export class CvService {
       map(([cv, block]) =>
         block.map((b) => ({
           ...b,
-          isChecked: cv[`${blockType}Block`].includes(b.id),
+          isChecked: cv[`${blockType}Block`]?.includes(b.id) ?? false,
         })),
       ),
     );
