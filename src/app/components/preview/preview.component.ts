@@ -1,4 +1,4 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, input, type OnInit, signal } from '@angular/core';
 import { type FullCVPreviewBlockType, type FullCV } from '../../models/cv.model';
 import { ItemBlockComponent } from './item-block/item-block.component';
 import { type PreviewBlockType } from '../../models/collections.model';
@@ -6,7 +6,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { type CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
-  'title',
   'photo',
   'personal',
   'about',
@@ -23,9 +22,10 @@ const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
   templateUrl: './preview.component.html',
   styleUrl: './preview.component.scss',
 })
-export class PreviewComponent {
+export class PreviewComponent implements OnInit {
   public cv = input.required<FullCV>();
   public cvBlocks = signal<FullCVPreviewBlockType[]>([]);
+  public title!: string;
 
   constructor() {
     effect(() => {
@@ -35,6 +35,10 @@ export class PreviewComponent {
         PREVIEW_BLOCKS.map((key) => ({ type: key, data: value[key] })) as FullCVPreviewBlockType[],
       );
     });
+  }
+
+  public ngOnInit(): void {
+    this.title = this.cv().title;
   }
 
   /*   public cvBlocks = computed<FullCVPreviewBlockType[]>(() => {

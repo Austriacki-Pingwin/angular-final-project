@@ -22,7 +22,7 @@ export type ProfileBlockType =
 
 export type CollectionType = ProfileBlockType | 'cvs';
 
-export type PreviewBlockType = ProfileBlockType | 'title';
+export type PreviewBlockType = ProfileBlockType;
 
 export type ProfileBlockItem = (
   | Photo

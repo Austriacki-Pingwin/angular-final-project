@@ -9,14 +9,12 @@ import { AboutItemComponent } from './about-item/about-item.component';
 import { LanguagesItemComponent } from './languages-item/languages-item.component';
 import { ExperienceItemComponent } from './experience-item/experience-item.component';
 import { EducationItemComponent } from './education-item/education-item.component';
-import { TitleItemComponent } from './title-item/title-item.component';
 import { type FullCVPreviewBlockType } from '../../../models/cv.model';
 import { PhotoItemComponent } from './photo-item/photo-item.component';
 import { CapitalizeFirstPipe } from '../../../shared/pipe/capitalize-first.pipe';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 
 const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>> = {
-  title: TitleItemComponent,
   photo: PhotoItemComponent,
   personal: PersonalItemComponent,
   skills: SkillsItemComponent,

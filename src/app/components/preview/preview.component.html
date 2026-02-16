@@ -1,5 +1,5 @@
 @let blocks = cvBlocks();
-<h2>{{ 'CREATOR.PREVIEW' | translate }}</h2>
+<h2>{{ 'CREATOR.PREVIEW' | translate }}: {{ title }}</h2>
 <div class="wrapper" cdkDropList (cdkDropListDropped)="drop($event)">
   @if (blocks.length) {
     @for (block of blocks; track block.type) {
