@@ -2,5 +2,22 @@
   "HEADER": {
     "LOGIN": "Zaloguj się",
     "MAIN": "Główna"
+  },
+  "AUTH": {
+    "PASSWORD": "Hasło",
+    "SIGN_IN": "Zaloguj się",
+    "SIGN_UP": "Zarejestruj się",
+    "SIGN_OUT": "Wyloguj się"
+  },
+  "MAIN": {
+    "WELCOME": "Witamy w naszem serwisie!",
+    "RESUMES": "Moje CV",
+    "CREATE_RESUME": "Utwórz nowe CV",
+    "DESCRIPTION": "Rozpocznij od zera lub prześlij istniejące",
+    "CREATED": "Utworzony",
+    "EDITED": "Edytowany",
+    "EDIT": "Edytuj",
+    "DELETE": "Usuń",
+    "DUPLICATE": "Duplikuj"
   }
 }

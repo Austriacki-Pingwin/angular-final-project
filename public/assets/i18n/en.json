@@ -2,5 +2,22 @@
   "HEADER": {
     "LOGIN": "Log in",
     "MAIN": "Main"
+  },
+  "AUTH": {
+    "PASSWORD": "Password",
+    "SIGN_IN": "Sign in",
+    "SIGN_UP": "Sign up",
+    "SIGN_OUT": "Sign out"
+  },
+  "MAIN": {
+    "WELCOME": "Welcome to our service!",
+    "RESUMES": "My Resumes",
+    "CREATE_RESUME": "Create New Resume",
+    "DESCRIPTION": "Start from scratch or upload",
+    "CREATED": "Created",
+    "EDITED": "Edited",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "DUPLICATE": "Duplicate"
   }
 }

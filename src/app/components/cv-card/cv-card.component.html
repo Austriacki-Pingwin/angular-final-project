@@ -37,11 +37,15 @@
 
         <div class="card-meta">
           <mat-icon class="clock-icon">schedule</mat-icon>
-          <span> Created {{ cv().createdAt.toDate() | date: 'mediumDate' }} </span>
+          <span>
+            {{ 'MAIN.CREATED' | translate }} {{ cv().createdAt.toDate() | date: 'mediumDate' }}
+          </span>
         </div>
         <div class="card-meta">
           <mat-icon class="clock-icon">schedule</mat-icon>
-          <span> Edited {{ cv().updatedAt.toDate() | date: 'mediumDate' }} </span>
+          <span>
+            {{ 'MAIN.EDITED' | translate }} {{ cv().updatedAt.toDate() | date: 'mediumDate' }}
+          </span>
         </div>
       </div>
 
@@ -50,9 +54,9 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="openCreator()">Edit</button>
-        <button mat-menu-item (click)="duplicateCv()">Duplicate</button>
-        <button mat-menu-item (click)="deleteCv()">Delete</button>
+        <button mat-menu-item (click)="openCreator()">{{ 'MAIN.EDIT' | translate }}</button>
+        <button mat-menu-item (click)="duplicateCv()">{{ 'MAIN.DUPLICATE' | translate }}</button>
+        <button mat-menu-item (click)="deleteCv()">{{ 'MAIN.DELETE' | translate }}</button>
       </mat-menu>
     </div>
 
