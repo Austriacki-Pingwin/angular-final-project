@@ -1,8 +1,8 @@
 @let skills = data();
 
-@if (skills.length) {
-  @for (skill of skills; track skill.id) {
-    <p>{{ skill | json }}</p>
+@if (skills && skills.length > 0) {
+  @for (skill of skills; track skill?.id) {
+    <p>{{ skill?.title }}</p>
   }
 } @else {
   <p>This block is not available yet</p>

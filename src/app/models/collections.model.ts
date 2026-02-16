@@ -24,7 +24,7 @@ export type CollectionType = ProfileBlockType | 'cvs';
 
 export type PreviewBlockType = ProfileBlockType | 'title';
 
-export type ProfileBlockItem =
+export type ProfileBlockItem = (
   | Photo
   | Personal
   | Education
@@ -32,7 +32,8 @@ export type ProfileBlockItem =
   | Experience
   | About
   | Link
-  | Language;
+  | Language
+) & { isChecked: boolean };
 
 export type Profile = {
   personalInfo: Personal[];
@@ -49,7 +50,7 @@ export type CVs = CV[];
 export type CV = {
   id: string;
   title: string;
-  photo: string[];
+  photoBlock: string[];
   personalBlock: string[];
   aboutBlock: string[];
   linksBlock: string[];

@@ -11,10 +11,11 @@ import { ExperienceItemComponent } from './experience-item/experience-item.compo
 import { EducationItemComponent } from './education-item/education-item.component';
 import { TitleItemComponent } from './title-item/title-item.component';
 import { type FullCVPreviewBlockType } from '../../../models/cv.model';
+import { PhotoItemComponent } from './photo-item/photo-item.component';
 
 const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>> = {
   title: TitleItemComponent,
-  photo: TitleItemComponent,
+  photo: PhotoItemComponent,
   personal: PersonalItemComponent,
   skills: SkillsItemComponent,
   links: LinksItemComponent,
