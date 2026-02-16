@@ -1,13 +1,24 @@
 // * CV Model
 
 import { type Timestamp } from '@angular/fire/firestore';
-import type { About, Education, Experience, Language, Link, Personal, Skill } from './blocks.model';
+import type {
+  About,
+  Education,
+  Experience,
+  Language,
+  Link,
+  Personal,
+  Photo,
+  Skill,
+} from './blocks.model';
+import { type PreviewBlockType } from './collections.model';
 
 export type FullCVs = FullCV[];
 
 export type FullCV = {
   id: string;
   title: string;
+  photo: Photo[];
   personal: Personal[];
   about: About[];
   links: Link[];
@@ -18,3 +29,10 @@ export type FullCV = {
   createdAt: Timestamp;
   updatedAt: Timestamp;
 };
+
+export type FullCVPreviewBlockType = {
+  [K in PreviewBlockType]: {
+    type: K;
+    data: FullCV[K];
+  };
+}[PreviewBlockType];

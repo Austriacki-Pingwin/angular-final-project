@@ -1,0 +1,9 @@
+@let languages = data();
+
+@if (languages && languages.length > 0) {
+  @for (language of languages; track language?.id) {
+    <p>{{ language?.name }} - {{ language?.proficiency }}</p>
+  }
+} @else {
+  <p>This block is not available yet</p>
+}

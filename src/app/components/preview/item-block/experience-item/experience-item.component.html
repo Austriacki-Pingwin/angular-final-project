@@ -1,0 +1,15 @@
+@let experiences = data();
+
+@if (experiences && experiences.length > 0) {
+  @for (experience of experiences; track experience?.id) {
+    @if (experience) {
+      <div class="experience-item">
+        <h3>{{ experience.company }} - {{ experience.position }}</h3>
+        <p>{{ experience.startDate }} - {{ experience?.endDate || 'Present' }}</p>
+        <p>{{ experience?.description }}</p>
+      </div>
+    }
+  }
+} @else {
+  <p>This block is not available yet</p>
+}

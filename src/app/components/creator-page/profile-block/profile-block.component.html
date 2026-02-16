@@ -1,0 +1,40 @@
+@let blockData = blockData$ | async;
+<!-- <div class="crossfade-container">
+  <div class="skeleton-layer" [class.hidden]="blockData">
+    <ngx-skeleton-loader
+      count="4"
+      appearance="line"
+      [theme]="{
+        height: '32px',
+        marginBottom: '12px',
+        width: '100%',
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div> -->
+@if (blockData !== null && blockData.length > 0) {
+  @for (item of blockData$ | async; track item.id) {
+    <div class="item">
+      <app-profile-block-item [itemData]="item" [blockType]="blockType()"></app-profile-block-item>
+      <div class="buttons">
+        <button matIconButton aria-label="Edit item" type="button" (click)="editItem(item.id)">
+          <mat-icon>edit</mat-icon></button
+        ><button matIconButton aria-label="Delete item" type="button" (click)="removeItem(item.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <mat-slide-toggle
+          (change)="onToggle(item.id, $event.checked)"
+          [checked]="item.isChecked"
+        ></mat-slide-toggle>
+      </div>
+    </div>
+  }
+} @else {
+  <h2>There is no items to show</h2>
+  <p>Please add new item</p>
+}
+<!-- </div> -->
+
+<button matButton="filled" aria-label="Add item" type="button" (click)="addItem()">
+  Add new item
+</button>

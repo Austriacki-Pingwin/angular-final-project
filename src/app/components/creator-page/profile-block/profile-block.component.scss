@@ -1,0 +1,14 @@
+@use '../../../../styles/mixins' as *;
+:host {
+  @include flex($direction: column);
+}
+.item {
+  width: 100%;
+  @include flex($justify: center);
+}
+.buttons {
+  @include flex($direction: column);
+}
+mat-slide-toggle {
+  scale: 0.7;
+}

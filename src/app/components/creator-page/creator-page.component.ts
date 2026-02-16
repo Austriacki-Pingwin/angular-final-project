@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProfileFormComponent } from '../profile-page/profile-form/profile-form.component';
+import { ProfileTabsComponent } from './profile-tabs/profile-tabs.component';
 import { PreviewComponent } from '../preview/preview.component';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs';
@@ -9,7 +9,7 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-creator-page',
-  imports: [ProfileFormComponent, PreviewComponent, AsyncPipe],
+  imports: [ProfileTabsComponent, PreviewComponent, AsyncPipe],
   templateUrl: './creator-page.component.html',
   styleUrl: './creator-page.component.scss',
 })

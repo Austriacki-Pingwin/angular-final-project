@@ -1,9 +1,29 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { collection, doc, Firestore, Timestamp } from '@angular/fire/firestore';
-import type { CV, CVs } from '../models/collections.model';
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  collectionData,
+  doc,
+  Firestore,
+  Timestamp,
+  updateDoc,
+} from '@angular/fire/firestore';
+import type { CV, CVs, ProfileBlockItem, ProfileBlockType } from '../models/collections.model';
 import { AuthService } from './auth.service';
 import { ProfileService } from './profile.service';
-import { catchError, forkJoin, map, type Observable, of, switchMap, take, throwError } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  filter,
+  from,
+  map,
+  type Observable,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { type FullCVs, type FullCV } from '../models/cv.model';
 import type {
   About,
@@ -12,10 +32,12 @@ import type {
   Language,
   Link,
   Personal,
+  Photo,
   Skill,
 } from '../models/blocks.model';
 import { EMPTY_CV, EMPTY_FULL_CV } from '../models/empty-cv';
 import { mapBlocksToStream } from '../utils/cv-map-blocks.util';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +46,7 @@ export class CvService {
   private firestore = inject(Firestore);
   private authService = inject(AuthService);
   private profileService = inject(ProfileService);
+  private notificationService = inject(NotificationService);
 
   private _cvs = signal<CVs>([]);
   public cvs = this._cvs.asReadonly();
@@ -32,7 +55,8 @@ export class CvService {
     return this.profileService.getBlock<CV>('cvs', id).pipe(
       switchMap((cv) => this.buildFullCv(cv)),
       catchError((): Observable<FullCV> => {
-        return throwError(() => new Error('Could not load CV. Please try again'));
+        this.notificationService.error('Could not load CV. Please try again');
+        return of();
       }),
     );
   }
@@ -43,15 +67,21 @@ export class CvService {
         if (!cvs.length) {
           return of([]);
         }
-        return forkJoin(cvs.map((cv) => this.buildFullCv(cv)));
+        return combineLatest(cvs.map((cv) => this.buildFullCv(cv)));
       }),
       catchError((): Observable<FullCVs> => {
-        return throwError(() => new Error('Could not load CVs. Please try again'));
+        this.notificationService.error('Could not load CVs. Please try again');
+        return of();
       }),
     );
   }
 
   private buildFullCv(cv: CV): Observable<FullCV> {
+    const photo$ = mapBlocksToStream<Photo>(
+      cv.photoBlock,
+      (id) => this.profileService.getBlock('photo', id),
+      EMPTY_FULL_CV.photo,
+    );
     const personal$ = mapBlocksToStream<Personal>(
       cv.personalBlock,
       (id) => this.profileService.getBlock('personal', id),
@@ -93,7 +123,8 @@ export class CvService {
       (id) => this.profileService.getBlock('education', id),
       EMPTY_FULL_CV.education,
     );
-    return forkJoin({
+    return combineLatest({
+      photo: photo$,
       personal: personal$,
       links: links$,
       about: about$,
@@ -110,6 +141,10 @@ export class CvService {
           updatedAt: cv.updatedAt,
           ...blocks,
         };
+      }),
+      catchError((): Observable<FullCV> => {
+        this.notificationService.error('Could not load CV. Please try again');
+        return of();
       }),
     );
   }
@@ -128,6 +163,10 @@ export class CvService {
         };
 
         return this.profileService.createBlock<CV>('cvs', newCv).pipe(map(() => cvId));
+      }),
+      catchError((): Observable<string> => {
+        this.notificationService.error('Could not create CV. Please try again');
+        return of();
       }),
     );
   }
@@ -168,5 +207,73 @@ export class CvService {
       next: () => console.log('CV Deleted'),
       error: (err) => console.error('Error Delete:', err),
     });
+  }
+  public addBlockToCv(block: string, blockId: string, cvId: string): Observable<void> {
+    return this.authService.uid$.pipe(
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}`);
+        return from(
+          updateDoc(ref, {
+            [`${block}Block`]: arrayUnion(blockId),
+          }),
+        );
+      }),
+      tap(() => this.notificationService.success('Block added successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not add skill. Please try again: ${err.message}`);
+        return of();
+      }),
+    );
+  }
+  public deleteBlockFromCv(block: string, blockId: string, cvId: string): Observable<void> {
+    return this.authService.uid$.pipe(
+      take(1),
+      switchMap((uid) => {
+        const ref = doc(this.firestore, `users/${uid}/cvs/${cvId}`);
+        return from(
+          updateDoc(ref, {
+            [`${block}Block`]: arrayRemove(blockId),
+          }),
+        );
+      }),
+      tap(() => this.notificationService.success('Block deleted successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not add skill. Please try again: ${err.message}`);
+        return of();
+      }),
+    );
+  }
+  public getBlocksFromCv<T>(blockType: ProfileBlockType, cvId: string): Observable<T[]> {
+    return this.authService.uid$.pipe(
+      filter((uid): uid is string => !!uid),
+      take(1),
+      switchMap((uid) => {
+        const ref = collection(this.firestore, `users/${uid}/cvs/${cvId}/${blockType}`);
+        return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
+      }),
+      tap(() => this.notificationService.success('Blocks loaded successfully')),
+      catchError((err) => {
+        this.notificationService.error(`Could not load blocks. Please try again: ${err.message}`);
+        return of([]);
+      }),
+    );
+  }
+
+  public getBlockDataForProfile(
+    blockType: ProfileBlockType,
+    cvId: string,
+  ): Observable<ProfileBlockItem[]> {
+    return combineLatest([
+      this.profileService.getBlock<CV>('cvs', cvId),
+      this.profileService.getBlocks<ProfileBlockItem>(blockType),
+    ]).pipe(
+      map(([cv, block]) =>
+        block.map((b) => ({
+          ...b,
+          isChecked: cv[`${blockType}Block`]?.includes(b.id) ?? false,
+        })),
+      ),
+    );
   }
 }

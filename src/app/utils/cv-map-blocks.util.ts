@@ -1,4 +1,4 @@
-import { forkJoin, type Observable, of, take } from 'rxjs';
+import { combineLatest, type Observable, of } from 'rxjs';
 
 export function mapBlocksToStream<T>(
   ids: string[],
@@ -9,7 +9,7 @@ export function mapBlocksToStream<T>(
     return of(emptyValue);
   }
 
-  const streams = ids.map((id) => getFn(id).pipe(take(1)));
+  const streams = ids.map((id) => getFn(id));
 
-  return forkJoin(streams);
+  return combineLatest(streams);
 }
