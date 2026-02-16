@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import type { Skill, Photo } from '../../../../models/blocks.model';
+import type { Skill, Photo, Link, Language } from '../../../../models/blocks.model';
 import { KeyValuePipe } from '@angular/common';
 import type { ProfileBlockItem, ProfileBlockType } from '../../../../models/collections.model';
 
@@ -18,5 +18,11 @@ export class ProfileBlockItemComponent {
   );
   public photoData = computed<Photo | null>(() =>
     this.blockType() === 'photo' ? (this.itemData() as Photo) : null,
+  );
+  public linkData = computed<Link | null>(() =>
+    this.blockType() === 'links' ? (this.itemData() as Link) : null,
+  );
+  public languageData = computed<Language | null>(() =>
+    this.blockType() === 'languages' ? (this.itemData() as Language) : null,
   );
 }
