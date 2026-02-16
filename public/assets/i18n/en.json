@@ -4,8 +4,19 @@
     "MAIN": "Main"
   },
   "AUTH": {
+    "WELCOME": "Welcome to our Application!",
+    "PLEASE_SIGN_IN": "Please sign-in or sign-up to start",
+    "NO_ACCOUNT": "Don't have an account?",
+    "HAVE_ACCOUNT": "Already have an account?",
+    "FORGET_PASSWORD": "Forgot password?",
+    "ENTER_EMAIL": "Please enter your email to reset your password",
+    "RESET_PASSWORD": "Reset password",
+    "RESET_INFO": "The reset link is sent to your email, please use the link to reset your password.",
     "PASSWORD": "Password",
     "SIGN_IN": "Sign in",
+    "SIGNING_IN": "Signing-in... ",
+    "SIGN_IN_WITH_GOOGLE": "Sign in with Google",
+    "SIGN_IN_INSTEAD": "Sign in instead?",
     "SIGN_UP": "Sign up",
     "SIGN_OUT": "Sign out"
   },

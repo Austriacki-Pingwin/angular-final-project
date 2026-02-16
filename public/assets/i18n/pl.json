@@ -4,8 +4,19 @@
     "MAIN": "Główna"
   },
   "AUTH": {
+    "WELCOME": "Witamy w naszej aplikacji!",
+    "PLEASE_SIGN_IN": "Zaloguj się lub zarejestruj, aby rozpocząć",
+    "NO_ACCOUNT": "Nie masz konta?",
+    "HAVE_ACCOUNT": "Masz już konto?",
+    "FORGET_PASSWORD": "Zapomniałeś hasła?",
+    "ENTER_EMAIL": "Wprowadź swój email, aby zresetować hasło",
+    "RESET_PASSWORD": "Resetuj hasło",
+    "RESET_INFO": "Link do zresetowania hasła został wysłany na Twój email, proszę użyć go do zresetowania hasła.",
     "PASSWORD": "Hasło",
     "SIGN_IN": "Zaloguj się",
+    "SIGNING_IN": "Logowanie... ",
+    "SIGN_IN_WITH_GOOGLE": "Zaloguj się przez Google",
+    "SIGN_IN_INSTEAD": "Zaloguj się zamiast tego?",
     "SIGN_UP": "Zarejestruj się",
     "SIGN_OUT": "Wyloguj się"
   },

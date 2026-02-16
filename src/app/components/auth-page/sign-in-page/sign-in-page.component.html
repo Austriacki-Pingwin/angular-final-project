@@ -1,14 +1,14 @@
 <main class="content">
-  <h1>Welcome to our App.</h1>
-  <p>Please sign-in or sign-up to start using our App.</p>
+  <h1>{{ 'AUTH.WELCOME' | translate }}</h1>
+  <p>{{ 'AUTH.PLEASE_SIGN_IN' | translate }}</p>
   <form [formGroup]="form" (submit)="onSubmit()">
     <mat-form-field appearance="outline" class="d-block">
-      <mat-label>Email/Username</mat-label>
+      <mat-label>Email</mat-label>
       <input matInput formControlName="email" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="d-block">
-      <mat-label>Password</mat-label>
+      <mat-label>{{ 'AUTH.PASSWORD' | translate }}</mat-label>
       <input type="password" matInput formControlName="password" />
     </mat-form-field>
 
@@ -25,13 +25,19 @@
         Signing-in...
       </div>
     }
-    <button type="submit" matButton="filled" aria-label="Sign-In">Sign-In</button>
+    <button type="submit" matButton="filled" aria-label="Sign-In">
+      {{ 'AUTH.SIGN_IN' | translate }}
+    </button>
   </form>
 
   <button matButton="filled" aria-label="Sign-In with Google" (click)="onSignInWithGoogle()">
-    Sign-In with Google
+    {{ 'AUTH.SIGN_IN_WITH_GOOGLE' | translate }}
   </button>
-  <p>You don't have an account</p>
-  <button matButton="tonal" aria-label="Sign-Up" [routerLink]="['/auth/sign-up']">Sign-Up</button>
-  <a matButton="text" [routerLink]="['/auth/forgot-password']">Forgot Password</a>
+  <p>{{ 'AUTH.NO_ACCOUNT' | translate }}</p>
+  <button matButton="tonal" aria-label="Sign-Up" [routerLink]="['/auth/sign-up']">
+    {{ 'AUTH.SIGN_UP' | translate }}
+  </button>
+  <a matButton="text" [routerLink]="['/auth/forgot-password']">{{
+    'AUTH.FORGET_PASSWORD' | translate
+  }}</a>
 </main>
