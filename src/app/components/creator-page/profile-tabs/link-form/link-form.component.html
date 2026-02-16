@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
   <mat-form-field appearance="outline">
-    <mat-label>Shortcut</mat-label>
+    <mat-label>{{ 'CREATOR.SHORTCUT' | translate }}</mat-label>
     <input matInput formControlName="label" />
     @if (form.controls.label.invalid && form.controls.label.touched) {
       <mat-error> Shortcut is required </mat-error>
@@ -14,5 +14,7 @@
       <mat-error> URL is required </mat-error>
     }
   </mat-form-field>
-  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
 </form>

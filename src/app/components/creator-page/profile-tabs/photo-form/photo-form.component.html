@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Title</mat-label>
+    <mat-label>{{ 'CREATOR.TITLE' | translate }}</mat-label>
     <input matInput formControlName="title" required />
   </mat-form-field>
 
@@ -12,11 +12,15 @@
     (change)="onFileSelected($event)"
   />
 
-  <button mat-stroked-button type="button" (click)="fileInput.click()">Choose photo</button>
+  <button mat-stroked-button type="button" (click)="fileInput.click()">
+    {{ 'CREATOR.CHOOSE_PHOTO' | translate }}
+  </button>
 
   @if (imagePreview) {
     <img [src]="imagePreview" width="150" style="margin-top: 10px" />
   }
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
 </form>

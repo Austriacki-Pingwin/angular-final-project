@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Photo } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 // import { NotificationService } from '../../../../services/notification.service';
 
 const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/x-png'];
@@ -20,6 +21,7 @@ const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/x-png'];
     MatButtonModule,
     MatIconModule,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './photo-form.component.html',
   styleUrl: './photo-form.component.scss',

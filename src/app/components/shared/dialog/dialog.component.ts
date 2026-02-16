@@ -8,6 +8,7 @@ import {
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type DialogData<T = unknown> = {
   component: ComponentType<T>;
@@ -17,7 +18,7 @@ export type DialogData<T = unknown> = {
 
 @Component({
   selector: 'app-dialog',
-  imports: [NgComponentOutlet, MatButtonModule, MatDialogActions, MatDialogContent],
+  imports: [NgComponentOutlet, MatButtonModule, MatDialogActions, MatDialogContent, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',

@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Experience } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-experience-form',
@@ -18,6 +19,7 @@ import type { Experience } from '../../../../models/blocks.model';
     MatInputModule,
     MatButtonModule,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './experience-form.component.html',
   styleUrl: './experience-form.component.scss',

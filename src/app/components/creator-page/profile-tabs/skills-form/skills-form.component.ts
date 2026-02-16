@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Skill } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-skills-form',
@@ -18,6 +19,7 @@ import type { Skill } from '../../../../models/blocks.model';
     MatButtonModule,
     MatIconModule,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './skills-form.component.html',
   styleUrl: './skills-form.component.scss',

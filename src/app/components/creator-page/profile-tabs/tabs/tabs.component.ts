@@ -1,12 +1,27 @@
 import { Component, input, output } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-import { PROFILE_TABS } from './tabs.model';
-import type { ProfileBlockType } from '../../../../models/collections.model';
 
+import type { ProfileBlockType } from '../../../../models/collections.model';
+import { TranslatePipe } from '@ngx-translate/core';
+export const PROFILE_TABS = [
+  'photo',
+  'personal',
+  'links',
+  'about',
+  'skills',
+  'languages',
+  'experience',
+  'education',
+] as const;
+
+export const PROFILE_TABS_CONFIG = PROFILE_TABS.map((key) => ({
+  key,
+  labelKey: `TABS.${key.toUpperCase()}`,
+}));
 @Component({
   selector: 'app-tabs',
   standalone: true,
-  imports: [MatTabsModule],
+  imports: [MatTabsModule, TranslatePipe],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
 })
@@ -14,7 +29,7 @@ export class TabsComponent {
   public activeTab = input.required<ProfileBlockType>();
   public tabChange = output<ProfileBlockType>();
 
-  public readonly tabs = PROFILE_TABS;
+  public readonly tabs = PROFILE_TABS_CONFIG;
 
   public onTabChange(index: number): void {
     this.tabChange.emit(this.tabs[index].key);

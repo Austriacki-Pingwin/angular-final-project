@@ -6,6 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Link } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-link-form',
@@ -15,6 +16,7 @@ import type { Link } from '../../../../models/blocks.model';
     MatInputModule,
     MatButton,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './link-form.component.html',
   styleUrl: './link-form.component.scss',

@@ -22,7 +22,7 @@
     @if (isSubmissionInProgress()) {
       <div class="info">
         <mat-spinner [diameter]="22" />
-        Signing-in...
+        {{ 'AUTH.SIGNING_IN' | translate }}
       </div>
     }
     <button type="submit" matButton="filled" aria-label="Sign-In">

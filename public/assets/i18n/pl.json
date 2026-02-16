@@ -30,5 +30,50 @@
     "EDIT": "Edytuj",
     "DELETE": "Usuń",
     "DUPLICATE": "Duplikuj"
+  },
+  "CREATOR": {
+    "ADD": "Dodaj nowy element",
+    "NO_DATA": "Brak elementów do wyświetlenia",
+    "PLEASE_ADD": "Dodaj nowy element",
+    "FIRST_NAME": "Imię",
+    "LAST_NAME": "Nazwisko",
+    "CHOOSE_PHOTO": "Wybierz zdjęcie",
+    "TITLE": "Tytuł",
+    "PHONE": "Telefon",
+    "DEGREE": "Stopień",
+    "INSTITUTION": "Instytucja",
+    "START_DATE": "Data rozpoczęcia",
+    "END_DATE": "Data zakończenia",
+    "DESCRIPTION": "Opis",
+    "SHORTCUT": "Skrót",
+    "POSITION": "Stanowisko",
+    "COMPANY": "Firma",
+    "LOCATION": "Lokalizacja",
+    "PROJECTS": "Projekty",
+    "SAVE": "Zapisz",
+    "SAVING": "Zapisywanie... ",
+    "CANCEL": "Anuluj",
+    "DELETE": "Usuń element",
+    "SHURE_DELETE": "Czy na pewno chcesz usunąć ten element?",
+    "DELETING": "Usuwanie... ",
+    "CLOSE": "Zamknij",
+    "PREVIEW": "Podgląd"
+  },
+  "TABS": {
+    "PHOTO": "Zdjęcie",
+    "PERSONAL": "Dane osobowe",
+    "LINKS": "Linki",
+    "ABOUT": "O mnie",
+    "SKILLS": "Umiejętności",
+    "LANGUAGES": "Języki",
+    "EXPERIENCE": "Doświadczenie",
+    "EDUCATION": "Edukacja"
+  },
+  "LANGUAGE": {
+    "PROFICIENCY": "Poziom biegłości",
+    "BEGINNER": "Początkujący",
+    "INTERMEDIATE": "Średniozaawansowany",
+    "ADVANCED": "Zaawansowany",
+    "NATIVE": "Ojczysty"
   }
 }
