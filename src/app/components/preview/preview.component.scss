@@ -9,11 +9,19 @@
   .wrapper {
     @include mixins.flex($direction: column, $align: start, $justify: space-between, $gap: 25px);
     @include mat.elevation(8);
+    overflow-y: auto;
     flex: 1;
-    width: 950px;
+    width: 100%;
+    max-width: 950px;
     background-color: var(--mat-sys-surface-container);
     color: var(--mat-sys-inverse-surface);
     padding: 14px;
     border-radius: 14px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .wrapper ::-webkit-scrollbar {
+    display: none;
   }
 }
