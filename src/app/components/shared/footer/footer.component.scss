@@ -1,0 +1,16 @@
+@use '../../../../styles/mixins' as *;
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--mat-sys-secondary-container);
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+.content {
+  @include flex($justify: space-between);
+}
+.year {
+  font-weight: 900;
+}
