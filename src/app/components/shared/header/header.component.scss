@@ -8,6 +8,12 @@
   background-color: var(--mat-sys-secondary-container);
 }
 header {
+  width: 100%;
+  @include flex($justify: center);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.lang-buttons {
   @include flex();
-  padding: 1.5rem 0;
+  margin-left: auto;
 }

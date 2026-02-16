@@ -1,5 +1,15 @@
 <header class="content">
-  <a routerLink="auth" matButton="filled"><mat-icon>login</mat-icon>Login</a>
-  <a routerLink="/" matButton="filled"><mat-icon>home</mat-icon>Main</a>
-  <app-theme-button></app-theme-button>
+  <a routerLink="auth" matButton="filled"
+    ><mat-icon>login</mat-icon>{{ 'HEADER.LOGIN' | translate }}</a
+  >
+  <a routerLink="/" matButton="filled"><mat-icon>home</mat-icon>{{ 'HEADER.MAIN' | translate }}</a>
+
+  <div class="lang-buttons">
+    <app-theme-button></app-theme-button>
+    @if (currentLang === 'en') {
+      <button matButton="text" (click)="switchLanguage('pl')">PL</button>
+    } @else {
+      <button matButton="text" (click)="switchLanguage('en')">EN</button>
+    }
+  </div>
 </header>
