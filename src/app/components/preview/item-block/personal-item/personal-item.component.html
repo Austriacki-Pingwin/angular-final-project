@@ -4,22 +4,21 @@
   @for (person of personal; track person?.id) {
     @if (person) {
       <div class="personal">
-        <h1 class="first-name">{{ person.firstName }}</h1>
-        <h1 class="last-name">{{ person.lastName }}</h1>
+        <h1 class="personal__full-name">{{ person.firstName }} {{ person.lastName }}</h1>
       </div>
       <div class="contact">
-        <span class="email">
+        <span class="contact__email">
           <mat-icon fontIcon="mail" />
           {{ person.email }}</span
         >
         @if (person.phone) {
-          <span class="phone">
+          <span class="contact__phone">
             <mat-icon fontIcon="call" />
             {{ person.phone }}</span
           >
         }
         @if (person.location) {
-          <span class="location">
+          <span class="contact__location">
             <mat-icon fontIcon="location_on" />
             {{ person.location }}</span
           >
