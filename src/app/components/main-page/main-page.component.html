@@ -2,7 +2,7 @@
 <app-my-resumes (download)="downloadCv($event)" />
 
 @if (printCvData) {
-  <div class="print-container">
+  <div>
     <app-preview [cv]="printCvData" />
   </div>
 }

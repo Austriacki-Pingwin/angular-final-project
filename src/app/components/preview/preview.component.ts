@@ -4,6 +4,8 @@ import { ItemBlockComponent } from './item-block/item-block.component';
 import { type PreviewBlockType } from '../../models/collections.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { type CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
   'photo',
@@ -18,7 +20,14 @@ const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
 
 @Component({
   selector: 'app-preview',
-  imports: [ItemBlockComponent, DragDropModule, TranslatePipe],
+  imports: [
+    ItemBlockComponent,
+    DragDropModule,
+    TranslatePipe,
+    MatButtonModule,
+    MatIconButton,
+    MatIcon,
+  ],
   templateUrl: './preview.component.html',
   styleUrl: './preview.component.scss',
 })
@@ -39,6 +48,10 @@ export class PreviewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.title = this.cv().title;
+  }
+
+  public printCv(): void {
+    window.print();
   }
 
   /*   public cvBlocks = computed<FullCVPreviewBlockType[]>(() => {

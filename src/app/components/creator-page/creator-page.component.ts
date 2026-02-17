@@ -22,7 +22,7 @@ export class CreatorPageComponent {
     filter((id): id is string => typeof id === 'string'),
     switchMap((id) => this.cvService.getFullCv(id)),
   );
-  public printCv(): void {
-    window.print();
-  }
+  // public printCv(): void {
+  //   window.print();
+  // }
 }
