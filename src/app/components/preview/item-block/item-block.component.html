@@ -1,3 +1,3 @@
 @let block = cvBlock();
-<h4>{{ block.type }}</h4>
+<h2 cdkDragHandle>{{ block.type | capitalizeFirst }}</h2>
 <ng-container *ngComponentOutlet="componentMap(); inputs: { data: block.data }" />

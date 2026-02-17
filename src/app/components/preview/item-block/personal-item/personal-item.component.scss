@@ -1,11 +1,16 @@
 @use '../../../../../styles/mixins' as mixins;
 
 :host {
-  @include mixins.flex($direction: column);
+  @include mixins.flex($direction: column, $align: start, $gap: 15px);
   .personal {
     @include mixins.flex();
   }
   .contact {
-    @include mixins.flex();
+    @include mixins.flex($gap: 15px);
+
+    span {
+      @include mixins.flex($gap: 5px);
+      cursor: pointer;
+    }
   }
 }

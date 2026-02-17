@@ -1,7 +1,8 @@
 @use '../../../styles/mixins' as *;
 
 :host {
-  height: 100vh;
+  flex: 1;
+  overflow-y: hidden;
 }
 
 main {
@@ -11,6 +12,5 @@ main {
 }
 app-preview {
   position: sticky;
-  top: 85px;
   z-index: 1;
 }

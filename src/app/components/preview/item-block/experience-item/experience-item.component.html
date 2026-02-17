@@ -3,8 +3,9 @@
 @if (experiences && experiences.length > 0) {
   @for (experience of experiences; track experience?.id) {
     @if (experience) {
-      <div class="experience-item">
-        <h3>{{ experience.company }} - {{ experience.position }}</h3>
+      <div class="experience">
+        <h3>{{ experience.position }}</h3>
+        <p>{{ experience.company }}</p>
         <p>{{ experience.startDate }} - {{ experience?.endDate || 'Present' }}</p>
         <p>{{ experience?.description }}</p>
       </div>

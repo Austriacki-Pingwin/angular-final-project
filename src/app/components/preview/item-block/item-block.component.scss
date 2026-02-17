@@ -1,9 +1,7 @@
 @use '../../../../styles/mixins' as mixins;
 :host {
-  @include mixins.flex($direction: column);
-
   &[data-block] {
     width: 100%;
-    @include mixins.flex($direction: column, $align: start);
+    @include mixins.flex($direction: column, $align: start, $gap: 20px);
   }
 }
