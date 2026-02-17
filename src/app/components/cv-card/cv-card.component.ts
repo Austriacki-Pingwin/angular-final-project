@@ -1,5 +1,5 @@
 import type { OnChanges } from '@angular/core';
-import { Component, inject, input } from '@angular/core';
+import { Component, EventEmitter, inject, input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -31,6 +31,8 @@ export class CvCardComponent implements OnChanges {
   private router = inject(Router);
   public cv = input.required<FullCV>();
 
+  @Output() public download = new EventEmitter<FullCV>();
+
   public progress = 0;
 
   public ngOnChanges(): void {
@@ -47,5 +49,9 @@ export class CvCardComponent implements OnChanges {
 
   public duplicateCv(): void {
     this.cvService.duplicateCv(this.cv().id);
+  }
+
+  public onDownload(): void {
+    this.download.emit(this.cv());
   }
 }

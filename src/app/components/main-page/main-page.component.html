@@ -1,2 +1,8 @@
 <app-profile-card />
-<app-my-resumes />
+<app-my-resumes (download)="downloadCv($event)" />
+
+@if (printCvData) {
+  <div class="print-container">
+    <app-preview [cv]="printCvData" />
+  </div>
+}

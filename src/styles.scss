@@ -42,6 +42,24 @@ body {
   margin: 0 auto;
   padding: 0 2rem;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-container,
+  .print-container * {
+    visibility: visible;
+  }
+
+  .print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
 .success-snackbar {
   @include mat.snack-bar-overrides(
     (

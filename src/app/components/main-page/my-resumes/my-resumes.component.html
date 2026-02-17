@@ -13,7 +13,7 @@
   }
   @if (cvs && cvs.length) {
     @for (cv of cvs; track cv.id) {
-      <app-cv-card [cv]="cv" />
+      <app-cv-card [cv]="cv" (download)="downloadCv($event)" />
     }
   }
 </div>
