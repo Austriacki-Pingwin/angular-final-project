@@ -30,11 +30,11 @@
     </div>
   }
 } @else {
-  <h2>There is no items to show</h2>
-  <p>Please add new item</p>
+  <h2>{{ 'CREATOR.NO_DATA' | translate }}</h2>
+  <p>{{ 'CREATOR.PLEASE_ADD' | translate }}</p>
 }
 <!-- </div> -->
 
 <button matButton="filled" aria-label="Add item" type="button" (click)="addItem()">
-  Add new item
+  {{ 'CREATOR.ADD' | translate }}
 </button>

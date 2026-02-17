@@ -5,9 +5,17 @@ import { CvService } from '../../../services/cv.service';
 import { CommonModule } from '@angular/common';
 import { NgxSkeletonLoaderComponent } from 'ngx-skeleton-loader';
 import type { FullCV } from '../../../models/cv.model';
+import { TranslatePipe } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-my-resumes',
-  imports: [AddCvCardComponent, CvCardComponent, CommonModule, NgxSkeletonLoaderComponent],
+  imports: [
+    AddCvCardComponent,
+    CvCardComponent,
+    CommonModule,
+    NgxSkeletonLoaderComponent,
+    TranslatePipe,
+  ],
   templateUrl: './my-resumes.component.html',
   styleUrl: './my-resumes.component.scss',
 })

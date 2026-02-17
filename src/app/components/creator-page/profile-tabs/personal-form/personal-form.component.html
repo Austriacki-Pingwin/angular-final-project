@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
   <mat-form-field appearance="outline">
-    <mat-label>First name</mat-label>
+    <mat-label>{{ 'CREATOR.FIRST_NAME' | translate }}</mat-label>
     <input matInput formControlName="firstName" />
     @if (form.controls.firstName.invalid && form.controls.firstName.touched) {
       <mat-error> First name is required </mat-error>
@@ -8,7 +8,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Last name</mat-label>
+    <mat-label>{{ 'CREATOR.LAST_NAME' | translate }}</mat-label>
     <input matInput formControlName="lastName" />
     @if (form.controls.lastName.invalid && form.controls.lastName.touched) {
       <mat-error> Last name is required </mat-error>
@@ -24,7 +24,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Phone</mat-label>
+    <mat-label>{{ 'CREATOR.PHONE' | translate }}</mat-label>
     <input matInput formControlName="phone" />
     @if (form.controls.phone.invalid && form.controls.phone.touched) {
       <mat-error>Phone number should be 9 digits</mat-error>
@@ -32,8 +32,10 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Location</mat-label>
+    <mat-label>{{ 'CREATOR.LOCATION' | translate }}</mat-label>
     <input matInput formControlName="location" />
   </mat-form-field>
-  <button mat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
 </form>

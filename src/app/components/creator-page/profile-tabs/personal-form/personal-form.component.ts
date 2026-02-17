@@ -6,6 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Personal } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-personal-form',
@@ -15,6 +16,7 @@ import type { Personal } from '../../../../models/blocks.model';
     MatInputModule,
     MatButton,
     NgxSkeletonLoaderModule,
+    TranslatePipe,
   ],
   templateUrl: './personal-form.component.html',
   styleUrl: './personal-form.component.scss',

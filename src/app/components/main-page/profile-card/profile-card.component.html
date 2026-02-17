@@ -22,7 +22,7 @@
     <div class="profile-info">
       @if (profileData) {
         <mat-card-title class="profile-info__title">
-          <h3>Welcome, {{ profileData.displayName ?? 'Username' }}</h3>
+          <h3>{{ 'MAIN.WELCOME' | translate }}</h3>
         </mat-card-title>
         <mat-card-subtitle class="profile-info__subtitle">
           <h5>
@@ -36,7 +36,9 @@
     </div>
     <mat-card-actions class="profile-card-actions">
       @if (profileData) {
-        <button class="profile-button" matButton="filled" (click)="onSignOut()">Sign-out</button>
+        <button class="profile-button" matButton="filled" (click)="onSignOut()">
+          {{ 'AUTH.SIGN_OUT' | translate }}
+        </button>
       } @else {
         <ngx-skeleton-loader
           appearance="line"

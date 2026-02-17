@@ -4,6 +4,6 @@
 
 <mat-dialog-actions align="end">
   <button [matButton]="data.buttonText ? 'filled' : ''" (click)="close()">
-    {{ data.buttonText ?? 'Close' }}
+    {{ data.buttonText ?? ('CREATOR.CLOSE' | translate) }}
   </button>
 </mat-dialog-actions>

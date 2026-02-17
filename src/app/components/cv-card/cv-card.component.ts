@@ -10,11 +10,19 @@ import { calculateCvProgress } from '../../utils/cv-progress.util';
 import { type FullCV } from '../../models/cv.model';
 import { CvService } from '../../services/cv.service';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cv-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatProgressBarModule, MatIconModule, MatMenuModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatMenuModule,
+    TranslatePipe,
+  ],
   templateUrl: './cv-card.component.html',
   styleUrl: './cv-card.component.scss',
 })

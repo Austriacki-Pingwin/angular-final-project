@@ -9,6 +9,7 @@ import { MatOption } from '@angular/material/autocomplete';
 import { MatSelect } from '@angular/material/select';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Language } from '../../../../models/blocks.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-language-form',
@@ -22,6 +23,7 @@ import type { Language } from '../../../../models/blocks.model';
     NgxSkeletonLoaderModule,
     MatOption,
     MatSelect,
+    TranslatePipe,
   ],
   templateUrl: './language-form.component.html',
   styleUrl: './language-form.component.scss',
