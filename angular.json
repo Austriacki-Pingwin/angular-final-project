@@ -27,6 +27,10 @@
         "@schematics/angular:resolver": {
           "typeSeparator": ".",
           "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "typeSeparator": ".",
+          "skipTests": true
         }
       },
       "root": "",

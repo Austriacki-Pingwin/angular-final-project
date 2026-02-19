@@ -1,59 +1,31 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { type User } from '@angular/fire/auth';
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
 import { type UserProfile } from '../models/user-profile.model';
-import { doc, Firestore, getDoc, serverTimestamp, setDoc } from '@angular/fire/firestore';
+import { doc, docData, Firestore } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
+import { catchError, type Observable, of, switchMap } from 'rxjs';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private firestore = inject(Firestore);
+  private authService = inject(AuthService);
+  private injectionContext = inject(EnvironmentInjector);
+  private notificationService = inject(NotificationService);
 
-  private _profile = signal<UserProfile | null>(null);
-  public profile = this._profile.asReadonly();
-
-  public async ensureUserExists(user: User): Promise<void> {
-    const ref = doc(this.firestore, 'users', user.uid);
-
-    await setDoc(
-      ref,
-      {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        provider: user.providerData[0]?.providerId ?? 'password',
-        createdAt: serverTimestamp(),
-      },
-      { merge: true },
+  public getUser(): Observable<UserProfile> {
+    return this.authService.uid$.pipe(
+      switchMap((uid) => {
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = doc(this.firestore, `users/${uid}`);
+          return docData(ref, { idField: 'uid' }) as Observable<UserProfile>;
+        });
+      }),
+      catchError(() => {
+        this.notificationService.error('Could not load User. Please try again');
+        return of();
+      }),
     );
-  }
-
-  public async getUser(uid: string): Promise<void> {
-    const ref = doc(this.firestore, 'users', uid);
-
-    const snap = await getDoc(ref);
-
-    if (!snap.exists()) {
-      this._profile.set(null);
-      return;
-    }
-
-    const data = snap.data();
-
-    const profile: UserProfile = {
-      uid: data['uid'],
-      email: data['email'],
-      displayName: data['displayName'] ?? null,
-      photoURL: data['photoURL'] ?? null,
-      provider: data['provider'],
-      createdAt: data['createdAt'],
-    };
-
-    this._profile.set(profile);
-  }
-
-  public clear(): void {
-    this._profile.set(null);
   }
 }

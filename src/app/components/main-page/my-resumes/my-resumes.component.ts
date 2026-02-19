@@ -21,7 +21,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class MyResumesComponent {
   private cvService = inject(CvService);
-  public cvs$ = this.cvService.getFullCvs();
+
+  public cvs$ = this.cvService.getCvs();
 
   @Output() public download = new EventEmitter<FullCV>();
 

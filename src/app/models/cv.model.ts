@@ -13,8 +13,6 @@ import type {
 } from './blocks.model';
 import { type PreviewBlockType } from './collections.model';
 
-export type FullCVs = FullCV[];
-
 export type FullCV = {
   id: string;
   title: string;
