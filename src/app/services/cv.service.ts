@@ -158,46 +158,37 @@ export class CvService {
     );
   }
 
-  public duplicateCv(id: string): void {
-    this.authService.uid$
-      .pipe(
-        switchMap((userId) =>
-          this.profileService.getBlock<CV>('cvs', id).pipe(
-            take(1),
-            switchMap((cv) => {
-              return runInInjectionContext(this.injectionContext, () => {
-                const cvId = doc(collection(this.firestore, `users/${userId}/cvs`)).id;
+  public duplicateCv(id: string): Observable<void> {
+    return this.authService.uid$.pipe(
+      switchMap((userId) =>
+        this.profileService.getBlock<CV>('cvs', id).pipe(
+          take(1),
+          switchMap((cv) => {
+            return runInInjectionContext(this.injectionContext, () => {
+              const cvId = doc(collection(this.firestore, `users/${userId}/cvs`)).id;
 
-                const duplicateCv: CV = {
-                  ...cv,
-                  id: cvId,
-                  createdAt: Timestamp.now(),
-                  updatedAt: Timestamp.now(),
-                };
+              const duplicateCv: CV = {
+                ...cv,
+                id: cvId,
+                createdAt: Timestamp.now(),
+                updatedAt: Timestamp.now(),
+              };
 
-                return this.profileService
-                  .createBlock<CV>('cvs', duplicateCv)
-                  .pipe(map(() => cvId));
-              });
-            }),
-          ),
+              return this.profileService.createBlock<CV>('cvs', duplicateCv);
+            });
+          }),
+          tap(() => this.notificationService.success('CV successfully duplicated')),
+          catchError(() => {
+            this.notificationService.error('Could not create duplicate. Please try again');
+            return of();
+          }),
         ),
-      )
-      .subscribe({
-        next: () => {
-          console.log('CV successfully duplicated');
-        },
-        error: (err) => {
-          console.error('Error when duplicating CV:', err);
-        },
-      });
+      ),
+    );
   }
 
-  public deleteCv(id: string): void {
-    this.profileService.deleteBlock('cvs', id).subscribe({
-      next: () => console.log('CV Deleted'),
-      error: (err) => console.error('Error Delete:', err),
-    });
+  public deleteCv(id: string): Observable<void> {
+    return this.profileService.deleteBlock('cvs', id);
   }
 
   public addBlockToCv(block: string, blockId: string, cvId: string): Observable<void> {

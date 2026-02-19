@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { calculateCvProgress } from '../../utils/cv-progress.util';
-import { type FullCV } from '../../models/cv.model';
 import { CvService } from '../../services/cv.service';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -31,14 +30,14 @@ export class CvCardComponent {
   private router = inject(Router);
   public cv = input.required<CV>();
 
-  @Output() public download = new EventEmitter<FullCV>();
+  @Output() public download = new EventEmitter<string>();
 
   public progress = computed(() => {
     return calculateCvProgress(this.cv());
   });
 
   public deleteCv(): void {
-    this.cvService.deleteCv(this.cv().id);
+    this.cvService.deleteCv(this.cv().id).subscribe();
   }
 
   public openCreator(): void {
@@ -46,10 +45,10 @@ export class CvCardComponent {
   }
 
   public duplicateCv(): void {
-    this.cvService.duplicateCv(this.cv().id);
+    this.cvService.duplicateCv(this.cv().id).subscribe();
   }
 
   public onDownload(): void {
-    // this.download.emit(this.cv());
+    this.download.emit(this.cv().id);
   }
 }

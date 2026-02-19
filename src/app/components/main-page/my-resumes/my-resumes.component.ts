@@ -4,7 +4,6 @@ import { CvCardComponent } from '../../cv-card/cv-card.component';
 import { CvService } from '../../../services/cv.service';
 import { CommonModule } from '@angular/common';
 import { NgxSkeletonLoaderComponent } from 'ngx-skeleton-loader';
-import type { FullCV } from '../../../models/cv.model';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -24,9 +23,9 @@ export class MyResumesComponent {
 
   public cvs$ = this.cvService.getCvs();
 
-  @Output() public download = new EventEmitter<FullCV>();
+  @Output() public download = new EventEmitter<string>();
 
-  public downloadCv(cv: FullCV): void {
-    this.download.emit(cv);
+  public downloadCv(cvId: string): void {
+    this.download.emit(cvId);
   }
 }

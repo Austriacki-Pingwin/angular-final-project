@@ -1,8 +1,10 @@
+@let cv = printCvData();
+
 <app-profile-card />
 <app-my-resumes (download)="downloadCv($event)" />
 
-@if (printCvData) {
+@if (cv) {
   <div class="print-container">
-    <app-preview [cv]="printCvData" />
+    <app-preview [cv]="cv" />
   </div>
 }
