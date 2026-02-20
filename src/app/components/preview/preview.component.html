@@ -1,7 +1,7 @@
 @let blocks = cvBlocks();
 <div class="title">
   <h2>{{ 'CREATOR.PREVIEW' | translate }}: {{ title }}</h2>
-  <button matIconButton (click)="printCv()"><mat-icon>print</mat-icon></button>
+  <button matIconButton (click)="printCv()"><mat-icon>download</mat-icon></button>
 </div>
 <div class="wrapper" cdkDropList (cdkDropListDropped)="drop($event)">
   @if (blocks.length) {

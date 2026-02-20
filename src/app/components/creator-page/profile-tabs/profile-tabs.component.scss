@@ -1,4 +1,3 @@
-@use '../../../../styles/mixins' as *;
 :host {
   display: flex;
   flex-direction: column;
@@ -9,9 +8,6 @@
 app-tabs {
   position: sticky;
   z-index: 1;
-}
-.form {
-  @include flex($direction: column);
 }
 
 .form-wrapper {
