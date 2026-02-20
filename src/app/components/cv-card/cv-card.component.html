@@ -62,9 +62,9 @@
 
     <!-- Progress -->
     <div class="progress-container">
-      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      <mat-progress-bar mode="determinate" [value]="progress()"></mat-progress-bar>
 
-      <span class="progress-text">{{ progress }}%</span>
+      <span class="progress-text">{{ progress() }}%</span>
     </div>
   </div>
 </div>

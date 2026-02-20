@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-card',
@@ -17,6 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatProgressSpinnerModule,
     NgxSkeletonLoaderModule,
     TranslatePipe,
+    AsyncPipe,
   ],
   templateUrl: './profile-card.component.html',
   styleUrl: './profile-card.component.scss',
@@ -24,7 +26,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class ProfileCardComponent {
   private authService = inject(AuthService);
   private userService = inject(UserService);
-  public profile = this.userService.profile;
+  public profile$ = this.userService.getUser();
 
   public onSignOut(): void {
     this.authService.signOut();
