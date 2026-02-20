@@ -53,7 +53,5 @@ export class LinkFormComponent {
       ...this.form.getRawValue(),
     });
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }

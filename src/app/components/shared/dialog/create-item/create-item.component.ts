@@ -28,9 +28,9 @@ export class CreateItemComponent {
     if (this.form.controls.title.hasError('required')) {
       this.errorMessages.set('You must enter a title.');
     } else if (this.form.controls.title.hasError('maxlength')) {
-      this.errorMessages.set('Your id must be less than 20 characters.');
+      this.errorMessages.set('Must be less than 20 characters.');
     } else if (this.form.controls.title.hasError('minlength')) {
-      this.errorMessages.set('Your id must be more than 3 characters.');
+      this.errorMessages.set('Must be more than 3 characters.');
     } else {
       this.errorMessages.set('');
     }
@@ -44,6 +44,10 @@ export class CreateItemComponent {
       next: () => {
         this.loading.set(false);
         this.dialogRef.close({ saved: true });
+      },
+      error: () => {
+        this.loading.set(false);
+        this.errorMessages.set('An error occurred while creating the item.');
       },
     });
   }

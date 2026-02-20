@@ -8,7 +8,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatDialogRef } from '@angular/material/dialog';
 import type { Photo } from '../../../../models/blocks.model';
 import { TranslatePipe } from '@ngx-translate/core';
-// import { NotificationService } from '../../../../services/notification.service';
 
 const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/x-png'];
 @Component({
@@ -29,11 +28,8 @@ const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/x-png'];
 export class PhotoFormComponent {
   private dialogRef = inject(MatDialogRef);
   private changeDetectorRef = inject(ChangeDetectorRef);
-  // private notificationService = inject(NotificationService);
 
   public item = input<Photo | null>(null);
-  public isUploading = false;
-  public selectedFile: File | null = null;
   public imagePreview: string | null = null;
   constructor() {
     effect(() => {
@@ -50,7 +46,7 @@ export class PhotoFormComponent {
   }
 
   public form = new FormGroup({
-    title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    title: new FormControl('', { validators: [Validators.required] }),
     imageBase64: new FormControl<string | null>(null, {
       validators: [Validators.required],
     }),
@@ -62,11 +58,9 @@ export class PhotoFormComponent {
 
     const file = input.files[0];
     if (!allowedTypes.includes(file.type)) {
-      // todo notification
       return;
     }
     if (file.size > 400_000) {
-      //todo notification
       return;
     }
 
@@ -89,7 +83,5 @@ export class PhotoFormComponent {
     });
 
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }

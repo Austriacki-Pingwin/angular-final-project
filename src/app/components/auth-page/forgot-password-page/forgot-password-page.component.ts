@@ -24,14 +24,14 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './forgot-password-page.component.scss',
 })
 export class ForgotPasswordPageComponent {
-  private fromBuilder = inject(FormBuilder);
+  private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
 
   public readonly isPasswordResetEmailSent = this.authService.isPasswordResetEmailSent;
   public readonly errorMessage = this.authService.errorMessage;
   public readonly isSubmissionInProgress = this.authService.isSubmissionInProgress;
 
-  public form = this.fromBuilder.nonNullable.group({
+  public form = this.formBuilder.nonNullable.group({
     email: ['', Validators.required],
   });
 
@@ -39,7 +39,6 @@ export class ForgotPasswordPageComponent {
     if (this.form.invalid) return;
     const form = this.form.getRawValue();
 
-    // * resent the password by sending a reset password link
     this.authService.resetPassword(form);
   }
 }

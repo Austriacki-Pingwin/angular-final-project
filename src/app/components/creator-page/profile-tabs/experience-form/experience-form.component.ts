@@ -45,21 +45,17 @@ export class ExperienceFormComponent {
 
   public form = new FormGroup({
     position: new FormControl('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     company: new FormControl('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     location: new FormControl(''),
     startDate: new FormControl('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     endDate: new FormControl(''),
     description: new FormControl('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
   });
@@ -71,7 +67,5 @@ export class ExperienceFormComponent {
       ...this.form.getRawValue(),
     });
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }

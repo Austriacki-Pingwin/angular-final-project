@@ -25,3 +25,6 @@
     display: none;
   }
 }
+.title {
+  @include mixins.flex($direction: row);
+}

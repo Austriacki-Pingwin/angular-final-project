@@ -1,10 +1,15 @@
 @let blocks = cvBlocks();
-<h2>{{ 'CREATOR.PREVIEW' | translate }}: {{ title }}</h2>
+<div class="title">
+  <h2>{{ 'CREATOR.PREVIEW' | translate }}: {{ title }}</h2>
+  <button matIconButton (click)="printCv()"><mat-icon>download</mat-icon></button>
+</div>
 <div class="wrapper" cdkDropList (cdkDropListDropped)="drop($event)">
   @if (blocks.length) {
-    @for (block of blocks; track block.type) {
-      <app-item-block [cvBlock]="block" />
-    }
+    <div class="print-container">
+      @for (block of blocks; track block.type) {
+        <app-item-block [cvBlock]="block" />
+      }
+    </div>
   } @else {
     <p>Oops</p>
   }
