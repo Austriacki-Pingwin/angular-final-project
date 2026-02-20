@@ -43,16 +43,13 @@ export class EducationFormComponent {
 
   public form = new FormGroup({
     degree: new FormControl<string>('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     institution: new FormControl<string>('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     location: new FormControl<string>(''),
     startDate: new FormControl<string>('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     endDate: new FormControl<string>(''),
@@ -66,7 +63,5 @@ export class EducationFormComponent {
       ...this.form.getRawValue(),
     });
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }

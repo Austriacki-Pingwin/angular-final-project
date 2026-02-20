@@ -33,7 +33,7 @@
   },
   "CREATOR": {
     "ADD": "Add new item",
-    "NO_DATA": "There is no items to show",
+    "NO_DATA": "There are no items to show",
     "PLEASE_ADD": "Please add new item",
     "FIRST_NAME": "First Name",
     "LAST_NAME": "Last Name",

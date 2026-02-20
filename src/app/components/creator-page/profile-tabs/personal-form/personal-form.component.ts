@@ -63,7 +63,5 @@ export class PersonalFormComponent {
       ...this.form.getRawValue(),
     });
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }

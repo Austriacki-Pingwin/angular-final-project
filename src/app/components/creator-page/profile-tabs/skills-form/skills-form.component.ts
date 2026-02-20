@@ -40,7 +40,6 @@ export class SkillsFormComponent {
 
   public form = new FormGroup({
     title: new FormControl('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
   });
@@ -53,7 +52,5 @@ export class SkillsFormComponent {
     });
 
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }

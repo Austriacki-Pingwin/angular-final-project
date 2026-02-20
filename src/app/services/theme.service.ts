@@ -35,7 +35,6 @@ export class ThemeService {
     localStorage.setItem(this.storageKey, theme);
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(theme);
-    localStorage.setItem(this.storageKey, theme);
   }
 
   public getTheme(): Theme {

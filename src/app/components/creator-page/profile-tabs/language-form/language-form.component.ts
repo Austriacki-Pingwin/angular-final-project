@@ -45,11 +45,9 @@ export class LanguageFormComponent {
 
   public form = new FormGroup({
     name: new FormControl('', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
     proficiency: new FormControl<'Beginner' | 'Intermediate' | 'Advanced' | 'Native'>('Native', {
-      nonNullable: true,
       validators: [Validators.required],
     }),
   });
@@ -61,7 +59,5 @@ export class LanguageFormComponent {
       ...this.form.getRawValue(),
     });
     this.form.reset();
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 }
