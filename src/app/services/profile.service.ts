@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -21,12 +21,15 @@ export class ProfileService {
   private firestore = inject(Firestore);
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
+  private injectionContext = inject(EnvironmentInjector);
 
   public getBlocks<T>(blockType: CollectionType): Observable<T[]> {
     return this.authService.uid$.pipe(
       switchMap((userId) => {
-        const ref = collection(this.firestore, `users/${userId}/${blockType}`);
-        return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = collection(this.firestore, `users/${userId}/${blockType}`);
+          return collectionData(ref, { idField: 'id' }) as Observable<T[]>;
+        });
       }),
       catchError(() => {
         this.notificationService.error('Could not load blocks. Please try again');
@@ -34,12 +37,14 @@ export class ProfileService {
       }),
     );
   }
+
   public getBlock<T>(blockType: CollectionType, blockId: string): Observable<T> {
     return this.authService.uid$.pipe(
       switchMap((userId) => {
-        const ref = doc(this.firestore, `users/${userId}/${blockType}/${blockId}`);
-
-        return docData(ref, { idField: 'id' }) as Observable<T>;
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = doc(this.firestore, `users/${userId}/${blockType}/${blockId}`);
+          return docData(ref, { idField: 'id' }) as Observable<T>;
+        });
       }),
       catchError(() => {
         this.notificationService.error('Could not load block. Please try again');
@@ -53,8 +58,10 @@ export class ProfileService {
       filter((uid): uid is string => !!uid),
       take(1),
       switchMap((uid) => {
-        const ref = doc(this.firestore, `users/${uid}/${blockType}/${block.id}`);
-        return from(setDoc(ref, block));
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = doc(this.firestore, `users/${uid}/${blockType}/${block.id}`);
+          return from(setDoc(ref, block));
+        });
       }),
       tap(() => this.notificationService.success('Block created successfully')),
       catchError(() => {
@@ -73,9 +80,10 @@ export class ProfileService {
       filter((uid): uid is string => !!uid),
       take(1),
       switchMap((uid) => {
-        const ref = doc(this.firestore, `users/${uid}/${blockType}/${blockId}`);
-
-        return from(updateDoc(ref, changes));
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = doc(this.firestore, `users/${uid}/${blockType}/${blockId}`);
+          return from(updateDoc(ref, changes));
+        });
       }),
       tap(() => this.notificationService.success('Block updated successfully')),
       catchError(() => {
@@ -90,8 +98,10 @@ export class ProfileService {
       filter((uid): uid is string => !!uid),
       take(1),
       switchMap((uid) => {
-        const ref = doc(this.firestore, `users/${uid}/${blockType}/${blockId}`);
-        return deleteDoc(ref);
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = doc(this.firestore, `users/${uid}/${blockType}/${blockId}`);
+          return deleteDoc(ref);
+        });
       }),
       tap(() => this.notificationService.success('Block deleted successfully')),
       catchError(() => {
