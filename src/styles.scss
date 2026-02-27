@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use './styles/_mixins' as *;
+@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Comic+Relief:wght@400;700&family=Crafty+Girls&family=Flavors&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Julius+Sans+One&family=Manrope:wght@200..800&family=Mansalva&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oooh+Baby&family=Reenie+Beanie&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Moonrocks&display=swap');
 
 :root {
   font-size: 16px;
@@ -21,7 +22,7 @@ body {
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -68,6 +69,7 @@ body {
     left: 0;
     top: 0;
     margin: 10mm;
+    width: calc(100% - margin * 2);
   }
 }
 .success-snackbar {
@@ -93,4 +95,38 @@ body {
       container-shape: 3rem,
     )
   );
+}
+.classic {
+  font-family: 'Montserrat Alternates', sans-serif;
+  .photo-preview {
+    border-radius: 10px;
+  }
+  .personal__full-name {
+    font-family: 'Montserrat Alternates', sans-serif;
+  }
+  .skill {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    font-style: bold;
+  }
+}
+.technical {
+  font-family: 'JetBrains Mono', monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  .photo-preview {
+    border-radius: 50%;
+  }
+  .personal__full-name {
+    font-family: 'Oooh Baby', cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .skill {
+    padding: 0.5rem;
+    border: 1px solid var(--mat-sys-on-primary-fixed);
+    border-radius: 0.5rem;
+    color: var(--mat-sys-on-primary-fixed);
+  }
 }

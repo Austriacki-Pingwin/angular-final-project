@@ -11,7 +11,6 @@ import { ExperienceItemComponent } from './experience-item/experience-item.compo
 import { EducationItemComponent } from './education-item/education-item.component';
 import { type FullCVPreviewBlockType } from '../../../models/cv.model';
 import { PhotoItemComponent } from './photo-item/photo-item.component';
-import { CapitalizeFirstPipe } from '../../../shared/pipe/capitalize-first.pipe';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 
 const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>> = {
@@ -27,7 +26,7 @@ const PREVIEW_BLOCK_COMPONENTS: Record<PreviewBlockType, ComponentType<unknown>>
 
 @Component({
   selector: 'app-item-block',
-  imports: [NgComponentOutlet, CapitalizeFirstPipe],
+  imports: [NgComponentOutlet],
   templateUrl: './item-block.component.html',
   styleUrl: './item-block.component.scss',
   host: {

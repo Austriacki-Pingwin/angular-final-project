@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './links-item.component.html',
   styleUrl: './links-item.component.scss',
+  host: { class: 'links' },
 })
 export class LinksItemComponent {
   public data = input.required<Link[]>();

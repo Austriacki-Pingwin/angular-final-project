@@ -1,3 +1,8 @@
+@use '../../../../../styles/mixins' as mixins;
+:host {
+  width: 100%;
+  @include mixins.flex($align: center);
+}
 .photo-preview {
   height: 100px;
   object-fit: cover;

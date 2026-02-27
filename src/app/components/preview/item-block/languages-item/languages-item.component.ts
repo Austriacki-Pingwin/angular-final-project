@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './languages-item.component.html',
   styleUrl: './languages-item.component.scss',
+  host: { class: 'languages' },
 })
 export class LanguagesItemComponent {
   public data = input.required<Language[]>();

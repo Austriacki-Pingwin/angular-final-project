@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './photo-item.component.html',
   styleUrl: './photo-item.component.scss',
+  host: { class: 'photo' },
 })
 export class PhotoItemComponent {
   public data = input.required<Photo[]>();

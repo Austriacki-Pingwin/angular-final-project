@@ -1,10 +1,15 @@
 @use '../../../../../styles/mixins' as mixins;
 
 :host {
-  @include mixins.flex($direction: column, $align: start, $gap: 20px);
-  .experience {
-    @include mixins.flex($direction: column, $align: start, $gap: 5px);
-    padding-left: 1rem;
-    border-left: 2px solid var(--mat-sys-primary);
-  }
+  width: 100%;
+  @include mixins.flex($direction: column, $align: center, $gap: 10px);
+}
+
+div {
+  border-left: 1px solid var(--mat-sys-on-error-container);
+  padding-left: 10px;
+}
+h3 {
+  color: var(--mat-sys-primary);
+  text-align: center;
 }
