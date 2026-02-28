@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 
 type Theme = 'light' | 'dark';
 
@@ -7,37 +7,35 @@ type Theme = 'light' | 'dark';
 })
 export class ThemeService {
   private storageKey = 'theme';
+  private theme = signal<Theme>('dark');
+
+  public readonly theme$ = this.theme.asReadonly();
 
   constructor() {
-    const theme = localStorage.getItem(this.storageKey);
-    if (theme === 'dark') {
-      document.body.classList.add(theme);
-    } else {
-      document.body.classList.add('light');
-      localStorage.setItem(this.storageKey, 'light');
+    const saved = localStorage.getItem(this.storageKey) as Theme | null;
+
+    if (saved === 'dark' || saved === 'light') {
+      this.theme.set(saved);
     }
+    effect(() => {
+      const current = this.theme();
+
+      document.body.classList.remove('light', 'dark');
+      document.body.classList.add(current);
+
+      localStorage.setItem(this.storageKey, current);
+    });
   }
 
   public toggleTheme(): void {
-    const theme = localStorage.getItem(this.storageKey);
-    if (theme === 'dark') {
-      document.body.classList.remove('dark');
-      document.body.classList.add('light');
-      localStorage.setItem(this.storageKey, 'light');
-    } else {
-      document.body.classList.remove('light');
-      document.body.classList.add('dark');
-      localStorage.setItem(this.storageKey, 'dark');
-    }
+    this.theme.update((t) => (t === 'dark' ? 'light' : 'dark'));
   }
 
   public setTheme(theme: Theme): void {
-    localStorage.setItem(this.storageKey, theme);
-    document.body.classList.remove('light', 'dark');
-    document.body.classList.add(theme);
+    this.theme.set(theme);
   }
 
   public getTheme(): Theme {
-    return document.body.classList.contains('dark') ? 'dark' : 'light';
+    return this.theme();
   }
 }
