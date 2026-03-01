@@ -9,7 +9,7 @@
           @if (!isCV(cv)) {
             <app-add-cv-card />
           } @else {
-            <app-cv-card [cv]="cv" (download)="downloadCv($event)" />
+            <app-cv-card [cv]="cv" />
           }
         }
       </div>

@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  EventEmitter,
-  inject,
-  input,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -39,8 +31,6 @@ export class CvCardComponent {
   private router = inject(Router);
   public cv = input.required<CV>();
 
-  @Output() public download = new EventEmitter<string>();
-
   public progress = computed(() => {
     return calculateCvProgress(this.cv());
   });
@@ -55,9 +45,5 @@ export class CvCardComponent {
 
   public duplicateCv(): void {
     this.cvService.duplicateCv(this.cv().id).subscribe();
-  }
-
-  public onDownload(): void {
-    this.download.emit(this.cv().id);
   }
 }

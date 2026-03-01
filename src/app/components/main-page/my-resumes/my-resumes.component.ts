@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, inject, Output } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { AddCvCardComponent } from '../../add-cv-card/add-cv-card.component';
 import { CvCardComponent } from '../../cv-card/cv-card.component';
 import { CvService } from '../../../services/cv.service';
@@ -70,11 +70,5 @@ export class MyResumesComponent {
 
   public trackByRow(index: number): number {
     return index;
-  }
-
-  @Output() public download = new EventEmitter<string>();
-
-  public downloadCv(cvId: string): void {
-    this.download.emit(cvId);
   }
 }
