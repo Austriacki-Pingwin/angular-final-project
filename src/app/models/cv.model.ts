@@ -1,5 +1,3 @@
-// * CV Model
-
 import { type Timestamp } from '@angular/fire/firestore';
 import type {
   About,

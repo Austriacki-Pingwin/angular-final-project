@@ -25,7 +25,6 @@ export class DeleteItemComponent {
   public hide = signal(true);
   public loading = signal(false);
   public activatedRoute = inject(ActivatedRoute);
-  //public cvId = this.activatedRoute.snapshot.paramMap.get('cvId') ?? '';
   public deleteItem(): void {
     this.dialogRef.close({ saved: true });
     this.profileService

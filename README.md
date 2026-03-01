@@ -1,59 +1,97 @@
-# AngularFinalProject
+# Project Overview :duck:
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+CV Generator is a modern web application built with Angular 21 and Firebase that allows users to create and manage professional CVs.
+Users can fill in profile blocks (experience, education, skills, etc.) and dynamically generate multiple CV versions by selecting specific blocks.
+The application uses a reactive architecture with Angular Signals and RxJS for efficient state management and real-time updates
 
-## Development server
+[Task](https://github.com/rolling-scopes-school/tasks/tree/master/angular/modules/rsclone)
 
-To start a local development server, run:
+# Deployment :dodo:
 
-```bash
+[Vercel deployment](https://angular-final-project-rs.vercel.app/)
+
+### Architecture Diagram
+
+```
+┌─────────────────────┐
+│      Browser        │
+│  Angular SPA (v21)  │
+└──────────┬──────────┘
+           │
+           │ Firebase SDK
+           ▼
+┌─────────────────────┐
+│   Firebase Auth     │
+│   (JWT, session)    │
+└─────────────────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    Firestore DB     │
+│                     │
+│  profile collection │
+│  cvs collection     │
+└─────────────────────┘
+           │
+           ▼
+┌─────────────────────┐
+│   Firebase Hosting  │
+└─────────────────────┘
+```
+
+- Angular 21 (standalone, signals)
+- Firebase Authentication
+- Firestore (Profile collection → CVs collection)
+- Hosting (Firebase)
+
+### Performance
+
+- Lazy loading
+- Standalone components
+- OnPush
+- Signals reduce unnecessary change detection
+- defer
+
+- Performance: 50
+- Accessibility: 91
+- Best Practices: 196
+- SEO: 100
+
+### Accessibility
+
+- Semantic HTML
+- aria-label
+- mat-form-field correctly configured
+
+🚀 Running the Project
+
+## Clone repository
+
+git clone https://github.com/your-repo.git
+cd project-name
+
+## Install dependencies
+
+npm install
+
+## Run locally
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open:
 
-## Code scaffolding
+http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Build production
 
-```bash
-ng generate component component-name
-```
+ng build --configuration production
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Signals vs RxJS
 
-```bash
-ng generate --help
-```
+We use Angular Signals for local component state, Inputs/Outputs communication, and UI-driven state in services, because they provide a simpler and more declarative reactive model with fine-grained change detection.
 
-## Building
+RxJS is used primarily for asynchronous operations and external data streams such as Firebase Authentication and Firestore, where stream composition (switchMap, combineLatest) is required.
 
-To build the project run:
+Signals improve readability and reduce boilerplate for UI state, while RxJS remains essential for handling complex async flows and real-time backend data.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This combination ensures clarity, performance optimization, and separation of UI reactivity from async stream management.

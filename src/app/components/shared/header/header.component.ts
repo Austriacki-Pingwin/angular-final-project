@@ -3,7 +3,7 @@ import { MatButton, MatAnchor, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { ThemeButtonComponent } from '../theme-button/theme-button.component';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
 import { AsyncPipe } from '@angular/common';
 
@@ -15,7 +15,6 @@ import { AsyncPipe } from '@angular/common';
     MatIcon,
     RouterLink,
     ThemeButtonComponent,
-    TranslatePipe,
     MatIconButton,
     AsyncPipe,
   ],
