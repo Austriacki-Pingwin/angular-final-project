@@ -2,6 +2,15 @@
 :host {
   width: 100%;
   @include mixins.flex($direction: column, $align: center, $gap: 10px);
+
+  .container {
+    width: 100%;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  @include mixins.flex($direction: column, $align: center, $gap: 10px);
 }
 h3 {
   color: var(--mat-sys-primary);

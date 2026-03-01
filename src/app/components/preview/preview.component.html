@@ -7,7 +7,13 @@
   <mat-radio-button value="classic">Classic</mat-radio-button>
   <mat-radio-button value="technical">Technical</mat-radio-button>
 </mat-radio-group>
-<div class="wrapper" cdkDropList (cdkDropListDropped)="drop($event)">
+<div
+  class="wrapper"
+  cdkDropList
+  [cdkDropListData]="blocks"
+  cdkDropListLockAxis="y"
+  (cdkDropListDropped)="drop($event)"
+>
   @if (blocks.length) {
     <div class="print-container" [class]="selectedType">
       @for (block of blocks; track block.type) {
