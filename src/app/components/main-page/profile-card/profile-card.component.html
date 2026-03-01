@@ -5,7 +5,7 @@
     @if (profileData) {
       <div class="avatar">
         @if (profileData.photoURL) {
-          <img [src]="profileData.photoURL" [alt]="profileData.displayName" />
+          <img [src]="profileData.photoURL" [alt]="profileData.displayName ?? 'User avatar'" />
         } @else {
           <div class="icon-fill">
             <mat-icon class="icon-fill" fontIcon="person" />
@@ -26,7 +26,7 @@
         </mat-card-title>
         <mat-card-subtitle class="profile-info__subtitle">
           <h5>
-            {{ profileData.email }}
+            {{ profileData.displayName ?? profileData.email }}
           </h5>
         </mat-card-subtitle>
       } @else {

@@ -1,4 +1,12 @@
-import { Component, computed, EventEmitter, inject, input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  inject,
+  input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -24,6 +32,7 @@ import type { CV } from '../../models/collections.model';
   ],
   templateUrl: './cv-card.component.html',
   styleUrl: './cv-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CvCardComponent {
   private cvService = inject(CvService);
