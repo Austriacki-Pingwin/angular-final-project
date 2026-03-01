@@ -45,6 +45,14 @@ export type Profile = {
   educationInfo: Education[];
 };
 
+export type AddCard = {
+  title: 'add';
+  id: 'add';
+};
+
+export type CardItem = AddCard | CV;
+export type Cards = CardItem[];
+
 export type CVs = CV[];
 
 export type CV = {

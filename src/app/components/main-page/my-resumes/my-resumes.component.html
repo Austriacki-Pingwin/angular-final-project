@@ -1,9 +1,22 @@
-@let cvs = cvs$ | async;
+<!-- @let rows = rows$ | async; -->
+@let _rows = rows();
 <h3>{{ 'MAIN.RESUMES' | translate }}</h3>
-<div class="cv-container">
-  <app-add-cv-card />
-  @if (!cvs) {
+<cdk-virtual-scroll-viewport class="cv-container" [itemSize]="rowHeight">
+  @if (_rows && _rows.length) {
+    <ng-container *cdkVirtualFor="let row of _rows; trackBy: trackByRow">
+      <div class="cvs-row">
+        @for (cv of row; track cv.id) {
+          @if (!isCV(cv)) {
+            <app-add-cv-card />
+          } @else {
+            <app-cv-card [cv]="cv" />
+          }
+        }
+      </div>
+    </ng-container>
+  } @else {
     <div class="skeleton-layer">
+      <app-add-cv-card />
       <ngx-skeleton-loader
         count="3"
         appearance="square"
@@ -11,9 +24,4 @@
       />
     </div>
   }
-  @if (cvs && cvs.length) {
-    @for (cv of cvs; track cv.id) {
-      <app-cv-card [cv]="cv" (download)="downloadCv($event)" />
-    }
-  }
-</div>
+</cdk-virtual-scroll-viewport>

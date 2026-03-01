@@ -3,8 +3,11 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  collectionData,
   doc,
   Firestore,
+  orderBy,
+  query,
   Timestamp,
   updateDoc,
 } from '@angular/fire/firestore';
@@ -58,7 +61,19 @@ export class CvService {
   }
 
   public getCvs(): Observable<CVs> {
-    return this.profileService.getBlocks('cvs');
+    return this.authService.uid$.pipe(
+      switchMap((userId) => {
+        return runInInjectionContext(this.injectionContext, () => {
+          const ref = collection(this.firestore, `users/${userId}/cvs`);
+          const sort = query(ref, orderBy('createdAt', 'desc'));
+          return collectionData(sort, { idField: 'id' }) as Observable<CVs>;
+        });
+      }),
+      catchError(() => {
+        this.notificationService.error('Could not load blocks. Please try again');
+        return of();
+      }),
+    );
   }
 
   private buildFullCv(cv: CV): Observable<FullCV> {
@@ -165,11 +180,16 @@ export class CvService {
           take(1),
           switchMap((cv) => {
             return runInInjectionContext(this.injectionContext, () => {
+              const randomHash = Math.floor(Math.random() * 1000);
+              const newTitle = cv.title.match(/ copy #\d+$/)
+                ? cv.title.replace(/ copy #\d+$/, ` copy #${randomHash}`)
+                : `${cv.title} copy #${randomHash}`;
               const cvId = doc(collection(this.firestore, `users/${userId}/cvs`)).id;
 
               const duplicateCv: CV = {
                 ...cv,
                 id: cvId,
+                title: newTitle,
                 createdAt: Timestamp.now(),
                 updatedAt: Timestamp.now(),
               };
@@ -200,6 +220,7 @@ export class CvService {
           return from(
             updateDoc(ref, {
               [`${block}Block`]: arrayUnion(blockId),
+              updatedAt: Timestamp.now(),
             }),
           );
         });
@@ -221,6 +242,7 @@ export class CvService {
           return from(
             updateDoc(ref, {
               [`${block}Block`]: arrayRemove(blockId),
+              updatedAt: Timestamp.now(),
             }),
           );
         });
