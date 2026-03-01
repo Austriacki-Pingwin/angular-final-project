@@ -29,10 +29,8 @@ export class AuthService {
   public _isPasswordResetEmailSent = signal<boolean>(false);
   private injectionContext = inject(EnvironmentInjector);
 
-  // * init the google auth provider
   public googleAuthProvider = new GoogleAuthProvider();
 
-  // * auth instance
   public auth = inject(Auth);
 
   public readonly uid$ = user(this.auth).pipe(

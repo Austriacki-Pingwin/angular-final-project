@@ -1,5 +1,3 @@
-// * Empty Full CV
-
 import { Timestamp } from '@angular/fire/firestore';
 import { type FullCV } from './cv.model';
 import { type CV } from './collections.model';

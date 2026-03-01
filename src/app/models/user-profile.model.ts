@@ -1,5 +1,3 @@
-// * User Model
-
 import { type Timestamp } from '@angular/fire/firestore';
 
 export type UserProfile = {
