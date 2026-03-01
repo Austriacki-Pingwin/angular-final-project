@@ -4,6 +4,4 @@
   @for (item of blockData; track item?.id) {
     <img class="photo-preview" [src]="item?.imageBase64" alt="photo" />
   }
-} @else {
-  <p>This block is not available yet</p>
 }

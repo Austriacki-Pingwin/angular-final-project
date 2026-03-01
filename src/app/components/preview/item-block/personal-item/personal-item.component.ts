@@ -8,6 +8,7 @@ import { MatIcon } from '@angular/material/icon';
   imports: [CommonModule, MatIcon],
   templateUrl: './personal-item.component.html',
   styleUrl: './personal-item.component.scss',
+  host: { class: 'personal' },
 })
 export class PersonalItemComponent {
   public data = input.required<Personal[]>();

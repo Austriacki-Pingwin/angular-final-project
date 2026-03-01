@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './skills-item.component.html',
   styleUrl: './skills-item.component.scss',
+  host: { class: 'skills' },
 })
 export class SkillsItemComponent {
   public data = input.required<Skill[]>();

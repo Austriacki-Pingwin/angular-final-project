@@ -6,6 +6,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { type CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
 
 const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
   'photo',
@@ -18,6 +20,8 @@ const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
   'links',
 ];
 
+type PreviewStyle = 'classic' | 'technical';
+
 @Component({
   selector: 'app-preview',
   imports: [
@@ -27,6 +31,8 @@ const PREVIEW_BLOCKS: Array<PreviewBlockType> = [
     MatButtonModule,
     MatIconButton,
     MatIcon,
+    MatRadioModule,
+    FormsModule,
   ],
   templateUrl: './preview.component.html',
   styleUrl: './preview.component.scss',
@@ -54,14 +60,17 @@ export class PreviewComponent implements OnInit {
     window.print();
   }
 
-  /*   public cvBlocks = computed<FullCVPreviewBlockType[]>(() => {
-    const value = this.cv();
+  public selectedType: PreviewStyle = 'classic';
 
-    return PREVIEW_BLOCKS.map((key) => ({
-      type: key,
-      data: value[key],
-    })) as FullCVPreviewBlockType[];
-  }); */
+  public get leftBlocks(): FullCVPreviewBlockType[] {
+    const mid = Math.ceil(this.cvBlocks().length / 2);
+    return this.cvBlocks().slice(0, mid);
+  }
+
+  public get rightBlocks(): FullCVPreviewBlockType[] {
+    const mid = Math.ceil(this.cvBlocks().length / 2);
+    return this.cvBlocks().slice(mid);
+  }
 
   public drop(event: CdkDragDrop<FullCVPreviewBlockType[]>): void {
     const current = this.cvBlocks();

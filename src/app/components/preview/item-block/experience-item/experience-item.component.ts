@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './experience-item.component.html',
   styleUrl: './experience-item.component.scss',
+  host: { class: 'experience' },
 })
 export class ExperienceItemComponent {
   public data = input.required<Experience[]>();

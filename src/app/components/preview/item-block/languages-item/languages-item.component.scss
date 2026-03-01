@@ -1,11 +1,9 @@
 @use '../../../../../styles/mixins' as mixins;
 
 :host {
-  @include mixins.flex();
-  .language {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    color: var(--mat-sys-on-primary);
-    background-color: var(--mat-sys-primary);
-  }
+  width: 100%;
+  @include mixins.flex($direction: column, $align: center, $gap: 10px);
+}
+.language {
+  align-self: flex-start;
 }

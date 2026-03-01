@@ -39,6 +39,7 @@ export class AuthService {
     filter((u): u is NonNullable<typeof u> => !!u),
     map((u) => u.uid),
   );
+  public readonly isLoggedIn$ = user(this.auth).pipe(map((user) => !!user));
 
   public readonly errorMessage = this._errorMessage.asReadonly();
   public readonly isSubmissionInProgress = this._isSubmissionInProgress.asReadonly();

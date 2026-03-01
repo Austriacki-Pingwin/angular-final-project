@@ -6,6 +6,7 @@ import { type Education } from '../../../../models/blocks.model';
   imports: [],
   templateUrl: './education-item.component.html',
   styleUrl: './education-item.component.scss',
+  host: { class: 'education' },
 })
 export class EducationItemComponent {
   public data = input.required<Education[]>();

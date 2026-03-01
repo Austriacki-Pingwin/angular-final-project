@@ -3,9 +3,8 @@
 @if (personal && personal.length > 0) {
   @for (person of personal; track person?.id) {
     @if (person) {
-      <div class="personal">
-        <h1 class="personal__full-name">{{ person.firstName }} {{ person.lastName }}</h1>
-      </div>
+      <h2 class="personal__full-name">{{ person.firstName }} {{ person.lastName }}</h2>
+
       <div class="contact">
         <span class="contact__email">
           <mat-icon fontIcon="mail" />
@@ -26,6 +25,4 @@
       </div>
     }
   }
-} @else {
-  <p>This block is not available yet</p>
 }

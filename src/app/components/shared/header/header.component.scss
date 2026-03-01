@@ -17,3 +17,13 @@ header {
   @include flex();
   margin-left: auto;
 }
+.logo {
+  @include flex();
+
+  svg path {
+    fill: var(--mat-sys-primary);
+  }
+}
+button {
+  color: var(--mat-sys-primary);
+}
