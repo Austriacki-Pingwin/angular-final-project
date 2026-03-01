@@ -32,3 +32,9 @@
 .skeleton-layer {
   @include mixins.flex();
 }
+
+@media (max-width: 1300px) {
+  .cvs-row {
+    justify-content: center;
+  }
+}

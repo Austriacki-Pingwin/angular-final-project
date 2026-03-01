@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output } from '@angular/core';
 import { AddCvCardComponent } from '../../add-cv-card/add-cv-card.component';
 import { CvCardComponent } from '../../cv-card/cv-card.component';
 import { CvService } from '../../../services/cv.service';
@@ -8,6 +8,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import type { CV, CVs, CardItem, Cards } from '../../../models/collections.model';
 import { map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-my-resumes',
@@ -21,12 +23,34 @@ import { map } from 'rxjs';
   ],
   templateUrl: './my-resumes.component.html',
   styleUrl: './my-resumes.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyResumesComponent {
   private cvService = inject(CvService);
-  private readonly columns = 4;
+  private breakpointObserver = inject(BreakpointObserver);
+
+  public columns = toSignal(
+    this.breakpointObserver
+      .observe(['(max-width: 680px)', '(max-width: 1000px)', '(max-width: 1300px)'])
+      .pipe(
+        map((bp) => {
+          if (bp.breakpoints['(max-width: 680px)']) return 1;
+          if (bp.breakpoints['(max-width: 1000px)']) return 2;
+          if (bp.breakpoints['(max-width: 1300px)']) return 3;
+          return 4;
+        }),
+      ),
+    { initialValue: 4 },
+  );
   public readonly rowHeight = 365;
+
+  public cvs = toSignal(this.cvService.getCvs(), { initialValue: [] });
+
+  public rows = computed(() => {
+    const cvs = this.cvs();
+    const cols = this.columns();
+
+    return this.chunk(cvs, cols);
+  });
 
   private chunk(arr: CVs, size: number): Array<Cards> {
     const result: Array<Cards> = [];
@@ -39,8 +63,6 @@ export class MyResumesComponent {
 
     return result;
   }
-
-  public rows$ = this.cvService.getCvs().pipe(map((cvs) => this.chunk(cvs, this.columns)));
 
   public isCV(item: CardItem): item is CV {
     return (item as CV).id !== 'add';
