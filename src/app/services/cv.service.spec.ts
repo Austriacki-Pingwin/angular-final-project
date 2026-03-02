@@ -1,4 +1,3 @@
-// 🔥 Частичный mock Firestore (сохраняем injectable Firestore)
 jest.mock('@angular/fire/firestore', () => {
   const actual = jest.requireActual('@angular/fire/firestore');
 
@@ -15,6 +14,14 @@ jest.mock('@angular/fire/firestore', () => {
   };
 });
 
+jest.mock('../utils/cv-map-blocks.util', () => ({
+  mapBlocksToStream: jest.fn(
+    (ids: string[] | undefined, _getFn: (id: string) => unknown, fallback: unknown) => {
+      return of(ids && ids.length ? ids.map((id) => ({ id })) : fallback);
+    },
+  ),
+}));
+
 import { TestBed } from '@angular/core/testing';
 import { of, throwError, firstValueFrom } from 'rxjs';
 import { CvService } from './cv.service';
@@ -23,6 +30,9 @@ import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { arrayRemove, Firestore } from '@angular/fire/firestore';
 import { updateDoc, arrayUnion } from '@angular/fire/firestore';
+import type { CV } from '../models/collections.model';
+import type { FullCV } from '../models/cv.model';
+import { Timestamp } from '@angular/fire/firestore';
 
 describe('CvService', () => {
   let service: CvService;
@@ -276,5 +286,127 @@ describe('CvService', () => {
         done();
       },
     });
+  });
+
+  // getFullCv() happy path
+  it('should load full CV successfully', async () => {
+    const timestamp = Timestamp.now();
+
+    const cvMock: CV = {
+      id: 'cv-1',
+      title: 'Test CV',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      photoBlock: [],
+      personalBlock: [],
+      linksBlock: [],
+      aboutBlock: [],
+      skillsBlock: [],
+      languagesBlock: [],
+      experienceBlock: [],
+      educationBlock: [],
+    };
+
+    const fullCvMock: FullCV = {
+      id: 'cv-1',
+      title: 'Test CV',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      photo: [],
+      personal: [],
+      links: [],
+      about: [],
+      skills: [],
+      languages: [],
+      experience: [],
+      education: [],
+    };
+
+    profileServiceMock.getBlock.mockReturnValue(of(cvMock));
+
+    jest
+      .spyOn(service as unknown as { buildFullCv: (cv: CV) => unknown }, 'buildFullCv')
+      .mockReturnValue(of(fullCvMock));
+
+    const result = await firstValueFrom(service.getFullCv('cv-1'));
+
+    expect(profileServiceMock.getBlock).toHaveBeenCalledWith('cvs', 'cv-1');
+
+    expect(result).toEqual(fullCvMock);
+  });
+
+  // getFullCv() Error path
+  it('should call notificationService.error if getBlock fails', (done) => {
+    profileServiceMock.getBlock.mockReturnValue(throwError(() => new Error('Load failed')));
+
+    service.getFullCv('cv-1').subscribe({
+      complete: () => {
+        expect(notificationServiceMock.error).toHaveBeenCalledWith(
+          'Could not load CV. Please try again',
+        );
+        done();
+      },
+    });
+  });
+
+  // buildFullCv() happy path
+  it('should build full CV correctly', async () => {
+    const timestamp = Timestamp.now();
+
+    const cvMock: CV = {
+      id: 'cv-1',
+      title: 'Test CV',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      photoBlock: ['p1'],
+      personalBlock: [],
+      linksBlock: [],
+      aboutBlock: [],
+      skillsBlock: ['s1'],
+      languagesBlock: [],
+      experienceBlock: [],
+      educationBlock: [],
+    };
+
+    profileServiceMock.getBlock.mockReturnValue(of(cvMock));
+
+    const result = await firstValueFrom(service.getFullCv('cv-1'));
+
+    expect(result.id).toBe('cv-1');
+    expect(result.title).toBe('Test CV');
+
+    expect(result.photo.length).toBe(1);
+    expect(result.photo[0].id).toBe('p1');
+
+    expect(result.skills.length).toBe(1);
+    expect(result.skills[0].id).toBe('s1');
+  });
+
+  // buildFullCv() Error path
+  it('should build full CV correctly', async () => {
+    const timestamp = Timestamp.now();
+
+    const cvMock: CV = {
+      id: 'cv-1',
+      title: 'Test CV',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      photoBlock: ['p1'],
+      personalBlock: [],
+      linksBlock: [],
+      aboutBlock: [],
+      skillsBlock: ['s1'],
+      languagesBlock: [],
+      experienceBlock: [],
+      educationBlock: [],
+    };
+
+    profileServiceMock.getBlock.mockReturnValue(of(cvMock));
+
+    const result = await firstValueFrom(service.getFullCv('cv-1'));
+
+    expect(result.id).toBe('cv-1');
+    expect(result.photo[0].id).toBe('p1');
+    expect(result.skills[0].id).toBe('s1');
   });
 });
