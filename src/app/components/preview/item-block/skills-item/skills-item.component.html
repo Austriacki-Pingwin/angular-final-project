@@ -2,9 +2,14 @@
 
 @if (skills && skills.length > 0) {
   <h2>Skills</h2>
-  <div>
+  <div
+    cdkDropList
+    [cdkDropListData]="skills"
+    cdkDropListLockAxis="x"
+    (cdkDropListDropped)="skillDrop($event)"
+  >
     @for (skill of skills; track skill?.id) {
-      <p class="skill">{{ skill?.title }}</p>
+      <p class="skill" cdkDrag>{{ skill?.title }}</p>
     }
   </div>
 }

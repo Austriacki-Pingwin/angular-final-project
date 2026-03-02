@@ -2,7 +2,14 @@
 
 @if (links && links.length > 0) {
   <h2>Links</h2>
-  @for (link of links; track link?.id) {
-    <a href="{{ link?.url }}" target="_blank">{{ link?.label }}</a>
-  }
+  <div
+    cdkDropList
+    [cdkDropListData]="links"
+    cdkDropListLockAxis="x"
+    (cdkDropListDropped)="linksDrop($event)"
+  >
+    @for (link of links; track link?.id) {
+      <a href="{{ link?.url }}" target="_blank" cdkDrag>{{ link?.label }}</a>
+    }
+  </div>
 }

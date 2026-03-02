@@ -75,6 +75,5 @@ export class PreviewComponent implements OnInit {
   public drop(event: CdkDragDrop<FullCVPreviewBlockType[]>): void {
     const current = this.cvBlocks();
     moveItemInArray(current, event.previousIndex, event.currentIndex);
-    this.cvBlocks;
   }
 }

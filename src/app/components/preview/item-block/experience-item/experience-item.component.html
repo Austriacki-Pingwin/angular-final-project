@@ -2,14 +2,22 @@
 
 @if (experiences && experiences.length > 0) {
   <h2>Experience</h2>
-  @for (experience of experiences; track experience?.id) {
-    @if (experience) {
-      <div>
-        <h3>{{ experience.position }}</h3>
-        <p>{{ experience.company }}</p>
-        <p>{{ experience.startDate }} - {{ experience?.endDate || 'Present' }}</p>
-        <p>{{ experience?.description }}</p>
-      </div>
+  <div
+    class="container"
+    cdkDropList
+    [cdkDropListData]="experiences"
+    cdkDropListLockAxis="y"
+    (cdkDropListDropped)="experienceDrop($event)"
+  >
+    @for (experience of experiences; track experience?.id) {
+      @if (experience) {
+        <div class="wrapper" cdkDrag>
+          <h3>{{ experience.position }}</h3>
+          <p>{{ experience.company }}</p>
+          <p>{{ experience.startDate }} - {{ experience?.endDate || 'Present' }}</p>
+          <p>{{ experience?.description }}</p>
+        </div>
+      }
     }
-  }
+  </div>
 }
