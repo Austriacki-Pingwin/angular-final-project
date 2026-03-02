@@ -18,7 +18,7 @@ export default [
       },
       parser: tseslint.parser,
       parserOptions: {
-        project: ['./tsconfig.app.json'],
+        project: ['./tsconfig.app.json', './cypress/tsconfig.json'],
       },
     },
     linterOptions: {
