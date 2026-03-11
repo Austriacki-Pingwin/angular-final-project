@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'TABS.ABOUT' | translate }}</mat-label>
+    <textarea matInput rows="3" formControlName="content"></textarea>
+    @if (form.controls.content.invalid && form.controls.content.touched) {
+      <mat-error> About content is required and should be at least 10 characters </mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
+</form>

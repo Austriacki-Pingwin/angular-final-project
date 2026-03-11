@@ -1,0 +1,15 @@
+@let languages = data();
+
+@if (languages && languages.length > 0) {
+  <h2>Languages</h2>
+  <div
+    cdkDropList
+    [cdkDropListData]="languages"
+    cdkDropListLockAxis="y"
+    (cdkDropListDropped)="languagesDrop($event)"
+  >
+    @for (language of languages; track language?.id) {
+      <p class="language" cdkDrag>{{ language?.name }} - {{ language?.proficiency }}</p>
+    }
+  </div>
+}

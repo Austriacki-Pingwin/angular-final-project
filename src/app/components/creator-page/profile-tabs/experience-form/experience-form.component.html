@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.POSITION' | translate }}</mat-label>
+    <input matInput formControlName="position" />
+    @if (form.controls.position.invalid && form.controls.position.touched) {
+      <mat-error> Position is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.COMPANY' | translate }}</mat-label>
+    <input matInput formControlName="company" />
+    @if (form.controls.company.invalid && form.controls.company.touched) {
+      <mat-error> Company is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.LOCATION' | translate }}</mat-label>
+    <input matInput formControlName="location" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.START_DATE' | translate }}</mat-label>
+    <input matInput formControlName="startDate" />
+    @if (form.controls.startDate.invalid && form.controls.startDate.touched) {
+      <mat-error> Start date is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.END_DATE' | translate }}</mat-label>
+    <input matInput formControlName="endDate" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.DESCRIPTION' | translate }}</mat-label>
+    <textarea matInput rows="3" formControlName="description"></textarea>
+    @if (form.controls.description.invalid && form.controls.description.touched) {
+      <mat-error> Description is required </mat-error>
+    }
+  </mat-form-field>
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
+</form>

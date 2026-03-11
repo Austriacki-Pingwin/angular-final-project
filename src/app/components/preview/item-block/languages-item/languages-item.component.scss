@@ -1,0 +1,15 @@
+@use '../../../../../styles/mixins' as mixins;
+
+:host {
+  width: 100%;
+  @include mixins.flex($direction: column, $align: center, $gap: 10px);
+
+  div {
+    width: 100%;
+    @include mixins.flex($direction: column, $align: start);
+  }
+}
+.language {
+  align-self: flex-start;
+  cursor: pointer;
+}

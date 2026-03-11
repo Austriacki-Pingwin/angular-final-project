@@ -1,0 +1,26 @@
+@let blocks = cvBlocks();
+<div class="title">
+  <h2>{{ 'CREATOR.PREVIEW' | translate }}: {{ title }}</h2>
+  <button matIconButton (click)="printCv()"><mat-icon>download</mat-icon></button>
+</div>
+<mat-radio-group aria-label="Select an option" [(ngModel)]="selectedType">
+  <mat-radio-button value="classic">Classic</mat-radio-button>
+  <mat-radio-button value="technical">Technical</mat-radio-button>
+</mat-radio-group>
+<div
+  class="wrapper"
+  cdkDropList
+  [cdkDropListData]="blocks"
+  cdkDropListLockAxis="y"
+  (cdkDropListDropped)="drop($event)"
+>
+  @if (blocks.length) {
+    <div class="print-container" [class]="selectedType">
+      @for (block of blocks; track block.type) {
+        <app-item-block [cvBlock]="block" class="block" />
+      }
+    </div>
+  } @else {
+    <p>Oops</p>
+  }
+</div>

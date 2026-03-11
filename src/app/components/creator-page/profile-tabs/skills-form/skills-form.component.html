@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'TABS.SKILLS' | translate }}</mat-label>
+    <input matInput formControlName="title" placeholder="Enter your skill" />
+    @if (form.controls.title.invalid && form.controls.title.touched) {
+      <mat-error> Skill name is required </mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
+</form>

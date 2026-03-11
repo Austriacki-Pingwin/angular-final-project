@@ -1,0 +1,29 @@
+@use '../../../../styles/mixins' as *;
+:host {
+  @include flex();
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  width: 100%;
+  background-color: var(--mat-sys-secondary-container);
+}
+header {
+  width: 100%;
+  @include flex($justify: center);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.lang-buttons {
+  @include flex();
+  margin-left: auto;
+}
+.logo {
+  @include flex();
+
+  svg path {
+    fill: var(--mat-sys-primary);
+  }
+}
+button {
+  color: var(--mat-sys-primary);
+}

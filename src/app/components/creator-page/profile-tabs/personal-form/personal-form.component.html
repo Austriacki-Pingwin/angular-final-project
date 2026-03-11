@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.FIRST_NAME' | translate }}</mat-label>
+    <input matInput formControlName="firstName" />
+    @if (form.controls.firstName.invalid && form.controls.firstName.touched) {
+      <mat-error> First name is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.LAST_NAME' | translate }}</mat-label>
+    <input matInput formControlName="lastName" />
+    @if (form.controls.lastName.invalid && form.controls.lastName.touched) {
+      <mat-error> Last name is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+    @if (form.controls.email.invalid && form.controls.email.touched) {
+      <mat-error>Email is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.PHONE' | translate }}</mat-label>
+    <input matInput formControlName="phone" />
+    @if (form.controls.phone.invalid && form.controls.phone.touched) {
+      <mat-error>Phone number should be 9 digits</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'CREATOR.LOCATION' | translate }}</mat-label>
+    <input matInput formControlName="location" />
+  </mat-form-field>
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
+</form>

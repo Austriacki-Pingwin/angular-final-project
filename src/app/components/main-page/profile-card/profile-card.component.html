@@ -1,0 +1,50 @@
+@let profileData = profile$ | async;
+
+<mat-card class="profile-card">
+  <mat-card-header class="profile-card__header">
+    @if (profileData) {
+      <div class="avatar">
+        @if (profileData.photoURL) {
+          <img [src]="profileData.photoURL" [alt]="profileData.displayName ?? 'User avatar'" />
+        } @else {
+          <div class="icon-fill">
+            <mat-icon class="icon-fill" fontIcon="person" />
+          </div>
+        }
+      </div>
+    } @else {
+      <ngx-skeleton-loader
+        count="1"
+        appearance="circle"
+        [theme]="{ width: '60px', height: '60px' }"
+      />
+    }
+    <div class="profile-info">
+      @if (profileData) {
+        <mat-card-title class="profile-info__title">
+          <h3>{{ 'MAIN.WELCOME' | translate }}</h3>
+        </mat-card-title>
+        <mat-card-subtitle class="profile-info__subtitle">
+          <h5>
+            {{ profileData.displayName ?? profileData.email }}
+          </h5>
+        </mat-card-subtitle>
+      } @else {
+        <ngx-skeleton-loader appearance="line" [theme]="{ display: 'flex', width: '300px' }" />
+        <ngx-skeleton-loader appearance="line" [theme]="{ display: 'flex', width: '250px' }" />
+      }
+    </div>
+    <mat-card-actions class="profile-card-actions">
+      @if (profileData) {
+        <button class="profile-button" matButton="filled" (click)="onSignOut()">
+          {{ 'AUTH.SIGN_OUT' | translate }}
+        </button>
+      } @else {
+        <ngx-skeleton-loader
+          appearance="line"
+          [theme]="{ display: 'block', width: '100px', height: '40px', 'border-radius': '2rem' }"
+        />
+      }
+    </mat-card-actions>
+  </mat-card-header>
+</mat-card>

@@ -1,0 +1,30 @@
+<app-tabs [activeTab]="activeTab" (tabChange)="activeTab = $event" />
+
+<div class="form-wrapper">
+  @switch (activeTab) {
+    @case ('photo') {
+      <app-profile-block [blockType]="'photo'" />
+    }
+    @case ('personal') {
+      <app-profile-block [blockType]="'personal'" />
+    }
+    @case ('links') {
+      <app-profile-block [blockType]="'links'" />
+    }
+    @case ('about') {
+      <app-profile-block [blockType]="'about'" />
+    }
+    @case ('skills') {
+      <app-profile-block [blockType]="'skills'" />
+    }
+    @case ('languages') {
+      <app-profile-block [blockType]="'languages'" />
+    }
+    @case ('experience') {
+      <app-profile-block [blockType]="'experience'" />
+    }
+    @case ('education') {
+      <app-profile-block [blockType]="'education'" />
+    }
+  }
+</div>

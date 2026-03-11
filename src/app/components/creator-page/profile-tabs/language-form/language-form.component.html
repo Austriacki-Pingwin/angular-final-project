@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'TABS.LANGUAGES' | translate }}</mat-label>
+    <input matInput formControlName="name" placeholder="Your Language" />
+    @if (form.controls.name.invalid && form.controls.name.touched) {
+      <mat-error> Language is required </mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'LANGUAGE.PROFICIENCY' | translate }}</mat-label>
+    <mat-select formControlName="proficiency">
+      <mat-option value="Beginner">{{ 'LANGUAGE.BEGINNER' | translate }}</mat-option>
+      <mat-option value="Intermediate">{{ 'LANGUAGE.INTERMEDIATE' | translate }}</mat-option>
+      <mat-option value="Advanced">{{ 'LANGUAGE.ADVANCED' | translate }}</mat-option>
+      <mat-option value="Native">{{ 'LANGUAGE.NATIVE' | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ 'CREATOR.SAVE' | translate }}
+  </button>
+</form>

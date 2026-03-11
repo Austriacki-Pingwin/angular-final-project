@@ -1,0 +1,28 @@
+@let personal = data();
+
+@if (personal && personal.length > 0) {
+  @for (person of personal; track person?.id) {
+    @if (person) {
+      <h2 class="personal__full-name">{{ person.firstName }} {{ person.lastName }}</h2>
+
+      <div class="contact">
+        <span class="contact__email">
+          <mat-icon fontIcon="mail" />
+          {{ person.email }}</span
+        >
+        @if (person.phone) {
+          <span class="contact__phone">
+            <mat-icon fontIcon="call" />
+            {{ person.phone }}</span
+          >
+        }
+        @if (person.location) {
+          <span class="contact__location">
+            <mat-icon fontIcon="location_on" />
+            {{ person.location }}</span
+          >
+        }
+      </div>
+    }
+  }
+}

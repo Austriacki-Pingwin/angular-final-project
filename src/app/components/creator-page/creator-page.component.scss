@@ -1,0 +1,16 @@
+@use '../../../styles/mixins' as *;
+
+:host {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+main {
+  @include flex($align: flex-start);
+  height: 100%;
+  position: relative;
+}
+app-preview {
+  position: sticky;
+  z-index: 1;
+}

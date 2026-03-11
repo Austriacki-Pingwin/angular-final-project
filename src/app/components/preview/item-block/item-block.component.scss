@@ -1,0 +1,8 @@
+@use '../../../../styles/mixins' as mixins;
+:host {
+  &[data-block] {
+    width: 100%;
+    cursor: default;
+    @include mixins.flex($direction: column, $align: start, $gap: 20px);
+  }
+}

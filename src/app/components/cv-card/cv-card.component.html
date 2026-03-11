@@ -1,0 +1,65 @@
+<div class="resume-card">
+  <div class="preview-area">
+    <div class="preview-inner">
+      <div class="preview-content">
+        <div class="preview-header">
+          <div class="avatar"></div>
+          <div class="preview-lines">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+          </div>
+        </div>
+
+        <div class="preview-body">
+          <div class="line-full"></div>
+          <div class="line-full"></div>
+          <div class="line-short"></div>
+        </div>
+
+        <div class="section-mock"></div>
+      </div>
+    </div>
+
+    <div class="overlay">
+      <button class="btn-download" aria-label="Download CV" (click)="openCreator()">
+        <mat-icon fontIcon="edit_square" />
+      </button>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <div class="info-section">
+      <div class="info-text">
+        <h3 class="card-title">{{ cv().title }}</h3>
+
+        <div class="card-meta">
+          <mat-icon class="clock-icon">schedule</mat-icon>
+          <span>
+            {{ 'MAIN.CREATED' | translate }} {{ cv().createdAt.toDate() | date: 'mediumDate' }}
+          </span>
+        </div>
+        <div class="card-meta">
+          <mat-icon class="clock-icon">schedule</mat-icon>
+          <span>
+            {{ 'MAIN.EDITED' | translate }} {{ cv().updatedAt.toDate() | date: 'mediumDate' }}
+          </span>
+        </div>
+      </div>
+
+      <button mat-icon-button class="menu-btn-circle" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="duplicateCv()">{{ 'MAIN.DUPLICATE' | translate }}</button>
+        <button mat-menu-item (click)="deleteCv()">{{ 'MAIN.DELETE' | translate }}</button>
+      </mat-menu>
+    </div>
+
+    <div class="progress-container">
+      <mat-progress-bar mode="determinate" [value]="progress()"></mat-progress-bar>
+
+      <span class="progress-text">{{ progress() }}%</span>
+    </div>
+  </div>
+</div>

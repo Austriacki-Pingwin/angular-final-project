@@ -1,0 +1,7 @@
+@let blockData = data();
+
+@if (blockData && blockData.length > 0) {
+  @for (item of blockData; track item?.id) {
+    <img class="photo-preview" [src]="item?.imageBase64" alt="photo" />
+  }
+}
