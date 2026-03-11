@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, model, type OnInit } from '@angular/core';
 import { ProfileBlockItemComponent } from './profile-block-item/profile-block-item.component';
 
-import { MatIconButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { ProfileService } from '../../../services/profile.service';
 import type { ProfileBlockItem, ProfileBlockType } from '../../../models/collections.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,6 +47,7 @@ const PROFILE_BLOCK_COMPONENTS: Record<ProfileBlockType, Type<unknown>> = {
     MatSlideToggle,
     FormsModule,
     TranslatePipe,
+    MatButton,
   ],
   templateUrl: './profile-block.component.html',
   styleUrl: './profile-block.component.scss',
