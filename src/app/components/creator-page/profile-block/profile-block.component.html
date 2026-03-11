@@ -30,6 +30,9 @@
     <h2>{{ 'CREATOR.NO_DATA' | translate }}</h2>
     <p>{{ 'CREATOR.PLEASE_ADD' | translate }}</p>
   }
+  <button matButton="filled" aria-label="Add item" type="button" (click)="addItem()">
+    {{ 'CREATOR.ADD' | translate }}
+  </button>
 } @placeholder {
   <p>Loading data...</p>
 } @loading {
